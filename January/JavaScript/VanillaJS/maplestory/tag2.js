@@ -18,11 +18,11 @@ let checkSame = [];
 taskBox.addEventListener("keyup", function (e) {
   const keyCode = e.keyCode;
   if (e.keyCode == 188 || e.keyCode == 32 || e.keyCode == 13) {
-    tagFunction();
+    addTag();
   }
 });
-taskSubmit.addEventListener("click", tagFunction, false);
-function tagFunction() {
+taskSubmit.addEventListener("click", addTag, false);
+function addTag() {
   const task = taskBox.value.trim().toLowerCase();
   const newLi = document.createElement("li");
   const input = document.createElement("input");
