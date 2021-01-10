@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mobile Coding</title>
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no"
+    />
+    <!-- 숫자인식,메일주소,지도상의 주소링크 막기 -->
+    <meta
+      name="format-detection"
+      content="telephone=no, address=no, email=no"
+    />
+    <!-- 북마크 추가시 바탕화면에서 볼수있는 아이콘 이미지(png저장) -->
+    <link rel="apple-touch-icon" href="이미지경로.png" />
+    <link rel=“stylesheet” href=“https://use.typekit.net/hgf0iyy.css”>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <style>
+    body {
+      color: #111111;
+    }
+    #title {
+      margin-top: 70px;
+    }
+    #title > h1 {
+      font-size: 36px;
+      text-align: center;
+      margin-bottom: 13px;
+    }
+    #title > h2 {
+      font-size: 12px;
+      text-align: center;
+      color: #646464;
+      margin-bottom: 36px;
+    }
+    #grid1,
+    #grid2,
+    #grid3,
+    #grid4,
+    #grid5,
+    #price-grid {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+    #grid-container > h2 {
+      font-size: 12px;
+    }
+    #korean,
+    #japanese,
+    #chicken,
+    #pig,
+    #pisces {
+      margin-right: 10px;
+    }
+    #chinese,
+    #western,
+    #pig,
+    #cow,
+    #vegan {
+      margin-left: 10px;
+    }
+    #result {
+      background-color: black;
+    }
+  </style>
+  <body>
+    <div id="title">
+      <h1>custom</h1>
+      <h2>원하는 것을 고르면 알아서 추천해주는 맞춤 추천</h2>
+    </div>
+    <div id="grid-container">
+      <div id="grid1">
+        <div id="korean">
+          <img id="img1" onclick="changeImage1()" src="images/한식.png" />
+          <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+            한식
+          </h2>
+        </div>
+        <div id="chinese">
+          <img id="img2" onclick="changeImage2()" src="images/중식.png" />
+          <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+            중식
+          </h2>
+        </div>
+      </div>
+      <div id="grid2">
+        <div id="japanese">
+          <img id="img3" onclick="changeImage3()" src="images/일식.png" />
+          <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+            일식
+          </h2>
+        </div>
+        <div id="western">
+          <img id="img4" onclick="changeImage4()" src="images/양식.png" />
+          <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+            양식
+          </h2>
+        </div>
+      </div>
+      <div id="grid3">
+        <div id="world" style="margin-right: 50px">
+          <img id="img5" onclick="changeImage5()" src="images/세계음식.png" />
+          <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+            세계음식
+          </h2>
+        </div>
+        <div id="etc" style="margin-left: 50px">
+          <img id="img6" onclick="changeImage6()" src="images/기타음식.png" />
+          <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+            기타
+          </h2>
+        </div>
+      </div>
+      <div id="grid4">
+        <div id="chicken">
+          <img id="img7" onclick="changeImage7()" src="images/닭고기.png" />
+          <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+            닭고기
+          </h2>
+        </div>
+        <div id="pig">
+          <img
+            id="img8"
+            onclick="changeImage8()"
+            src="images/돼지고기.png"
+            style="width: 75px"
+          />
+          <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+            돼지고기
+          </h2>
+        </div>
+        <div id="cow">
+          <img id="img9" onclick="changeImage9()" src="images/소고기.png" />
+          <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+            소고기
+          </h2>
+        </div>
+      </div>
+      <div id="grid5">
+        <div id="pisces">
+          <img id="img10" onclick="changeImage10()" src="images/해산물.png" />
+          <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+            어류
+          </h2>
+        </div>
+        <div id="vegan">
+          <img id="img11" onclick="changeImage11()" src="images/비건.png" />
+          <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+            비건
+          </h2>
+        </div>
+      </div>
+      <div id="price-grid">
+        <div id="under1">
+          <img
+            id="img12"
+            onclick="changeImage12()"
+            src="images/1만원이하.png"
+          />
+          <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+            1만원 미만
+          </h2>
+        </div>
+        <div id="1to2">
+          <img
+            id="img13"
+            onclick="changeImage13()"
+            src="images/1만원이상.png"
+          />
+          <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+            1~2만원
+          </h2>
+        </div>
+        <div id="2to3">
+          <img id="img14" onclick="changeImage14()" src="images/2만원.png" />
+          <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+            2~3만원
+          </h2>
+        </div>
+        <div id="over3">
+          <img
+            id="img15"
+            onclick="changeImage15()"
+            src="images/3만원이상.png"
+          />
+          <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+            3만원 이상
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div id="result">
+      <img src="images/결과보기.png" />
+    </div>
+  </body>
+  <script>
+    function changeImage1() {
+      document.getElementById("img1").src = "images/~~.png";
+    }
+    function changeImage2() {
+      document.getElementById("img2").src = "images/~~.png";
+    }
+    function changeImage3() {
+      document.getElementById("img3").src = "images/~~.png";
+    }
+    function changeImage4() {
+      document.getElementById("img4").src = "images/~~.png";
+    }
+    function changeImage5() {
+      document.getElementById("img5").src = "images/~~.png";
+    }
+    function changeImage6() {
+      document.getElementById("img6").src = "images/~~.png";
+    }
+    function changeImage7() {
+      document.getElementById("img7").src = "images/~~.png";
+    }
+    function changeImage8() {
+      document.getElementById("img8").src = "images/~~.png";
+    }
+    function changeImage9() {
+      document.getElementById("img9").src = "images/~~.png";
+    }
+    function changeImage10() {
+      document.getElementById("img10").src = "images/~~.png";
+    }
+    function changeImage11() {
+      document.getElementById("img11").src = "images/~~.png";
+    }
+    function changeImage12() {
+      document.getElementById("img12").src = "images/~~.png";
+    }
+    function changeImage13() {
+      document.getElementById("img13").src = "images/~~.png";
+    }
+    function changeImage14() {
+      document.getElementById("img14").src = "images/~~.png";
+    }
+    function changeImage15() {
+      document.getElementById("img15").src = "images/~~.png";
+    }
+  </script>
+</html>
