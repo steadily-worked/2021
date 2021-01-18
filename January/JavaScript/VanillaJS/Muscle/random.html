@@ -16,5 +16,119 @@
     <link rel="apple-touch-icon" href="이미지경로.png" />
     <link rel=“stylesheet” href=“https://use.typekit.net/hgf0iyy.css”>
     <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="../package/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   </head>
+  <style>
+    header {
+      width: 100%;
+      height: 82.8px;
+      position: relative;
+    }
+    #home-icon {
+      position: absolute;
+      top: 60px;
+      right: 34.79px;
+      width: 23.42px;
+      height: 22.8px;
+    }
+    #title > p {
+      font-size: 30px;
+      margin-top: 85px;
+      text-align: center;
+    }
+    /* swiper */
+    #background {
+      background-color: #f2f2f2;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      height: 303.5px;
+      width: 303.5px;
+      margin: 0 auto;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center top;
+    }
+    .swiper-container {
+      width: 50%;
+      height: 70%;
+      padding-top: 120px;
+      padding-bottom: 120px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+  </style>
+  <body>
+    <section id="header-section">
+      <img src="images/홈아이콘.png" alt="home" id="home-icon" />
+    </section>
+    <div id="title">
+      <p>random</p>
+    </div>
+    <div id="background">
+      <!-- Swiper -->
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="images/닭고기.png" />/</div>
+          <div class="swiper-slide">Slide 2</div>
+          <div class="swiper-slide">Slide 3</div>
+          <div class="swiper-slide">Slide 4</div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Add Arrows
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div> -->
+      </div>
+    </div>
+    <!-- Swiper JS -->
+    <script src="../package/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+      var appendNumber = 4;
+      var swiper = new Swiper(".swiper-container", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    </script>
+  </body>
 </html>

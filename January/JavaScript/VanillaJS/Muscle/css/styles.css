@@ -121,3 +121,7 @@ textarea {
 select {
   -webkit-appearance: menulist-text;
 }
+
+body {
+  color: #111111;
+}
