@@ -1,49 +1,38 @@
-const taskSubmit = document.getElementById("btn_add_task");
-const taskBox = document.querySelector("#text_task");
-const taskList = document.getElementById("list_tasks");
-const taskLi = document.querySelectorAll("ul li");
+const termSubmit = document.getElementById("btn_add_term");
+const termBox = document.getElementById("text_term");
+const termList = document.getElementById("list_terms");
+const termLi = document.querySelectorAll("ul li");
 
-taskBox.addEventListener("keyup", removeSpecial);
-taskSubmit.addEventListener("click", removeSpecial);
+termBox.addEventListener("keyup", removeSpecial);
+termSubmit.addEventListener("click", removeSpecial);
 function removeSpecial(e) {
   e.target.value = e.target.value.replace(/[^ㄱ-힣a-zA-Z0-9+#]/gi, "");
 }
+const relatedTerm = termBox.value;
 
-const taskValue = taskBox.value;
-const preventDuplicate = taskBox.value.trim().toLowerCase();
+termSubmit.addEventListener("click", addRelatedTerm, false);
 
-taskSubmit.addEventListener("click", addTag, false);
-
-taskBox.addEventListener("keyup", function (e) {
+termBox.addEventListener("keyup", function (e) {
   const keyCode = e.keyCode;
   if (e.keyCode == 188 || e.keyCode == 32 || e.keyCode == 13) {
-    addTag(preventDuplicate);
+    addRelatedTerm();
   }
 });
-let checkSame = [];
 
-function addTag(preventDuplicate) {
-  const newLi = document.createElement("li");
+function addRelatedTerm(name) {
+  const trimmedTerm = relatedTerm.trim();
+  const liElem = document.createElement("li");
+  liElem.innerText = trimmedTerm;
+
   const removeBtn = document.createElement("button");
 
-  const element = newLi.appendChild(document.createTextNode(preventDuplicate));
-  if (taskBox.value != "" && checkSame.includes(preventDuplicate) === false) {
-    checkSame.push(preventDuplicate);
-    taskList.appendChild(newLi);
-    newLi.appendChild(removeBtn);
-    newLi.value = preventDuplicate;
-    removeBtn.innerHTML = "X";
-    taskBox.value = "";
-    removeBtn.addEventListener("click", function () {
-      removeBtn.parentNode.removeChild(removeBtn);
-      newLi.parentNode.removeChild(newLi);
-      checkSame.splice(checkSame.indexOf(task), 1);
-    });
-  } else if (checkSame.includes(preventDuplicate) === true) {
-    taskBox.value = "";
-    alert("중복된 태그입니다.");
-  }
+  termList.appendChild(liElem);
+  liElem.appendChild(removeBtn);
+  removeBtn.innerHTML = "X";
+  termBox.value = "";
 }
 
-// addTag로 인자받기
+// addRelatedTerm 인자받기
 // 함수 밖에서 값을 가져오고 + 함수를 통해 그것을 관련용어화 하기
+
+// 파라미터 name을 addRelatedTerm 함수에서 어떻게 사용할까?
