@@ -7,8 +7,6 @@
     <link href="styles.css" rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
     <!-- <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script> -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -20,14 +18,17 @@
     class="form-control"
     name="tag"
     maxlength = "15"
-    placeholder="태그 목록"
-    id="text_task"
+    placeholder="용어 목록"
+    id="text_term"
     />
-    <button type="submit" id="btn_add_task" class="btn btn-primary">추가</button>
+    <button
+    type='button'
+    id="btn_add_term"
+    class="btn btn-primary">추가</button>
    </div>
-   <ul id = "list_tasks"></ul>
+   <ul id = "list_terms"></ul>
 </body>
-<script src='tag2.js'></script>
+<script src='termRelated.js'></script>
 </html>
 
 <!--
