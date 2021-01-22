@@ -47,26 +47,33 @@
       text-align: center;
     }
     /* swiper */
+    html,
+    body {
+      position: relative;
+      height: 100%;
+    }
+
     #background {
-      background-color: #f2f2f2;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
+      background: #eee;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #000;
+      margin: 0;
+      padding: 0;
       height: 303.5px;
       width: 303.5px;
+      display: block;
       margin: 0 auto;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center top;
+      border-radius: 5px;
+      border: 1px solid black;
     }
+
     .swiper-container {
-      width: 50%;
-      height: 70%;
-      padding-top: 120px;
-      padding-bottom: 120px;
-      margin-left: auto;
-      margin-right: auto;
+      background-color: #fff;
+      width: 100%;
+      height: 100%;
     }
+
     .swiper-slide {
       text-align: center;
       font-size: 18px;
@@ -86,6 +93,29 @@
       -webkit-align-items: center;
       align-items: center;
     }
+    #menu-title {
+      margin-top: 50px;
+      margin-bottom: 22px;
+      position: relative;
+    }
+    #menu-title-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    #editor {
+      margin-top: 44px;
+      text-align: center;
+    }
+    #editor > img {
+      width: 43.75px;
+      height: 48.38px;
+    }
+    #editor > p {
+      font-size: 10px;
+      letter-spacing: 0.6px;
+    }
   </style>
   <body>
     <section id="header-section">
@@ -94,22 +124,41 @@
     <div id="title">
       <p>random</p>
     </div>
+    <div id="menu-title">
+      <div id="menu-title-image">
+        <img
+          style="display: block; margin: 0 auto"
+          src="images/빈원_long.png"
+          alt=""
+        />
+      </div>
+      <div id="menu-title-text">
+        <h2 style="text-align: center; font-size: 18px">고수찜닭</h2>
+        <h3 style="font-size: 11px; color: #707070; margin-top: 10px">
+          ₩ 6,000 / 인
+        </h3>
+      </div>
+    </div>
+    <!-- Swiper -->
     <div id="background">
-      <!-- Swiper -->
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="images/닭고기.png" />/</div>
+          <div class="swiper-slide"><img src="images/닭고기.png" /></div>
           <div class="swiper-slide">Slide 2</div>
           <div class="swiper-slide">Slide 3</div>
           <div class="swiper-slide">Slide 4</div>
         </div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
-        <!-- Add Arrows
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div> -->
       </div>
     </div>
+    <div id="editor">
+      <img src="images/유진2.png" />
+      <p style="margin-top: 11px; color: #111111">chacha</p>
+      <p style="color: #ababab">2010.01.02 * 18:30</p>
+      <p style="margin-top: 5px; color: #111111; font-size: 12px">
+        된장국 도랏차차
+      </p>
+    </div>
+
     <!-- Swiper JS -->
     <script src="../package/swiper-bundle.min.js"></script>
 
