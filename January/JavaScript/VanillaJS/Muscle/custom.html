@@ -110,8 +110,8 @@
       background-image: url("images/비건_BL.png");
     }
     #under1 input[type="checkbox"]:checked + label,
-    #1to2 input[type="checkbox"]:checked + label,
-    #2to3 input[type="checkbox"]:checked + label,
+    #from1to2 input[type="checkbox"]:checked + label,
+    #from2to3 input[type="checkbox"]:checked + label,
     #over3 input[type="checkbox"]:checked + label {
       background-image: url("images/");
     }
@@ -126,7 +126,7 @@
         <div id="korean">
           <input type="checkbox" id="1" name="grid-container1" value="1" />
           <label for="1">
-            <img onclick="changeImg()" id="img1" src="images/korean.png" />
+            <img data-name="korean" id="img1" src="images/korean.png" />
             <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
               한식
             </h2>
@@ -135,7 +135,7 @@
         <div id="chinese">
           <input type="checkbox" id="2" name="grid-container1" value="2" />
           <label for="2">
-            <img id="img2" src="images/중식.png" />
+            <img data-name="chinese" id="img2" src="images/chinese.png" />
             <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
               중식
             </h2>
@@ -146,7 +146,7 @@
         <div id="japanese">
           <input type="checkbox" id="3" name="grid-container1" value="3" />
           <label for="3" class="3">
-            <img id="img3" src="images/일식.png" />
+            <img data-name="japanese" id="img3" src="images/japanese.png" />
             <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
               일식
             </h2>
@@ -155,7 +155,7 @@
         <div id="western">
           <input type="checkbox" id="4" name="grid-container1" value="4" />
           <label for="4" class="4">
-            <img id="img4" src="images/양식.png" />
+            <img data-name="western" id="img4" src="images/western.png" />
             <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
               양식
             </h2>
@@ -166,7 +166,7 @@
         <div id="world">
           <input type="checkbox" id="5" name="grid-container1" value="5" />
           <label for="5" class="5">
-            <img id="img5" src="images/세계음식.png" />
+            <img data-name="world" id="img5" src="images/world.png" />
             <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
               세계음식
             </h2>
@@ -175,7 +175,7 @@
         <div id="etc">
           <input type="checkbox" id="6" name="grid-container1" value="6" />
           <label for="6" class="6">
-            <img id="img6" src="images/기타음식.png" />
+            <img data-name="etc" id="img6" src="images/etc.png" />
             <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
               기타
             </h2>
@@ -186,7 +186,7 @@
         <div id="chicken">
           <input type="checkbox" id="7" name="grid-container2" value="7" />
           <label for="7" class="7">
-            <img id="img7" src="images/닭고기.png" />
+            <img data-name="chicken" id="img7" src="images/chicken.png" />
             <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
               닭고기
             </h2>
@@ -195,7 +195,12 @@
         <div id="pig">
           <input type="checkbox" id="8" name="grid-container2" value="8" />
           <label for="8" class="8">
-            <img id="img8" src="images/돼지고기.png" style="width: 75px" />
+            <img
+              data-name="pig"
+              id="img8"
+              src="images/pig.png"
+              style="width: 75px"
+            />
             <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
               돼지고기
             </h2>
@@ -204,7 +209,7 @@
         <div id="cow">
           <input type="checkbox" id="9" name="grid-container2" value="9" />
           <label for="9" class="9">
-            <img id="img9" src="images/소고기.png" />
+            <img data-name="cow" id="img9" src="images/cow.png" />
             <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
               소고기
             </h2>
@@ -215,7 +220,7 @@
         <div id="pisces">
           <input type="checkbox" id="10" name="grid-container2" value="10" />
           <label for="10" class="10">
-            <img id="img10" src="images/해산물.png" />
+            <img data-name="pisces" id="img10" src="images/pisces.png" />
             <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
               어류
             </h2>
@@ -224,7 +229,7 @@
         <div id="vegan">
           <input type="checkbox" id="11" name="grid-container2" value="11" />
           <label for="11" class="11">
-            <img id="img11" src="images/비건.png" />
+            <img data-name="vegan" id="img11" src="images/vegan.png" />
             <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
               비건
             </h2>
@@ -235,25 +240,25 @@
         <div id="under1">
           <input type="checkbox" id="12" name="grid-container3" value="12" />
           <label for="12" class="12">
-            <img id="img11" src="images/돈1.png" />
+            <img data-name="under1" id="img11" src="images/under1.png" />
             <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
               1만원 미만
             </h2>
           </label>
         </div>
-        <div id="1to2">
+        <div id="from1to2">
           <input type="checkbox" id="13" name="grid-container3" value="13" />
           <label for="13" class="13">
-            <img id="img13" src="images/돈2.png" />
+            <img data-name="from1to2" id="img13" src="images/from1to2.png" />
             <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
               1~2만원
             </h2>
           </label>
         </div>
-        <div id="2to3">
+        <div id="from2to3">
           <input type="checkbox" id="14" name="grid-container3" value="14" />
           <label for="14" class="14">
-            <img id="img14" src="images/돈3.png" />
+            <img data-name="from2to3" id="img14" src="images/from2to3.png" />
             <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
               2~3만원
             </h2>
@@ -262,7 +267,7 @@
         <div id="over3">
           <input type="checkbox" id="15" name="grid-container3" value="15" />
           <label for="15" class="15">
-            <img id="img15" src="images/돈4.png" />
+            <img data-name="over3" id="img15" src="images/over3.png" />
             <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
               3만원 이상
             </h2>
@@ -275,12 +280,15 @@
     </div>
   </body>
   <script>
-    function changeImg() {
-      const img = document.getElementById("img1").src;
-      if (img.indexOf("images/korean.png") != -1) {
-        document.getElementById("img1").src = "images/korean_BL.png";
+    const gridContainer = document.getElementById("grid-container");
+    gridContainer.addEventListener("click", changeImg, false);
+    function changeImg(e) {
+      const img = e.target;
+      const src = img.src;
+      if (img.src.endsWith("_BL.png")) {
+        img.src = img.src.replace("_BL.png", ".png");
       } else {
-        document.getElementById("img1").src = "images/korean.png";
+        img.src = img.src.replace(".png", "_BL.png");
       }
     }
   </script>
