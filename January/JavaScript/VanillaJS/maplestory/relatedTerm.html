@@ -1,39 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link href="styles.css" rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <link href="styles.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"
+    />
     <!-- <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script> -->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
   </head>
-<body>
+  <body>
     <!-- <textarea id='MyID'></textarea> -->
-    <div id='ui-widget'>
-    <input
-    class="form-control"
-    name="tag"
-    maxlength = "15"
-    placeholder="용어 목록"
-    id="text_term"
-    />
-    <button
-    type='button'
-    id="btn_add_term"
-    class="btn btn-primary">추가</button>
-   </div>
-   <ul id = "list_terms"></ul>
-</body>
-<script src='termRelated.js'></script>
+    <div id="ui-widget">
+      <input
+        class="form-control"
+        name="tag"
+        maxlength="15"
+        placeholder="용어 목록"
+        id="text_term"
+      />
+      <button type="button" id="btn_add_term" class="btn btn-primary">
+        추가
+      </button>
+    </div>
+    <ul id="list_terms"></ul>
+  </body>
+  <script src="termRelated.js"></script>
 </html>
-
-<!--
-// 똑같은 태그가 추가되면 안됨
-// , 이용해서도 추가되게 하기 -> 해결
-// 자동완성 -> 대충 OK. 스타일 등은 더 만져봐야 함.
-// 중복 태그 방지, 최대 글자수 제한, 삭제버튼 li 안에 넣기 -> todo list
-// 콤마만 있을 때 콤마가 출력이 됨 (문제) -> 해결
