@@ -413,3 +413,191 @@ useDefault(1, 2, 3); // [1, 2, 3]
 useDefault(1, 2); // [1, 2, 3]
 useDefault(1, undefined, 4); // [1, 2, 4];
 ```
+
+<h2>2.3.2 화살표 함수</h2>
+- 화살표 함수는 자바스크립트 함수 내부에서 this가 야기하는 혼란을 줄여준다.
+
+기본적으로 자바스크립트 함수 내부에서 참조된 `this` 키워드의 값은 함수가 정의되는 시점이 아닌 실행되는 시점에 결정된다. 동일한 내부 구조를 가진 함수가 동일한 블록 내에서 실행 되더라도 어떤 방식으로 호출되냐에 따라 함수 내에서의 `this` 값은 달라질 수 있다.
+
+```js
+function getName() {
+  console.log(this.name);
+}
+const a = {
+  name: "javascript",
+  getName: getName,
+};
+function getNames() {
+  a.getName(); // 'javascript'
+  getName(); // TypeError: Cannot read property 'name' of undefined
+}
+```
+
+이러한 `this`의 동작은 자주 혼란을 야기한다.
+
+ES6에 추가된 화살표 함수(arrow function) 문법을 사용하면 함수 내의 `this`가 실행 시점이 아닌 정의 시점에 결정되는 함수를 정의할 수 있다. 화살표 함수 내에서의 모든 `this` 참조는 해당 함수가 정의되는 시점에서 함수를 둘러싼 문맥의 `this` 값으로 고정된다. 화살표 함수는 `(인자) => (함수 본문)` 의 문법으로 정의한다.
+
+```js
+const obj = {
+  a: 1,
+  normalFunc: function () {
+    console.log(this);
+  },
+  arrowFunc: () => {
+    console.log(this);
+  },
+};
+const { normalFunc, arrowFunc } = obj;
+obj.normalFunc();
+// {
+//     a: 1,
+//     normalFunc: [Function: normalFunc],
+//     arrowFunc: [Function: arrowFunc]
+// }
+normalFunc(); // undefined
+obj.arrowFunc(); // (global object)
+arrowFunc(); // (global object)
+```
+
+만약 인자가 하나일 경우, 화살표 함수의 인자를 둘러싼 괄호를 생략할 수 있다.
+
+```js
+const a = (args) => {
+  console.log(args);
+};
+console.log(a);
+```
+
+함수 본문이 한 줄의 표현식으로 이루어졌을 시, 본문을 감싸는 대괄호를 생략할 수 있다. 이 때 해당 표현식의 값이 함수의 반환값이 된다.
+
+```js
+const isOdd = (n) => n % 2 === 1;
+console.log(isOdd(3)); // true
+```
+
+`this`의 동작 이외에도 화살표 함수는 `function` 키워드를 이용해 선언한 함수와 다음의 차이점을 갖는다.
+
+- 생성자로 사용할 수 없다.
+- 함수 내에 `arguments` 바인딩이 존재하지 않는다.
+- `prototype` 프로퍼티를 갖고 있지 않다.
+
+<h2>2.4 템플릿 리터럴</h2>
+
+ES6에는 문자열 관련 다양한 편의 기능을 제공하는 템플릿 리터럴이 추가되었다. 템플릿 리터럴은 문자열과 비슷하되, 따옴표나 쌍따옴표가 아닌 백틱(```)으로 감싸진다. 상대적으로 덜 흔한 용례인 태그된 템플릿(tagged template)은 여기선 다루지 않는다.
+
+<h2>2.4.1 멀티라인 문자열</h2>
+- 템플릿 리터럴을 이용해 여러 줄에 걸친 문자열을 손쉽게 표현할 수 있다.
+
+이전 버전의 자바스크립트는 멀티라인 문자열을 손쉽게 생성할 수 있는 수단을 제공하지 않았다. 따라서 프로그래머가 직접 문자열을 더하기 연산자를 이용해 연결하거나, 배열의 `Array.prototype.join` 함수 등을 이용하는 식의 접근이 필요했다.
+
+템플릿 리터럴은 여러 라인에 걸쳐 정의할 수 있으며, 해당 문자열은 문자열 내의 공백 및 줄바꿈을 모두 보존한다.
+
+```js
+const a = `
+First line
+Second line
+`;
+console.log(a); // First line
+// Second line
+```
+
+이 때 <b>공백도 보존된다</b>는 점에 주의해야 한다. 들여쓰기를 맞추기 위해 문자열 내에서 공백을 넣을 시 그 공백은 문자열에 포함된다.
+
+```js
+const a = `First line
+           Second line`;
+console.log(a);
+// First line
+//             Second line
+```
+
+<h2>2.4.2 문자열 치환</h2>
+- 템플릿 리터럴은 문자열의 일부를 특정 값으로 치환할 수 있는 수단을 제공한다.
+
+매우 흔하게 요구되는 사항임에도 불구하고 이전 버전의 자바스크립트에는 문자열 포매팅을 위한 이렇다할 기능이 없었다. 때문에 문자열 포매팅을 위해선 주로 `Array.prototype.join` 메소드를 사용하거나 문자열을 더하는 방식이 사용되었다.
+
+```js
+const name = "Park Sangmin";
+function greetingWithConcat(name) {
+  console.log("Hello, " + name + "!");
+}
+function greetingsWithArrayJoin(name) {
+  const greetings = ["Hello, ", name, "!"];
+  console.log(greetings.join(""));
+}
+```
+
+템플릿 리터럴의 가장 유용한 사용예 중 하나가 바로 문자열 포매팅이다. 템플릿 리터럴 문법을 사용하면 문자열의 특정 부분을 자바스크립트 값으로 런타임에 손쉽게 치환할 수 있다. 템플릿 리터럴 내에서 `${value}`로 참조된 부분은 런타임에 자바스크립트 값 `value`로 대체된다.
+
+```js
+function beforeES6(firstName, lastName) {
+  console.log("My name is " + firstName + " " + lastName + "!");
+}
+function sinceES6(firstName, lastName) {
+  console.log(`My name is ${firstName} ${lastName}!`);
+}
+beforeES6("Sangmin", "Park"); // My name is Sangmin Park!
+sinceES6("Sangmin", "Park"); // My name is Sangmin Park!
+```
+
+<h2>2.5 원소 순회</h2>
+- 최신 ECMAScript 명세에 추가된 원소 순회 수단에 대해 알아본다.
+
+어떤 컬렉션(collection)의 원소들을 순회하고 싶다는 요구사항은 굉장히 흔하다. 자연히 자바스크립트도 순회를 위한 다양한 방법을 제공한다.
+
+예를 들어, 아래와 같은 배열의 원소를 순회하며 그 이름을 찍고 싶은 상황을 생각해보자.
+
+```js
+const langs = ["TypeScript", "JavaScript", "Python"];
+```
+
+먼저 C 스타일로 초기 조건, 조건문, 증가문을 이용해 순회하는 다음과 같은 방법이 존재한다.
+
+```js
+for (let i = 0; i < langs.length; i++) {
+  console.log(langs[i]);
+}
+```
+
+`for-in`을 이용한 살짝 다른 버전의 반복도 가능하다.
+
+```js
+for (const index in langs) {
+  console.log(langs[index]);
+}
+```
+
+최신 ECMAScript에는 이런 고전적인 방법 말고도 순회를 위한 다양한 방법이 추가되었다. 어떤 방법이 추가되었고, 기존의 접근에 비해 어떤 강점을 갖는지 살펴보자.
+
+<h2>2.5.1 forEach 메소드</h2>
+
+ES5로부터 `Array.prototype.forEach` 메소드가 추가되었다. 이 메소드는 배열의 원소를 인자로 받는 콜백 함수를 인자로 받아, 배열 내의 각 원소에 대해 해당 콜백을 실행한다.
+
+```js
+langs.forEach((lang) => {
+  console.log(lang);
+});
+```
+
+`forEach` 메소드는 간결하지만, 반복문 중간에 `break` 혹은 `return` 등을 사용해 <b>실행 흐름을 제어할 수 없다</b>는 단점을 갖고 있다.
+
+<h2>2.5.2 for-of 문법</h2>
+
+ES6에는 어떤 컬렉션(collection)의 각 요소를 순회하며 특정 작업을 반복 수행하기 위한 `for-of` 문법이 추가되었다.
+
+```js
+const languages = ["JavaScript", "TypeScript", "Python"];
+for (const lang of languages) {
+  if (!lang.includes("Script")) {
+    break;
+  }
+  console.log(lang);
+}
+// JavaScript
+// TypeScript
+```
+
+비슷하게 생겼지만, `for-of` 문법은 기존의 `for-in` 문법과 비교했을 때 아래와 같은 차이점을 갖고 있다.
+
+- 순회 순서가 항상 같을 것이 보장된다.
+- `for (const elem in arr) { ... }` 의 `elem` 에는 <b>원소의 키에 해당하는 문자열</b>이 바인딩 된다.
