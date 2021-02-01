@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no"
+    />
+    <!-- 숫자인식,메일주소,지도상의 주소링크 막기 -->
+    <meta
+      name="format-detection"
+      content="telephone=no, address=no, email=no"
+    />
+    <!-- 북마크 추가시 바탕화면에서 볼수있는 아이콘 이미지(png저장) -->
+    <link rel="apple-touch-icon" href="이미지경로.png" />
+    <link rel=“stylesheet” href=“https://use.typekit.net/hgf0iyy.css”>
+    <link rel="stylesheet" href="css/styles.css" />
+    <style>
+      * {
+        text-align: center;
+        box-sizing: border-box;
+      }
+      a {
+        color: #111111;
+      }
+      body {
+        color: #111111;
+        font-family: "Verveine";
+      }
+      #title > h1 {
+        font-size: 24px;
+        margin-top: 122px;
+      }
+      #random,
+      #custom,
+      #editors {
+        margin-top: 70px;
+        font-size: 24px;
+      }
+      #random > a > h1,
+      #custom > a > h1,
+      #editors > a > h1 {
+        font-size: 24px;
+      }
+      #random > a > h2,
+      #custom > a > h2,
+      #editors > a > h2 {
+        font-size: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="title">
+      <h1>logo</h1>
+    </div>
+    <div id="random">
+      <a href="random.html">
+        <img style="margin-bottom: 10px" src="images/일식.png" />
+        <h1>random</h1>
+        <h2>뭐 먹지?</h2>
+      </a>
+    </div>
+    <div id="custom">
+      <a href="custom.html">
+        <img src="images/양식.png" />
+        <h1>custom</h1>
+        <h2>먹고 싶은 건 모르겠는데</h2>
+        <h2>땡기는 건 있어</h2>
+      </a>
+    </div>
+    <div id="editors">
+      <a href="editors.html">
+        <img style="margin-bottom: 15px" src="images/세계음식.png" />
+        <h1>editors</h1>
+        <h2>에디터별 픽 보기</h2>
+      </a>
+    </div>
+  </body>
+</html>

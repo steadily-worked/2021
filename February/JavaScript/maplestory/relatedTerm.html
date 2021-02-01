@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="styles.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css"
+    />
+    <!-- <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  </head>
+  <body>
+    <!-- <textarea id='MyID'></textarea> -->
+    <div id="ui-widget">
+      <input
+        class="form-control"
+        name="tag"
+        maxlength="15"
+        placeholder="용어 목록"
+        id="text_term"
+      />
+      <button type="button" id="btn_add_term" class="btn btn-primary">
+        추가
+      </button>
+    </div>
+    <ul id="list_terms"></ul>
+  </body>
+  <script src="termRelated.js"></script>
+</html>

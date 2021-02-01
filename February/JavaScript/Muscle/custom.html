@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mobile Coding</title>
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no"
+    />
+    <!-- 숫자인식,메일주소,지도상의 주소링크 막기 -->
+    <meta
+      name="format-detection"
+      content="telephone=no, address=no, email=no"
+    />
+    <!-- 북마크 추가시 바탕화면에서 볼수있는 아이콘 이미지(png저장) -->
+    <link rel="apple-touch-icon" href="이미지경로.png" />
+    <link rel=“stylesheet” href=“https://use.typekit.net/hgf0iyy.css”>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <style>
+    body {
+      color: #111111;
+    }
+    #title {
+      margin-top: 70px;
+    }
+    #title > h1 {
+      font-size: 36px;
+      text-align: center;
+      margin-bottom: 13px;
+    }
+    #title > h2 {
+      font-size: 12px;
+      text-align: center;
+      color: #646464;
+      margin-bottom: 36px;
+    }
+    img {
+      width: 80px;
+    }
+    #grid1,
+    #grid2,
+    #grid3,
+    #grid4,
+    #grid5,
+    #price-grid {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+    #grid-container > h2 {
+      font-size: 12px;
+    }
+    #korean,
+    #japanese,
+    #chicken,
+    #pig,
+    #pisces {
+      margin-right: 10px;
+    }
+    #chinese,
+    #western,
+    #pig,
+    #cow,
+    #vegan {
+      margin-left: 10px;
+    }
+    #result {
+      background-color: black;
+    }
+    #korean .first {
+      display: inline-block;
+    }
+    input[type="checkbox"] {
+      display: none;
+    }
+    input[type="checkbox"]:checked + label {
+      background-size: 80px;
+      background-repeat: no-repeat;
+    }
+    #korean input[type="checkbox"]:checked + label {
+      background-image: url("images/korean_BL.png");
+    }
+    #chinese input[type="checkbox"]:checked + label {
+      background-image: url("images/중식_BL.png");
+    }
+    #japanese input[type="checkbox"]:checked + label {
+      background-image: url("images/일식_BL.png");
+    }
+    #western input[type="checkbox"]:checked + label {
+      background-image: url("images/양식_BL.png");
+    }
+    #etc input[type="checkbox"]:checked + label {
+      background-image: url("images/기타음식_BL.png");
+    }
+    #chicken input[type="checkbox"]:checked + label {
+      background-image: url("images/닭_BL.png");
+    }
+    #pig input[type="checkbox"]:checked + label {
+      background-image: url("images/돼지_BL.png");
+    }
+    #cow input[type="checkbox"]:checked + label {
+      background-image: url("images/소_BL.png");
+    }
+    #fish input[type="checkbox"]:checked + label {
+      background-image: url("images/해산물_BL.png");
+    }
+    #vegan input[type="checkbox"]:checked + label {
+      background-image: url("images/비건_BL.png");
+    }
+    #under1 input[type="checkbox"]:checked + label,
+    #from1to2 input[type="checkbox"]:checked + label,
+    #from2to3 input[type="checkbox"]:checked + label,
+    #over3 input[type="checkbox"]:checked + label {
+      background-image: url("images/");
+    }
+  </style>
+  <body>
+    <div id="title">
+      <h1>custom</h1>
+      <h2>원하는 것을 고르면 알아서 추천해주는 맞춤 추천</h2>
+    </div>
+    <div id="grid-container">
+      <div id="grid1">
+        <div id="korean">
+          <input type="checkbox" id="1" name="grid-container1" value="1" />
+          <label for="1">
+            <img data-name="korean" id="img1" src="images/korean.png" />
+            <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+              한식
+            </h2>
+          </label>
+        </div>
+        <div id="chinese">
+          <input type="checkbox" id="2" name="grid-container1" value="2" />
+          <label for="2">
+            <img data-name="chinese" id="img2" src="images/chinese.png" />
+            <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+              중식
+            </h2>
+          </label>
+        </div>
+      </div>
+      <div id="grid2">
+        <div id="japanese">
+          <input type="checkbox" id="3" name="grid-container1" value="3" />
+          <label for="3" class="3">
+            <img data-name="japanese" id="img3" src="images/japanese.png" />
+            <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+              일식
+            </h2>
+          </label>
+        </div>
+        <div id="western">
+          <input type="checkbox" id="4" name="grid-container1" value="4" />
+          <label for="4" class="4">
+            <img data-name="western" id="img4" src="images/western.png" />
+            <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+              양식
+            </h2>
+          </label>
+        </div>
+      </div>
+      <div id="grid3">
+        <div id="world">
+          <input type="checkbox" id="5" name="grid-container1" value="5" />
+          <label for="5" class="5">
+            <img data-name="world" id="img5" src="images/world.png" />
+            <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+              세계음식
+            </h2>
+          </label>
+        </div>
+        <div id="etc">
+          <input type="checkbox" id="6" name="grid-container1" value="6" />
+          <label for="6" class="6">
+            <img data-name="etc" id="img6" src="images/etc.png" />
+            <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+              기타
+            </h2>
+          </label>
+        </div>
+      </div>
+      <div id="grid4">
+        <div id="chicken">
+          <input type="checkbox" id="7" name="grid-container2" value="7" />
+          <label for="7" class="7">
+            <img data-name="chicken" id="img7" src="images/chicken.png" />
+            <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+              닭고기
+            </h2>
+          </label>
+        </div>
+        <div id="pig">
+          <input type="checkbox" id="8" name="grid-container2" value="8" />
+          <label for="8" class="8">
+            <img
+              data-name="pig"
+              id="img8"
+              src="images/pig.png"
+              style="width: 75px"
+            />
+            <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+              돼지고기
+            </h2>
+          </label>
+        </div>
+        <div id="cow">
+          <input type="checkbox" id="9" name="grid-container2" value="9" />
+          <label for="9" class="9">
+            <img data-name="cow" id="img9" src="images/cow.png" />
+            <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+              소고기
+            </h2>
+          </label>
+        </div>
+      </div>
+      <div id="grid5">
+        <div id="pisces">
+          <input type="checkbox" id="10" name="grid-container2" value="10" />
+          <label for="10" class="10">
+            <img data-name="pisces" id="img10" src="images/pisces.png" />
+            <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+              어류
+            </h2>
+          </label>
+        </div>
+        <div id="vegan">
+          <input type="checkbox" id="11" name="grid-container2" value="11" />
+          <label for="11" class="11">
+            <img data-name="vegan" id="img11" src="images/vegan.png" />
+            <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+              비건
+            </h2>
+          </label>
+        </div>
+      </div>
+      <div id="price-grid">
+        <div id="under1">
+          <input type="checkbox" id="12" name="grid-container3" value="12" />
+          <label for="12" class="12">
+            <img data-name="under1" id="img11" src="images/under1.png" />
+            <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+              1만원 미만
+            </h2>
+          </label>
+        </div>
+        <div id="from1to2">
+          <input type="checkbox" id="13" name="grid-container3" value="13" />
+          <label for="13" class="13">
+            <img data-name="from1to2" id="img13" src="images/from1to2.png" />
+            <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+              1~2만원
+            </h2>
+          </label>
+        </div>
+        <div id="from2to3">
+          <input type="checkbox" id="14" name="grid-container3" value="14" />
+          <label for="14" class="14">
+            <img data-name="from2to3" id="img14" src="images/from2to3.png" />
+            <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+              2~3만원
+            </h2>
+          </label>
+        </div>
+        <div id="over3">
+          <input type="checkbox" id="15" name="grid-container3" value="15" />
+          <label for="15" class="15">
+            <img data-name="over3" id="img15" src="images/over3.png" />
+            <h2 style="font-size: 12px; text-align: center; margin-top: 5px">
+              3만원 이상
+            </h2>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div id="result">
+      <a href="custom2.html"><img src="images/결과보기.png" /></a>
+    </div>
+  </body>
+  <script>
+    const gridContainer = document.getElementById("grid-container");
+    gridContainer.addEventListener("click", changeImg, false);
+    function changeImg(e) {
+      const img = e.target;
+      const src = img.src;
+      if (img.src.endsWith("_BL.png")) {
+        img.src = img.src.replace("_BL.png", ".png");
+      } else {
+        img.src = img.src.replace(".png", "_BL.png");
+      }
+    }
+  </script>
+</html>
