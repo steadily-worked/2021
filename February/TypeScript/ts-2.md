@@ -1,7 +1,7 @@
 <h1>TypeScript</h1><a href='https://ahnheejong.gitbook.io/ts-for-jsdev'>출처</a>
 
 <h2>2.0 ECMAScript</h2>
-- 타입스크립트의 기반이 되는 언어 ECMAScript의 최신 명세에 추가된 여러 유용한 기능들을 살펴본다.
+> 타입스크립트의 기반이 되는 언어 ECMAScript의 최신 명세에 추가된 여러 유용한 기능들을 살펴본다.
 
 ---
 
@@ -75,7 +75,7 @@ function foo() {
 자바스크립트의 이 두 독특한 동작 방식은 많은 프로그래머에게 혼란을 미쳐 왔다. ES6는 이러한 혼란을 피할 수 있도록 `let`과 `const`이라는 새로운 변수 선원 키워드를 도입했다. 두 키워드를 사용해 새로운 함수가 만들어 질 때와 더불어 대괄호(`{ ... }`)로 감싼 블록마다 생성되는 <b>블록 수준 스코프</b>의 지배를 받는 <b>블록 수준 변수</b>를 정의할 수 있다.
 
 <h2>2.1.1 let을 이용한 선언</h2>
-- let을 이용해 <b>재할당이 가능한 블록 레벨 변수</b>를 선언할 수 있다. 아래 예시 코드를 보자.
+> let을 이용해 <b>재할당이 가능한 블록 레벨 변수</b>를 선언할 수 있다. 아래 예시 코드를 보자.
 
 ```js
 {
@@ -123,7 +123,7 @@ notOk(); // SyntaxError: Identifier 'a' has already been declared
 ```
 
 <h2>2.1.2 const를 이용한 선언</h2>
-- const를 이용해 재할당이 불가능한 블록 레벨 변수를 선언할 수 있다.
+> const를 이용해 재할당이 불가능한 블록 레벨 변수를 선언할 수 있다.
 
 `const`를 이용해 <b>재할당이 불가능한 블록 레벨 변수</b>를 선언할 수 있다. `const`를 이용해 선언한 변수의 값을 블록 내에서 재할당하려 하면 에러가 발생한다.
 
@@ -183,7 +183,7 @@ arr.push(3); // OK
 객체(`Object`)와 배열(`Array`)은 자바스크립트의 가장 기본적인 자료구조이며, 온갖 용도로 사용된다. 이 장에서는 최신 ECMAScript에 들어온 객체 및 배열 관련 주요 변경사항을 다룬다.
 
 <h2>2.2.1 비구조화 할당</h2>
-- 비구조화 할당 문법을 이용해 이전까지 여러 라인에 걸쳐 적어야만 했던 할당을 보다 간결하게 쓸 수 있다.
+> 비구조화 할당 문법을 이용해 이전까지 여러 라인에 걸쳐 적어야만 했던 할당을 보다 간결하게 쓸 수 있다.
 
 <h3>배열의 비구조화 할당</h3>
 
@@ -300,7 +300,7 @@ n; // { x : 1, y : 2, a : 3, b : 4 };
 ```
 
 <h2>2.2.3 객체 리터럴 변경사항</h2>
-- 최신 ECMAScript에서의 객체 리터럴 변경사항에 대해 다룬다.
+> 최신 ECMAScript에서의 객체 리터럴 변경사항에 대해 다룬다.
 
 <h3>트레일링 콤마(trailing comma)</h3>
 
@@ -360,12 +360,12 @@ console.log(obj3); // {abc: 3}
 ```
 
 <h2>2.3 함수</h2>
-- 최신 ECMAScript 명세에서 자바스크립트 함수에 어떤 변경점이 있었는지 알아본다.
+> 최신 ECMAScript 명세에서 자바스크립트 함수에 어떤 변경점이 있었는지 알아본다.
 
 자바스크립트의 함수는 일급 객체다. 함수를 다른 함수의 인자로 넘길 수도 있고, 함수가 함수를 리턴하기도 하는 등 함수가 다른 문자열, 숫자 등의 값과 동일하게 취급된다. 때문에 함수는 자바스크립트 프로그래밍에서 가장 핵심적인 역할을 차지한다.
 
 <h2>2.3.1 기본 매개변수</h2>
-- ES6 기본 매개변수 문법을 사용해 매개변수의 기본값을 간결하게 표현할 수 있다.
+> ES6 기본 매개변수 문법을 사용해 매개변수의 기본값을 간결하게 표현할 수 있다.
 
 자바스크립트 함수는 매개변수의 수를 느슨하게 체크한다. 예를 들어, 3개의 매개변수를 기대하는 함수에 1개 혹은 2개만 주어졌을 때, 런타임 에러를 내는 대신 나머지 매개변수로 `undefined` 값이 들어온 것과 동일하게 함수를 실행한다.
 
@@ -415,7 +415,7 @@ useDefault(1, undefined, 4); // [1, 2, 4];
 ```
 
 <h2>2.3.2 화살표 함수</h2>
-- 화살표 함수는 자바스크립트 함수 내부에서 this가 야기하는 혼란을 줄여준다.
+> 화살표 함수는 자바스크립트 함수 내부에서 this가 야기하는 혼란을 줄여준다.
 
 기본적으로 자바스크립트 함수 내부에서 참조된 `this` 키워드의 값은 함수가 정의되는 시점이 아닌 실행되는 시점에 결정된다. 동일한 내부 구조를 가진 함수가 동일한 블록 내에서 실행 되더라도 어떤 방식으로 호출되냐에 따라 함수 내에서의 `this` 값은 달라질 수 있다.
 
@@ -486,7 +486,7 @@ console.log(isOdd(3)); // true
 ES6에는 문자열 관련 다양한 편의 기능을 제공하는 템플릿 리터럴이 추가되었다. 템플릿 리터럴은 문자열과 비슷하되, 따옴표나 쌍따옴표가 아닌 백틱(```)으로 감싸진다. 상대적으로 덜 흔한 용례인 태그된 템플릿(tagged template)은 여기선 다루지 않는다.
 
 <h2>2.4.1 멀티라인 문자열</h2>
-- 템플릿 리터럴을 이용해 여러 줄에 걸친 문자열을 손쉽게 표현할 수 있다.
+> 템플릿 리터럴을 이용해 여러 줄에 걸친 문자열을 손쉽게 표현할 수 있다.
 
 이전 버전의 자바스크립트는 멀티라인 문자열을 손쉽게 생성할 수 있는 수단을 제공하지 않았다. 따라서 프로그래머가 직접 문자열을 더하기 연산자를 이용해 연결하거나, 배열의 `Array.prototype.join` 함수 등을 이용하는 식의 접근이 필요했다.
 
@@ -512,7 +512,7 @@ console.log(a);
 ```
 
 <h2>2.4.2 문자열 치환</h2>
-- 템플릿 리터럴은 문자열의 일부를 특정 값으로 치환할 수 있는 수단을 제공한다.
+> 템플릿 리터럴은 문자열의 일부를 특정 값으로 치환할 수 있는 수단을 제공한다.
 
 매우 흔하게 요구되는 사항임에도 불구하고 이전 버전의 자바스크립트에는 문자열 포매팅을 위한 이렇다할 기능이 없었다. 때문에 문자열 포매팅을 위해선 주로 `Array.prototype.join` 메소드를 사용하거나 문자열을 더하는 방식이 사용되었다.
 
@@ -541,7 +541,7 @@ sinceES6("Sangmin", "Park"); // My name is Sangmin Park!
 ```
 
 <h2>2.5 원소 순회</h2>
-- 최신 ECMAScript 명세에 추가된 원소 순회 수단에 대해 알아본다.
+> 최신 ECMAScript 명세에 추가된 원소 순회 수단에 대해 알아본다.
 
 어떤 컬렉션(collection)의 원소들을 순회하고 싶다는 요구사항은 굉장히 흔하다. 자연히 자바스크립트도 순회를 위한 다양한 방법을 제공한다.
 
@@ -600,4 +600,215 @@ for (const lang of languages) {
 비슷하게 생겼지만, `for-of` 문법은 기존의 `for-in` 문법과 비교했을 때 아래와 같은 차이점을 갖고 있다.
 
 - 순회 순서가 항상 같을 것이 보장된다.
-- `for (const elem in arr) { ... }` 의 `elem` 에는 <b>원소의 키에 해당하는 문자열</b>이 바인딩 된다.
+- `for (const elem in arr) { ... }` 의 `elem` 에는 <b>원소의 키에 해당하는 문자열</b>이 바인딩 된다. 한편, `for (const elem of arr) { ... }` 의 `elem`에는 <b>원소의 실제 값</b>이 바인딩 된다.
+  - 예를 들어, `arr`가 함수의 배열(`[ () => 42, () => true ]`)이라면,
+    `for-in`의 `elem`에는 각 함수의 인덱스 문자열(`"0"`, `"1"`)이 바인딩 된다.
+    `for-of`의 `elem`에는 실제 함수값(`() => 42`, `() => true`)이 바인딩 된다.
+
+또한 `forEach`와 달리 `break` / `continue` 등의 키워드로 실행 흐름을 제어할 수 있다.
+
+주의할 점은 임의의 `Object` 인스턴스에 대해 `for-of`를 사용 가능한 것은 아니라는 것이다.
+
+```js
+const obj = { a: 1 };
+for (const elem of obj) {
+  console.log(elem);
+}
+// TypeError: obj is not iterable
+```
+
+에러 메시지를 보면 짐작할 수 있듯이, `for-of` 문법은 이터러블(`iterable`) 프로토콜을 구현한(즉, 순회 가능한) 객체에 대해서만 사용할 수 있다. 이터러블 프로토콜을 구현한 객체란 이터레이터를 원소로 갖는다. 이 용어들이 어떤 의미를 갖는지 차례로 살펴보자.
+
+<h2>2.5.3 이터레이터 프로토콜</h2>
+
+객체가 특정 조건을 만족하는 `next()` 메소드를 가질 때, 이러한 객체를 이터레이터(반복자, Iterator)라 부른다. 이 때, `next()` 메소드는 해당 객체의 요소들을 어떤 방식과 어떤 순서로 순회할지를 정의하며, 호출 될 때마다 아래 두 가지 값을 담은 객체를 반환해야 한다.
+
+- 순회가 끝났는지를 나타내는 불리언 값인 `done`
+- (`done === false` 일시) 이번 원소의 값인 `value`
+
+아래 코드는 객체를 받아 객체의 요소를 순회하기 위한 이터레이터를 생성하고, 실제로 해당 이터레이터를 순회하는 간단한 예시다.
+
+```js
+function makeIterator(array) {
+  var nextIndex = 0;
+  return {
+    next: function () {
+      return nextIndex < array.length
+        ? { value: array[nextIndex++], done: false }
+        : { done: true };
+    },
+  };
+}
+const iter = makeIterator([1, 2, 3]);
+iter.next(); // { value: 1, done: false }
+iter.next(); // { value: 2, done: false }
+iter.next(); // { value: 3, done: false }
+iter.next(); // {done: true}
+```
+
+<h2>2.5.4 이터러블 프로토콜</h2>
+
+어떤 객체가 `Symbol.iterator`의 키의 값으로 메소드를 갖고, 해당 메소드를 실행했을 때 이터레이터 인스턴스가 반환될 때 그 객체가 <b>이터러블 프로토콜을 구현한다</b>, 또는 <b>순회 가능하다</b>고 한다. `Symbol.iterator`는 ES6에 추가된 `Symbol` 타입의 값으로, 그 중에서도 표준에 정의되어 있는 특수한 심볼이다.
+
+예를 들어, 다음과 같이 순회 가능한 객체 `iterableObj`를 정의할 수 있다.
+
+```js
+function makeIterator(array) {
+  var nextIndex = 0;
+  return {
+    next: function () {
+      return nextIndex < array.length
+        ? { value: array[nextIndex++], done: false }
+        : { done: true };
+    },
+  };
+}
+const iterableObj = {
+  [Symbol.iterator]() {
+    return makeIterator([1, 2, 3]);
+  },
+};
+```
+
+순회 가능한 객체에 대해서는 `for-of` 문법이 사용 가능하다. 이 때 `for-of` 반복문은 내부적으로 이터레이터의 `next()`를 실행해 `done === true`인 경우 반복을 중단한다. `done === false`인 경우, `for (const elem of iterable)` 문의 변수 `elem`에 `value`를 할당하고, 함수 본문을 실행한다.
+
+```js
+for (const elem of iterableObj) {
+  console.log(elem);
+}
+// 1
+// 2
+// 3
+```
+
+또한, 순회 가능한 객체에 대해 전개 연산자를 사용할 수 있다. 이 때 전개 연산자는 해당 순회 가능한 객체의 이터레이터가 리턴한 `value`들의 나열로 대체된다.
+
+```js
+console.log(...iterableObj); // [1, 2, 3]
+```
+
+`Array`, `Map`, `Set` 등의 표준 객체는 모두 이터러블 프로토콜을 구현한다. 그 덕분에 프로그래머는 서로 전혀 다른 형태의 객체들을 일관적인 문법을 사용해 순회할 수 있다. <b>이터러블 프로토콜은 프로그래머에게 임의의 객체에 대해 해당 객체를 어떻게 순회할지를 명시하고, 동일한 문법으로 여러 객체를 순회할 수 있는 수단을 제공한다.</b>
+
+<h2>2.6 비동기 처리</h2>
+
+자바스크립트는 싱글 스레드 기반의 프로그래밍 언어다. 이러한 한계와 더불어 유저 인터페이스와 매우 밀접하게 엮인 언어로 시작했다는 특징 때문에, 동기 처리를 이용한 프로그래밍 패턴은 자바스크립트에서 실질적으로 사용 불가능하다. 네트워크 요청이 응답을 받을 때까지 싱글 스레드를 점유하고, 그 동안은 브라우저가 유저의 마우스, 키보드에 전혀 반응하지 않는다고 생각해보라!
+
+이런 제약 때문에 비싼 작업을 비동기로 처리하는 것이 자바스크립트에선 매우 흔한 패턴이다. 수 년 전까지만 해도 자바스크립트 코드에서는 그런 비동기 작업이 끝난 후, 그 결과에 따라 추가적인 처리를 하기 위해 비동기 서브루틴에게 콜백 함수를 넘기는 패턴이 자주 쓰였다. 다음 코드 예시는 네트워크에서 문서를 받아온 뒤, 해당 문서를 작성한 유저의 다른 글들을 가져오는 가상의 코드 예시이다.
+
+```js
+fetchDocument(url, function (err, document) {
+  if (err) {
+    console.log(err);
+  } else {
+    fetchAuthor(document, function (err, author) {
+      if (err) {
+        console.log(err);
+      } else {
+        fetchPostsFromAuthor(author.id, function (err, posts) {
+          if (err) {
+            console.log(err);
+          } else {
+            /* do something with posts */
+          }
+        });
+      }
+    });
+  }
+});
+```
+
+위 코드에서 볼 수 있듯이 콜백을 사용해 비동기 작업을 처리하면 비동기로 처리하는 작업의 단계가 깊어짐에 따라 들여쓰기 또한 급격히 깊어진다. 이런 코드는 미관상으로도 좋지 않을 뿐더러, 프로그래머가 비동기로 일어나는 일련의 작업 흐름을 따라가기 매우 힘들게 한다. 이런 불편을 해소하고자, 최신 ECMAScript에는 이러한 콜백을 이용한 접근보다 개선된 비동기 처리 패턴이 추가되었다.
+
+<h2>2.6.1 프로미스</h2>
+
+콜백 헬의 대안으로 가장 먼저 제안된 API는 프로미스(`Promise`)다. 프로미스는 비동기로 처리될 수 있는 연산에 사용되며, 생성자의 인자로 `resolve`와 `reject`, 두 핸들러를 인자로 받는 함수를 받는다. 프로그래머는 함수 본문에서 (비동기로 작동할 수 있는) 특정 로직을 실행하고 그 결과에 따라 `resolve` 또는 `reject`를 호출할 수 있다.
+
+```js
+function getRandomPromise() {
+  return new Promise((resolve, reject) => {
+    setTimeout(function () {
+      const destiny = Math.random();
+      if (destiny > 0.5) {
+        resolve();
+      } else {
+        reject();
+      }
+    });
+  });
+}
+```
+
+<h3>then 과 catch 메소드</h3>
+
+프로미스 인스턴스는 아래 두 개의 메소드를 갖는다.
+
+- `resolve()`의 호출을 받은 경우, 즉 해당 비동기 작업이 완료된 경우의 핸들러인 `then()`
+- `reject()`의 호출을 받은 경우, 즉 해당 비동기 작업이 거부된 경우의 핸들러인 `catch()`
+
+각 핸들러는 `resolve()` 혹은 `reject()`에 넘겨진 인자를 그대로 받는다. 프로미스가 완료되거나 거부되는 것을 처리되었다(settled)고 하는데, 한 프로미스는 최대 한 번만 처리될 수 있다. 즉 이미 완료 혹은 거부가 일어난 후의 또다른 `resolve()` 또는 `reject()` 호출은 무의미하다.
+
+아래 예시에서는 웹에서의 네트워크 요청을 위한 Fetch API의 사용을 예로 살펴본다. 모던 브라우저에 내장되어 있는 `fetch()` 함수는 네트워크 요청을 만들기 위한 여러 정보를 인자로 받아 네트워크 요청을 실행하고, 그 요청에 연결된 프로미스를 리턴한다.
+
+네트워크 요청이 성공적으로 끝난 경우, 이 프로미스는 내부적으로 서버가 넘긴 응답을 인자로 `resolve()`를 호출한다. 이 응답은 `then()` 핸들러에서 접근할 수 있다.
+
+```js
+fetch("http://example.com").then((respose) => {
+  const { ok, status } = response;
+  console.log(ok, status); // true, 200
+});
+```
+
+만약 네트워크 요청을 보내는 과정에서 오류가 발생했을 경우, 이 프로미스는 내부적으로 던져진 에러를 인자로 `reject()`를 호출한다. 이 응답은 `catch()` 핸들러에서 접근할 수 있다.
+
+```js
+fetch("https://this-is-invalid-url.really").catch((err) => {
+  const { message } = err;
+  console.log(message); // Failed to fetch
+});
+```
+
+`then` 핸들러는 실제로는 두 개의 콜백을 인자로 받는다. 그 두 번째 콜백은 에러가 발생했을 때에 실행되며 여러 객체를 인자로 받는다. 즉 위 코드는 아래와 같이 다시 쓸 수 있다.
+
+```js
+fetch("https://this-is-invalid-url.really").then(null, (err) => {
+  const { message } = err;
+  console.log(message); // Failed to fetch
+});
+```
+
+<h3>프로미스 체인</h3>
+
+`then`과 `catch` 두 메소드는 호출된 경우 또다시 프로미스를 반환한다. 때문에 프로미스는 연쇄될 수 있다(chainable). 이 때, 프로미스 체인의 다음 프로미스는 이번 프로미스가 반환한 값으로 `resolve`를 호출한다.
+
+```js
+fetch("http://example.com")
+  .then((response) => {
+    const { status } = response;
+    return status;
+  })
+  .then((status) => {
+    console.log(`The request has status ${status}!`); // The request has status 200!
+  });
+```
+
+종합하면, 프로미스가 지원되는 환경이라면 앞서 살펴봤던 콜백 헬 예제를 다음과 같이 고쳐 쓸 수 있다.
+
+```js
+function errorHandler(err) {
+  if (err) {
+    console.log(err);
+  }
+}
+fetchDocument(url)
+.then(document => fetchAuthor(document), errorHandler)
+.then(author => fetchPostsFromAuthor(author), errorHandler)
+.then(posts => /* do something with posts */, errorHandler);
+```
+
+<h3>정리</h3>
+
+콜백을 이용한 접근에 비해 갖는 장점을 금세 확인할 수 있을 것이다.
+
+- 들여쓰기의 깊이가 단계의 수에 비해 늘어나지 않는다.
+- 코드의 흐름이 보다 한 눈에 들어온다.
+- 성공한 경우의 핸들러와 에러가 발생한 경우의 핸들러 중 한 쪽만 실행된다는 것이 보장되므로 `if-else` 문을 사용하지 않고 훨씬 깔끔한 코드를 작성할 수 있다.
