@@ -78,9 +78,9 @@ const numberValue: number = null; // TS2322: Type 'null' is not assignable to ty
 
 > 타입스크립트에서, 원래 `null`과 `undefined`는 기본적으로 모든 타입의 서브타입이다. 즉 아무런 설정이 없다면 아래와 같은 식의 할당이 허용된다.
 
-```ts
-const a: number = null; // okay
-```
+> ```ts
+> const a: number = null; // okay
+> ```
 
 > 하지만 이런 동작은 버그를 양산하기 쉽다. 때문에 타입스크립트 2.0에 `null`과 `undefined` 값을 다른 타입에 할당하는 것을 막는 `--strictNullChecks` 플래그가 추가되었다.
 >
@@ -191,11 +191,11 @@ validNameAndHeight.push(42); // no error
 ```
 
 > 타입스크립트 2.6 이하 버전에서는 튜플 타입은 정확한 원소 개수를 보장하지 않는다. 예를 들어 다음과 같은 코드가 허용되었다.
-
-```ts
-const nameAndHeight: [string, number] = ["박상민", 177, true];
-```
-
+>
+> ```ts
+> const nameAndHeight: [string, number] = ["박상민", 177, true];
+> ```
+>
 > 이러한 동작 방식은 대부분의 실사용례에서 도움이 되지 않는다고 판단되어 2.7 버전부터는 현재와 같이 동작하도록 바뀌었다.
 
 <h2>3.3 객체</h2>
@@ -260,4 +260,413 @@ type User = {
   name: string;
   height: number;
 };
+```
+
+이 때 별칭은 단순히 새로운 이름을 붙일 뿐이고, 실제로 새로운 타입이 생성되는 것은 아니라는 점에 유의하라. 예를 들어, 아래와 같은 코드의 에러 메시지에는 `UUID` 대신 `string`이 사용된다.
+
+```ts
+type UUID = string;
+function getUser(uuid: UUID) {
+  // uuid: string;이 되어야 함.
+  /* 함수 본문 */
+}
+getUser(7); // error TS2345: Argument of type '7' is not assignable to parameter of type 'string'.
+```
+
+<h2>3.5 함수</h2>
+
+> 자바스크립트 프로그램에서 가장 핵심적인 역할을 차지하는 함수 타입이 타입스크립트에서는 어떻게 표현되는지 다룬다.
+
+<h3>함수의 타입</h3>
+
+함수의 타입을 결정하기 위해서는 다음 두 가지 정보가 필요하다.
+
+- 매개변수(parameter)의 타입
+- 반환값(return value)의 타입 (반환 타입)
+
+매개변수의 경우, 변수의 타입을 표기할 때와 마찬가지로 매개변수 뒤에 콜론(`:`)을 붙이고 타입을 적는다. (`param1: number`)
+
+반환 타입은 매개변수 목록을 닫는 괄호(`)`)와 함수 본문을 여는 대괄호(`{`) 사이에 콜론을 붙이고 표기한다.(`function (): number { ... }`)
+
+예를 들어 <b>두 숫자를 받아 그 합을 반환</b>하는 함수는 다음과 같이 타입 표기한다.
+
+```ts
+function sum(a: number, b: number): number {
+  return a + b;
+}
+```
+
+만약 함수가 아무런 값도 반환하지 않고 종료된다면 반환 타입으로 `void`를 사용한다.
+
+```ts
+function logGreetings(name: string): void {
+  console.log(`Hello, ${name}!`);
+}
+```
+
+`void` 반환 타입을 갖는 함수가 `undefined`나 `null` 이외의 값을 반환하면 타입 에러가 발생한다. `void`가 아닌 반환 타입을 갖는 함수가 아무 값도 반환하지 않는 경우도 마찬가지다.
+
+```ts
+function notReallyVoid(): void {
+  return 1;
+}
+// error TS2322: Type '1' is not assignable to type 'void'.
+
+function actuallyVoid(): number {}
+// error TS2355: A function whose declared type is neither 'void' nor 'any'  must return a value.
+```
+
+---
+
+<h3>함수 값의 타입 표기</h3>
+
+함수 타입의 값에 타입 표기를 붙이기 위해서는 화살표 함수 정의 문법과 비슷한 문법을 사용한다.
+
+```ts
+(...매개변수 나열) => 반환 타입
+```
+
+매개변수가 없는 함수의 경우 매개변수를 생략해 아래와 같이 적는다.
+
+```ts
+() => 반환 타입
+```
+
+예시를 들어보면 아래와 같다. 화살표 함수 문법을 사용한 함수 또한 비슷하게 정의 가능하다.
+
+```ts
+const yetAnotherSum: (a: number, b: number) => number = sum;
+const onePlusOne: () => number = () => 2;
+const arrowSum: (a: number, b: number) => number = (a, b) => a + b;
+```
+
+타입 별칭 또한 사용 가능하다.
+
+```ts
+type sumFunction = (a: number, b: number) => number;
+const definitelySum: sumFunction = (a, b) => a + b;
+```
+
+---
+
+<h3>기본 매개변수</h3>
+
+ES6와 마찬가지로, 타입스크립트에서도 기본 매개변수 문법을 사용할 수 있다. 이 때 기본값은
+
+```ts
+매개변수명: 타입 = 기본값;
+```
+
+의 형태로 표기한다.
+
+```ts
+function greetings(name: string = "stranger"): void {
+  console.log(`Hello, ${name}`);
+}
+greetings("Sangmin"); // Hello, Sangmin!
+greetings(); // Hello, stranger!
+```
+
+---
+
+<h3>선택 매개변수</h3>
+
+많은 프로그래밍 언어는 함수 정의에 명시된 매개변수의 수보다 많거나 적은 수의 인자가 들어온 경우 에러를 뱉는다. 한편, 자바스크립트는 더 들어온 인자는 버리고, 덜 들어온 인자는 `undefined`가 들어온 것과 동일하게 취급한 후 어떻게든 함수를 실행하려 시도한다.
+
+이런 언어의 특성 및 기존 사용례를 포용하면서 타입 안정성을 확보하기 위해 타입스크립트는 <b>선택 매개변수</b>를 지원한다. 함수의 매개변수 이름 뒤에 물음표(`?`) 기호를 붙여 해당 매개변수가 생략될 수 있음을 명시할 수 있다.
+예를 들어, `optional?`:`number`로 선언된 선택 매개변수 `optional`를 함수 본문에서 `number`타입 값으로 사용하려면 해당 값이 `undefined`가 아닌지를 먼저 검사해야 한다.
+
+```ts
+function fetchVideo(url: string, subtitleLanguage?: string) {
+  const option = { url };
+  if (subtitleLanguage) {
+    option.subtitleLanguage = true;
+  }
+  /* ... */
+}
+fetchVideo("https://example.com", "ko"); // okay
+fetchVideo("https://example.com"); // also okay
+```
+
+이 때 매개변수 정의 순서에서 선택 매개변수 이후에 필수 매개변수를 두는 것은 허용되지 않는다.
+
+```ts
+function invalidFetchVideo(subtitleUrl?: string, url: string) {
+  /* ... */
+}
+// error TS1016: A required parameter cannot follow an optional parameter.
+```
+
+이러한 제약이 존재하는 이유는 만약 필수 매개변수가 선택 매개변수 뒤에 있을 시, 인자가 어떤 매개변수의 값인지 구분할 수 없기 때문이다. 예를 들어 위의 두 함수를 아래와 같이 호출하는 경우를 생각해보자.
+
+```ts
+fetchVideo("https://example.com");
+invalidFetchVideo("https://example.com");
+```
+
+이 때 첫 번째 호출의 경우 인자가 `url` 매개변수의 값이라는 것이 명백하다. 한편 두 번째 호출에서는 `'https://example.com'`이라는 값이 선택매개변수인 `subtitleUrl`의 값으로 쓰인건지, 또는 `url`의 값으로 쓰인건지 모호하다. 따라서 타입스크립트는 이런 식의 함수 정의를 만나면 오류를 발생시킨다.
+
+---
+
+<h3>함수 오버로딩</h3>
+
+자바스크립트에서는 한 함수가 여러 쌍의 매개변수-반환 타입 쌍을 갖는 경우가 매우 흔하다. 이런 함수의 타입을 정의할 수 있게 하고자 타입스크립트는 함수 오버로딩(function overloading)을 지원한다.
+
+타입스크립트의 함수 오버로딩을 다음과 같은 특징을 갖는다.
+
+- 함수는 <b>하나 이상의 타입 시그니처</b>를 가질 수 있다.
+- 함수는 <b>단 하나의 구현</b>을 가질 수 있다.
+
+즉, 오버로딩을 통해서 여러 형태의 함수 타입을 정의할 수 있지만, 실제 구현은 한 번만 가능하므로 여러 경우에 대한 분기는 함수 본문 내에서 이뤄져야 한다.
+
+예를 들어 다음 함수들을 보자.
+
+```ts
+function doubleString(str: string): string {
+  return `${str}${str}`;
+}
+function doubleNumber(num: number): number {
+  return num * 2;
+}
+function doubleBooleanArray(arr: boolean[]): boolean[] {
+  return arr.concat(arr);
+}
+```
+
+이 함수들은 각각 문자열, 숫자, 그리고 불리언의 배열을 받아 두 배로 만드는 함수다. 이 때 '두 배'가 의미하는 건 타입에 따라 다르고, 세 함수는 인풋 타입에 따라 다른 타입의 값을 반환한다. 이 세 함수를 함수 오버로딩을 사용해서 하나의 `double`이라는 함수로 합쳐보자.
+
+먼저 각 경우의 타입 시그니처를 정의한다. 타입 시그니처는 함수 정의와 동일하되, 본문이 생략된 형태다.
+
+```ts
+function double(str: string): string;
+function double(num: number): number;
+function double(arr: boolean[]): boolean[];
+```
+
+그 후엔 함수의 본문을 구현한다.
+
+```ts
+function double(arg) {
+  if (typeof arg === "string") {
+    return `${arg}${arg}`;
+  } else if (typeof arg === "number") {
+    return arg * 2;
+  } else if (Array.isArray(arg)) {
+    return arg.concat(arg);
+  }
+}
+```
+
+이렇게 오버로딩을 통해 정의된 `double` 함수는 호출하는 인자의 타입에 따라 반환 타입이 달라진다.
+
+```ts
+const num = double(3); // number
+const str = doouble("ab"); // string
+const arr = double([true, false]); // boolean[]
+```
+
+---
+
+<h3>This 타입</h3>
+
+앞서 2장에서 언급했지만, 자바스크립트 함수 내부에서의 `this` 값은 함수가 정의되는 시점이 아닌 <b>실행되는 시점</b>에 결정된다. 이런 특성은 함수 내부에서 `this`의 타입을 추론하는 일을 매우 어렵게 만든다. 타입스크립트는 이런 어려움을 해결하기 위해 함수 내에서의 `this` 타입을 명시할 수 있는 수단을 제공한다.
+
+함수의 `this` 타입을 명시하기 위해선 함수의 타입 시그니처에서 매개변수 가장 앞에 `this`를 추가해야 한다. 이 때 `this` 타입은 타입 시스템을 위해서만 존재하는 일종의 가짜 타입이다. 즉, `this` 매개변수를 추가한다고 해도 함수가 받는 인자 수와 같은 실제 동작은 변하지 않는다.
+
+```ts
+interface HTMLElement {
+  tagName: string;
+  /* ... */
+}
+interface Handler {
+  (this: HTMLElement, event: Event, callback: () => void): void;
+}
+let cb = any;
+// 실제 함수 매개변수에는 this가 나타나지 않음
+const onClick: Handler = function (event, cb) {
+  // this는 HTMLElement 타입
+  console.log(this.tagName);
+  cb();
+};
+```
+
+만약 `this`의 타입을 `void`로 명시한다면 함수 내부에서 `this`에 접근하는 일 자체를 막을 수 있다.
+
+```ts
+interface NoThis {
+  (this: void): void;
+}
+const noThis: NoThis = function () {
+  console.log(this.a); // Property 'a' does not exist on type 'void'.
+};
+```
+
+<h2>3.6 제너릭</h2>
+
+> 제너릭을 이용해 여러 타입에 대해 동일한 규칙을 갖고 동작하는 타입을 손쉽고 우아하게 정의할 수 있다.
+
+<h3>동기부여</h3>
+
+다음의 자바스크립트 함수를 생각해보자. 인자로 넘겨지는 배열은 항상 같은 타입의 값으로 이루어져 있다고 가정한다.
+
+```ts
+function getFirstElem(arr) {
+  if (!Array.isArray(arr)) {
+    throw new Error("getFirstElemOrNull: Argument is not array!");
+  }
+  if (arr.length === 0) {
+    throw new Error("getFirstElemOrNull: Argument is an empty array!");
+  }
+  return arr[0] ? arr[0] : null;
+}
+```
+
+배열을 받아 첫 번째 원소가 있을 시 그 원소를 리턴하는 매우 간단한 함수다. 문자열의 배열을 인자로 호출하면 문자열 타입의 값을, 숫자의 배열을 인자로 호출하면 숫자 타입의 값을 반환할 것이다. 이 함수의 타입을 어떻게 정의할 수 있을까?
+
+만약 `getFirstElem` 이 문자열과 숫자 두 타입만을 지원한다면 함수 오버로딩을 이용해 다음과 같이 쓸 수 있다.
+
+```ts
+function getFirstElem(arr: string[]): string;
+function getFirstElem(arr: number[]): number;
+function getFirstElem(arr) {
+  if (!Array.isArray(arr)) {
+    throw new Error("getFirstElemOrNull: Argument is not array!");
+  }
+  if (arr.length === 0) {
+    throw new Error("getFirstElemOrNull: Argument is an empty array!");
+  }
+  return arr[0] ? arr[0] : null;
+}
+```
+
+하지만 이 함수가 <b>임의의 타입 값을 원소로 갖는 배열</b>에 대해 동작하도록 만들려면 어떻게 해야 할까? 존재할 수 있는 모든 타입에 대해 오버로딩을 적는 건 (가능한 타입의 수가 무한하므로) 불가능하다. 인자와 반환 타입을 any로 정의한다면 동작은 가능하겠지만, 타입 정보를 모두 잃게 되므로 좋은 방법이 아니다.
+
+우리가 원하는 기능은 다음과 같다. <b>여러 타입에 대해 동작하는 함수를 정의하되, 해당 함수를 정의할 때는 알 수 없고 사용할 때에만 알 수 있는 타입 정보를 사용하고 싶다.</b> 제너릭은 바로 그러한 기능을 제공한다.
+
+<h3>타입 변수</h3>
+
+함수를 호출하는 시점이 돼야만 알 수 있는 값을 함수 내부에서 사용하기 위해서는 그 값을 담아둘 매개변수가 필요하다. 마찬가지로, <b>요소를 사용하는 시점에서만 알 수 있는 타입을 담아두기 위해서는 타입 변수(type variable)가 필요하다.</b> 타입 변수와 타입의 관계는 매개변수와 인자 값의 관계와 비슷하다.
+
+|           | 함수                           | 제너릭                                 |
+| --------- | ------------------------------ | -------------------------------------- |
+| 정의 시점 | 매개변수 `a:number`            | 타입변수 `<T>`                         |
+| 정의 예시 | `function (a: number) { ... }` | `type MyArray<T> = T[]`                |
+| 사용 시   | 실제 값(`3`, `42` 등) 사용     | 실제 타입(`number`, `string` 등) 사용  |
+| 사용 예시 | `a(3); a(42);`                 | `type MyNumberArray = MyArray<number>` |
+
+타입 변수는 부등호(`<`,`>`)로 변수명을 감싸 정의한다. 이렇게 정의한 타입 변수를 요소의 타입 정의(예를 들어 함수의 인자 및 반환 타입)에 사용할 수 있다. 부등호 기호 안에 정의된 타입 변수의 실제 타입은 실제 값이 넘어오는 시점에 결정된다.
+
+컨벤션 상 타입스크립트의 타입 변수는 대문자로 시작하며 PascalCase 명명법을 사용한다.
+
+<h3>제너릭 함수</h3>
+
+타입 변수를 이용해 위의 `getFirstElem` 함수를 다음과 같이 제너릭 함수로 정의할 수 있다.
+
+```ts
+function getFirstElem<T>(arr: T[]): T {
+  /* ... */
+}
+```
+
+위의 타입 정의는 다음과 같이 읽을 수 있다.
+
+> <b>임의의 타입</b> `T`에 대해, `getFirstElem`은 `T` 타입 값의 배열 `arr`를 인자로 받아 `T` 타입 값을 반환하는 함수이다.
+
+보다 일반적으로는 다음과 같은 꼴이 된다. 이 때 인자 타입과 반환 타입을 표현할 때 타입 변수를 사용할 수 있다.
+
+```ts
+function 함수명<타입 변수>(인자 타입): 반환 타입 {
+  /* 함수 본문 */
+}
+```
+
+함수를 호출할 때에는 정의에서 매개변수가 있던 자리에 인자를 넣어준다. 마찬가지로, 제너릭 함수를 호출할 때에는 정의에서 타입 변수가 있던 자리에 타입 인자를 넣어준다.
+
+```ts
+const languages: string[] = ["TypeScript", "JavaScript"];
+const language = getFirstElem<string>(languages); // 이 때 language의 타입은 문자열임
+```
+
+<h3>제너릭 타입 별칭</h3>
+
+타입 별칭 정의에도 제너릭을 사용할 수 있다. 이 때 타입 변수 정의는 별칭 이름 다음에 붙여 쓴다.
+
+```ts
+type MyArray<T> = T[];
+const drinks: MyArray<string> = ["Coffee", "Milk", "Beer"];
+```
+
+<h3>제너릭의 사용처</h3>
+
+타입 변수와 제너릭의 핵심은 <b>여러 타입에 대해 동작하는 요소를 정의하되, 해당 요소를 사용할 때가 되어야 알 수 있는 타입 정보를 정의에 사용하는 것</b>이다. 이러한 개념이 적용되는 범위는 함수와 타입 별칭에 국한되지 않는다. 제너릭을 이용해 추후 다룰 인터페이스, 클래스 등 다양한 타입의 표현력을 높일 수 있다. 4장에서 추후 해당 주제를 다룰 때에 좀 더 자세히 다룬다.
+
+<h2>3.7 유니온 타입</h2>
+
+> 유니온 타입을 이용해 "여러 경우 중 하나"인 타입을 표현할 수 있다.
+
+<h3>동기부여</h3>
+
+아래 함수를 한 번 살펴보자.
+
+```ts
+function square(value: number, returnString: boolean = false): ??? {
+  const squared = value * value;
+  if (returnString) {
+    return squared.toString();
+  }
+  return squared;
+}
+```
+
+함수 `square`는 숫자 타입 인자를 하나 받고, 불리언 타입 인자를 하나 더 받아 그 값에 따라 문자열 또는 숫자 타입의 값을 반환한다. 이 함수의 반환 타입은 어떻게 표현할 수 있을까? 일단 이 경우 반환 타입이 <b>인자의 타입이 아닌 값에 의존한다.</b> 따라서 제너릭으로는 표현하기 까다롭다 짐작할 수 있다.
+
+오버로딩을 이용하면 아래와 같이 표현은 가능하다. 하지만 하나의 타입을 제외하고 모든 부분이 똑같은데도 여러 번 써야 해 비효율적이다. 게다가 오버로딩으로 함수를 정의한다 한들, 반환값을 할당하는 변수의 타입을 정의하기 어렵다는 문제가 남는다.
+
+```ts
+function square(value: number, returnString: boolean): number;
+function square(value: number, returnString: boolean): string;
+function square(value, returnString = false) {
+  const squared = value * value;
+  if (returnString) {
+    return squared.toString();
+  }
+  return squared;
+}
+const mystery: ??? = square(randomNumbmer, randomBoolean);
+```
+
+<b>어떤 타입이 가질 수 있는 경우의 수를 나열</b>할 때 사용하는 <b>유니온 타입</b>으로 이 함수의 반환 타입을 표현할 수 있다.
+
+<h3>문법</h3>
+
+유니온 타입은 가능한 모든 타입을 파이프(`|`) 기호로 이어서 표현한다. "`A` 또는 `B` 타입일 수 있는 타입"을 `A | B`로 쓰는 식이다. `square` 함수의 타입은 아래와 같이 적을 수 있다.
+
+```ts
+function square(value: number, returnString: boolean = false): string | number {
+  const squared = value * value;
+  if (returnString) {
+    return squared.toString();
+  }
+  return squared;
+}
+const stringOrNumber: string | number = square(randomNumber, randomBoolean);
+```
+
+타입 별칭 문법을 사용해 유니온 타입에 이름을 붙일 수 있다. 자주 사용되는 타입, 또는 인라인으로 작성하기에 너무 복잡한 타입의 경우 이 방식을 추천한다.
+
+```ts
+type SquaredType = string | number;
+function square(value: number, returnOnString: boolean = false): SquaredType {
+  const squared = value * value;
+  if (returnString) {
+    return squared.toString();
+  }
+  return squared;
+}
+```
+
+유니온 타입이 가질 수 있는 타입의 수가 꼭 2개일 필요는 없다. 몇 개든 이어가며 정의할 수 있다.
+
+```ts
+type Whatever = number | string | boolean;
 ```
