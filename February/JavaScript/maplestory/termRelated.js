@@ -1,7 +1,6 @@
 const termSubmit = document.getElementById("btn_add_term");
 const termList = document.getElementById("list_terms");
 const termBox = document.getElementById("text_term");
-const termLi = document.querySelectorAll("ul li");
 
 termSubmit.addEventListener("click", () => {
   addRelatedTerm(termBox.value);
