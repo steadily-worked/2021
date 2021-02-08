@@ -3,12 +3,6 @@ const termList = document.getElementById("list_terms");
 const termBox = document.getElementById("text_term");
 const termLi = document.querySelectorAll("ul li");
 
-termBox.addEventListener("keyup", removeSpecial);
-termSubmit.addEventListener("click", removeSpecial);
-function removeSpecial(e) {
-  e.target.value = e.target.value.replace(/[^ㄱ-힣a-zA-Z0-9+#]/gi, "");
-}
-
 termSubmit.addEventListener("click", () => {
   addRelatedTerm(termBox.value);
 }, false);
@@ -20,38 +14,14 @@ termBox.addEventListener("keyup", (e) => {
   }
 });
 
-// function addRelatedTerm(name) {
-//   if (!name) {
-//     return;
-//   }
-//   const trimmedTerm = name.trim();
-//   const liElem = document.createElement("li");
-//   liElem.innerText = trimmedTerm;
-
-//   const removeBtn = document.createElement("button");
-//   const item = document.querySelectorAll("#list_terms > li");
-//   for (let i = 0; i < item.length; i++) {
-//     if (JSON.stringify(termList.children[i].firstChild) !== name) {
-//       termList.appendChild(liElem);
-//       liElem.appendChild(removeBtn);
-//       removeBtn.innerHTML = "X";
-//       removeBtn.addEventListener("click", () => {
-//         removeBtn.parentNode.removeChild(removeBtn);
-//         liElem.parentNode.removeChild(liElem);
-//       });
-//     } else {
-//       alert("중복입니다.");
-//       termBox.value = "";
-//       return false;
-//     }
-//   }
-//   termBox.value = '';
-// }
 function addRelatedTerm(name) {
-  if (!name) {
+  const special = /[^ㄱ-힣a-zA-Z0-9+#]/gi;
+  const newTerm = name.replace(/[^ㄱ-힣a-zA-Z0-9+#]/gi, "");
+  if (!newTerm) {
     return;
   }
-  const trimmedTerm = name.trim();
+  console.log(newTerm);
+  const trimmedTerm = newTerm.trim();
 
   const liElem = document.createElement("li");
   liElem.innerText = trimmedTerm;
@@ -65,7 +35,7 @@ function addRelatedTerm(name) {
 
   const items = document.querySelectorAll("#list_terms > li");
   for (let i = 0; i < items.length; i++) {
-    if (items[i].innerHTML.split('<')[0] === name) {
+    if (items[i].innerHTML.split('<')[0] === newTerm) {
       alert('중복 단어');
       termBox.value = '';
       return;
@@ -75,4 +45,5 @@ function addRelatedTerm(name) {
   termBox.value = '';
   return;
 }
+addRelatedTerm("**(*(*(*");
 // 그 다음, 중복이 안되게 하려면 어떻게 해야 할 지도 생각을 해봐야 한다. 각각의 if문에 넣어야 되는가?
