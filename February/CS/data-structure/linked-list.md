@@ -501,6 +501,7 @@ def prepend(self, data):
 
     # 링크드 리스트가 비었는지 확인
     if self.head is None:
+        self.head = new_node
         self.tail = new_node
     else:
         new_node.next = self.head   # 새로운 노드의 다음 노드를 head 노드로 정해주고
