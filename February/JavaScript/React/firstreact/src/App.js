@@ -1,27 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+// import React, { Component } from 'react';
+import MyComponent from './MyComponent';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// // 함수형 컴포넌트
+// function App() {
+//   const name = 'React';
+//   return (
+//     <>
+//       <div className="react">
+//         {name}
+//       </div>
+//     </>
+//   );
+// }
+
+// // 클래스형 컴포넌트
+// class App extends Component {
+//   render() {
+//     const name = 'react';
+//     return <div className='react'>{name}</div>
+//   }
+// }
+
+const App = () => {
+  return <MyComponent name={"react"} favoriteNumber={1}>RRRRReact</MyComponent>;
 }
-// App이라는 컴포넌트를 만들어 준다.
+
+// App이라는 컴포넌트를 만들어 준다. function 키워드를 사용하여 컴포넌트를 만들었는데, 이러한 컴포넌트를 함수형 컴포넌트라고 부른다.
+// 프로젝트에서 컴포넌트를 렌더링하면(렌더링: '보여준다') 함수에서 반환하고 있는 내용을 나타낸다.
+// 함수의 반환내용을 보면 마치 HTML을 작성한 것 같은데, 이 코드는 HTML은 아니고 JSX라고 부른다.
 
 export default App;
