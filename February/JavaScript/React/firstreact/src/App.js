@@ -1,5 +1,6 @@
-// import React, { Component } from 'react';
-import MyComponent from './MyComponent';
+import React from 'react';
+// import Counter from './Counter';
+import Say from './Say';
 import './App.css';
 
 // // 함수형 컴포넌트
@@ -22,9 +23,13 @@ import './App.css';
 //   }
 // }
 
+// const App = () => {
+//   return <Counter />;
+// };
+
 const App = () => {
-  return <MyComponent name={"react"} favoriteNumber={1}>RRRRReact</MyComponent>;
-}
+  return <Say />;
+};
 
 // App이라는 컴포넌트를 만들어 준다. function 키워드를 사용하여 컴포넌트를 만들었는데, 이러한 컴포넌트를 함수형 컴포넌트라고 부른다.
 // 프로젝트에서 컴포넌트를 렌더링하면(렌더링: '보여준다') 함수에서 반환하고 있는 내용을 나타낸다.
