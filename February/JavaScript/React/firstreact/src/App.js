@@ -1,6 +1,7 @@
 import React from 'react';
 // import Counter from './Counter';
-import Say from './Say';
+// import Say from './Say';
+import EventPractice from './EventPractice';
 import './App.css';
 
 // // 함수형 컴포넌트
@@ -28,7 +29,7 @@ import './App.css';
 // };
 
 const App = () => {
-  return <Say />;
+  return <EventPractice />;
 };
 
 // App이라는 컴포넌트를 만들어 준다. function 키워드를 사용하여 컴포넌트를 만들었는데, 이러한 컴포넌트를 함수형 컴포넌트라고 부른다.
