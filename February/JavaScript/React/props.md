@@ -14,7 +14,7 @@
 
 앞서 봤던 App.js의 컴포넌트는 함수형 컴포넌트이며, 코드가 아래와 같은 구조이다.
 
-```
+```js
 import React from ‘react‘;
 import ‘./App.css‘;
 
@@ -28,7 +28,7 @@ export default App;
 
 컴포넌트의 선언 방식은 함수형 외에도, 클래스형이 있다.
 
-```
+```js
 import React, { Component } from 'react';
 
 class App extends Component {
@@ -43,7 +43,7 @@ class App extends Component {
 
 > ES6 클래스
 > 
-> ```
+> ```js
 > class Dog {
 >   constructor(name) {
 >     this.name = name;
@@ -75,7 +75,7 @@ Hooks가 도입되면서 리액트 공식 매뉴얼에서 `함수형 컴포넌�
 
 MyComponent.js를 만들어서 새로운 컴포넌트를 작성해보자.
 
-```
+```js
 import React from 'react';
 
 const MyComponent = () => {
@@ -91,14 +91,14 @@ export default MyComponent;
 
 컴포넌트 맨 아래
 
-```
+```js
 export default App;
 ```
 
 이 보이는가? 이 코드는, 다른 파일에서 이 파일을 import할 때, 위에서 선언한 MyComponent 클래스를 불러오도록 설정한다.  
 이 코드가 있는 파일에 대해 다른 컴포넌트에서 불러와서 사용하려면,
 
-```
+```js
 import React from 'react';
 import Component from './MyComponent';
 
@@ -123,7 +123,7 @@ export default App;
 
 props는 properties를 줄인 표현으로, 컴포넌트 속성을 설정할 때 사용하는 요소이다. `props` 값은 해당 컴포넌트를 불러와 사용하는 부모 컴포넌트(지금으로썬 App 컴포넌트가 부모 컴포넌트임)에서 설정할 수 있음
 
-```
+```js
 import React from ‘react‘;
 
 const MyComponent = props => {
@@ -144,7 +144,7 @@ export default MyComponent;
 
 MyComponent.js에서
 
-```
+```js
 MyComponent.defaultProps = {
   name: "공백"
 };
@@ -160,7 +160,7 @@ MyComponent.defaultProps = {
 
 하여, App.js에서
 
-```
+```js
 const App = () => {
   return <MyComponent name="React" />;
 };
@@ -178,7 +178,7 @@ const App = () => {
 
 한편, 리액트 컴포넌트 태그 사이의 내용을 보여주는 props가 있는데, 바로 children이다.
 
-```
+```js
 const App = () => {
   return <MyComponent>RRRRReact</MyComponent>; 
 }
@@ -187,7 +187,7 @@ const App = () => {
 이렇게 컴포넌트 사이의 태그 `RRRRReact`를 넣었다. 이를 보여주고자 한다면 `props.children` 속성을 이용하면 된다.  
 Mycomponent.js에서
 
-```
+```js
 const MyComponent = props => {
  return (
     <div>
@@ -208,7 +208,7 @@ const MyComponent = props => {
 
 지금까지 `name`이나 `children` 앞에 `props.` 라는 키워드를 붙였다. 매번 앞에 `props.`을 붙여 주긴 귀찮으므로 미리 설정해줄 수 있다.
 
-```
+```js
 const MyComponent = props => {
   const { name, children } = props;  // 이렇게 사용할 속성에 대해 props로 변수 지정을 해주고
   return (
@@ -222,7 +222,7 @@ const MyComponent = props => {
 
 화살표 함수의 변수에 props를 지정하고, 다시 함수 내부에서 props를 지정하는 것을 합치면 아래와 같이 훨씬 간편하게 작성할 수 있다.
 
-```
+```js
 const MyComponent = ({ name, children }) => {
   return (
     <div>
@@ -237,13 +237,13 @@ const MyComponent = ({ name, children }) => {
 
 `propTypes`는, 컴포넌트의 필수 props를 지정하거나 props의 타입을 지정할 때 사용한다. `defaultProps`을 사용했던 것과 비슷하다.
 
-```
+```js
 import PropTypes from 'prop-types';
 ```
 
 해당 import 구문을 통해 `propTypes`를 불러온 후, MyComponent.js에 다음과 같이 적는다.
 
-```
+```js
 ...
 const MyComponent = ({ name, children }) => {
   return (...);  
@@ -256,7 +256,7 @@ MyComponent.propTypes = { // 이 부분 추가
 
 해당 코드의 경우 `name` 값은 무조건 문자열(`string`) 형태로 전달해야 된다는 것을 의미한다.
 
-```
+```js
 import MyComponent from './MyComponent';
 
 const App() = () => {
@@ -280,7 +280,7 @@ App.js에서 name 값을 문자열이 아닌 숫자로 전달한 후 개발자 �
 
 > MyComponent.js
 
-```
+```js
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -314,7 +314,7 @@ export default MyComponent;
 
 > App.js
 
-```
+```js
 import MyComponent from './MyComponent';
 const App = () => {
   return <MyComponent name={"React"} favoriteNumber={1}>RRRRReact</MyComponent>; 
@@ -351,7 +351,7 @@ const App = () => {
 
 > MyComponent.js
 
-```
+```js
 import React, { Component } from ‘react‘;
 import PropTypes from ‘prop-types‘;
 
@@ -384,7 +384,7 @@ export default MyComponent;
 
 > MyComponent.js
 
-```
+```js
 import React, { Component } from ‘react‘;
 import PropTypes from ‘prop-types‘;
 
