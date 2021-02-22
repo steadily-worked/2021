@@ -3,14 +3,14 @@
 ## state
 
 `props`는 읽기 전용이라 컴포넌트 자체에서 바꿀 수 없고, 바꾸려면 부모 컴포넌트에서 바꿔줘야 한다.  
-`MyComponent`에서 {name} 값을 직접 바꿔줄 수 없는 것을 예시로 들 수 있다.  
+`MyComponent`에서 `{name}` 값을 직접 바꿔줄 수 없는 것을 예시로 들 수 있다.  
 이와 다르게 리액트에서 `state`는, 컴포넌트 내부에서 바뀔 수 있는 값을 의미한다.
 
 `state` 또한 클래스형 컴포넌트가 갖고 있는 `state`와, 함수형 컴포넌트에서 `useState` 함수를 통해 사용하는 `state` 이렇게 두 가지가 있다.
 
 ### 클래스형 컴포넌트의 state
 
-```
+```js
 import React, { Component } from 'react';
 
 class Counter extends Component {
@@ -47,7 +47,7 @@ export default Counter;
 
 1.  컴포넌트에 `state`를 설정할 때는 다음과 같이 `constructor` 메소드를 작성해서 설정한다.
 
-```
+```js
 constructor(props) {
   super(props);
   // state의 초깃값 설정하기
@@ -63,7 +63,7 @@ constructor(props) {
 
 2.  render() 함수
 
-```
+```js
   render() {
     const { number } = this.state; // state를 조회할 때는 this.state로 조회함
     return (
@@ -91,7 +91,7 @@ constructor(props) {
 
 > App.js
 
-```
+```js
 ..
 import Counter from './Counter';
 
@@ -114,7 +114,7 @@ export default App;
 
 > Counter.js
 
-```
+```js
 import React, { Component } from 'react';
 
 class Counter extends Component {
@@ -132,7 +132,7 @@ export default Counter;
 
 이렇게 컴포넌트 내에서 바로 state의 초깃값을 지정해주면, `constructor`를 지정하지 않아도 된다.
 
-```
+```js
 constructor(props) {
   super(props);
   // state의 초깃값 설정하기
@@ -148,7 +148,7 @@ constructor(props) {
 
 > Counter.js - button onClick
 
-```
+```js
 onClick = {() => {
   this.setState({ number: number + 1 });
   this.setState({ number: this.state.number + 1 });
@@ -159,7 +159,7 @@ onClick = {() => {
 
 이럴 때는, `this.setState`를 사용할 때 객체 대신 함수를 인자로 넣어주면 된다.
 
-```
+```js
 this.setState((prevState, props) => {
   return {
     // 업데이트하고 싶은 내용
@@ -169,7 +169,7 @@ this.setState((prevState, props) => {
 
 여기서 `prevState`는 기존 상태이고, `props`는 현재 지니고 있는 `props`를 가리킨다. 만약 업데이트하는 과정에서 `props`가 필요하지 않다면 생략해도 된다.
 
-```
+```js
     return (
       <div>
         <h1>{number}</h1>
@@ -195,7 +195,7 @@ this.setState((prevState, props) => {
 
 위와 같은 형태로 작성해주면 된다. `onClick` 내에 있는 두 `this.setState`는 동일한 기능인데, 이는 화살표 함수에서 값을 바로 반환하고 싶은 경우 코드블록 `{ }`을 생략할 수 있기 때문이다.
 
-```
+```js
 const sum = (a, b) => {
   return a + b;
 }
@@ -211,7 +211,7 @@ const sum = (a, b) => {
 
 > Counter.js - button
 
-```
+```js
 <button
   // onClick을 통해 버튼이 클릭되었을 때 호출할 함수를 지정합니다.
   onClick={() => {
@@ -245,7 +245,7 @@ const sum = (a, b) => {
 
 이전에 배웠던 객체 비구조화 할당과 비슷하다. **배열 안에 들어 있는 값을 쉽게 추출할 수 있도록 해 주는 문법이다.**
 
-```
+```js
 const array = [1, 2];
 const one = array[0];
 const two = array[1];
@@ -253,7 +253,7 @@ const two = array[1];
 
 `array` 안에 있는 값을 `one`과 `two`에 담아 주는 코드인데, 위 코드는 배열 비구조화 할당을 통해
 
-```
+```js
 const array = [1, 2];
 const [one, two] = array;
 ```
@@ -266,7 +266,7 @@ const [one, two] = array;
 
 > Say.js
 
-```
+```js
 import React, { useState } from 'react';
 
 const Say = () => {
@@ -292,7 +292,7 @@ export default Say;
 
 > App.js
 
-```
+```js
 import React, { useState } from 'react';
 import Say from './Say';
 
@@ -315,7 +315,7 @@ export default App;
 
 > Say.js
 
-```
+```js
 import React, { useState } from 'react';
 
 const Say = () => {
@@ -353,7 +353,7 @@ export default Say;
 
 ### 궁금한 점 🤔
 
-`함수를 호출하면 배열이 반환되는데, 배열의 첫째 원소(`message`)는 현재 상태이고 두 번째 원소(`setMessage`)는 상태를 바꿔 주는 함수이다.`라고 했는데, 이렇게 `useState`를 사용할 땐 배열 비구조화 할당에 무조건 첫 번째가 원소가 현재 상태이고 두 번째 원소가 상태를 바꿔주는 함수인가?
+`함수를 호출하면 배열이 반환되는데, 배열의 첫째 원소(message)는 현재 상태이고 두 번째 원소(setMessage)는 상태를 바꿔 주는 함수이다.`라고 했는데, 이렇게 `useState`를 사용할 땐 배열 비구조화 할당에 무조건 첫 번째가 원소가 현재 상태이고 두 번째 원소가 상태를 바꿔주는 함수인가?
 
 #### 알게된 점
 
@@ -370,7 +370,7 @@ export default Say;
 
 > 클래스형 컴포넌트
 
-```
+```js
 this.state.number = this.state.nmumber + 1;
 this.state.array = this.array.push(2);
 this.state.object.value = 5;
@@ -378,7 +378,7 @@ this.state.object.value = 5;
 
 > 함수형 컴포넌트
 
-```
+```js
 const [object, setObject] = useState({ a: 1, b: 1 });
 object.b = 2;
 ```
@@ -390,7 +390,7 @@ object.b = 2;
 
 아래와 같이 하면 된다.
 
-```
+```js
 // 객체 다루기
 const object = { a: 1, b: 2, c: 3 };
 const nextObject = { ...Object, b: 2 }; // 사본을 만들어서 b 값만 덮어 쓰기
