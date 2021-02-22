@@ -167,12 +167,12 @@ function App() {
 2.  JSX 내부에서 undefined 렌더링하기
     
 
-```js
-function App() {
-    const name = undefined;
-    return <div>{name}</div>;
-}
-```
+    ```js
+    function App() {
+        const name = undefined;
+        return <div>{name}</div>;
+    }
+    ```
 
 name 값이 `undefined`일 때 보여주고 싶은 문구가 있을 경우, 아래와 같이 하면 된다.
 
