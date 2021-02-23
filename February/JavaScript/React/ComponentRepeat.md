@@ -41,11 +41,11 @@ arr.map(callback, [thisArg]);
 
 이 함수의 파라미터는 다음과 같다:
 
-    * `Callback`: 새로운 배열의 요소를 생성하는 함수로 파라미터는 다음의 세 가지이다:
-        * currentValue: 현재 처리하고 있는 요소
-        * index: 현재 처리하고 있는 요소의 index 값
-        * array: 현재 처리하고 있는 원본 배열
-    * `thisArg`(선택 항목): `callback` 함수 내부에서 사용할 `this` 레퍼런스
+* `Callback`: 새로운 배열의 요소를 생성하는 함수로 파라미터는 다음의 세 가지이다:
+    * currentValue: 현재 처리하고 있는 요소
+    * index: 현재 처리하고 있는 요소의 index 값
+    * array: 현재 처리하고 있는 원본 배열
+* `thisArg`(선택 항목): `callback` 함수 내부에서 사용할 `this` 레퍼런스
 
 ### 예제
 
