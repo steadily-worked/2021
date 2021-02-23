@@ -1,23 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
 // import Counter from './Counter';
 // import Say from './Say';
 // import EventPractice from './EventPractice';
 import './App.css';
 // import ValidationSample from './ValidationSample';
-import ScrollBox from './ScrollBox';
+// import ScrollBox from './ScrollBox';
+import IterationSample from './IterationSample';
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <ScrollBox ref={(ref) => (this.scrollBox = ref)} />
-        {/* <button onClick={() => this.scrollBox.scrollToBottom()}>
-          맨 밑으로
-        </button> */}
-      </div>
-    );
-  }
-}
+const App = () => {
+  return <IterationSample />;
+};
+
+// class App extends Component {
+//   render() {
+//     return (
+//       <div>
+//         <ScrollBox ref={(ref) => (this.scrollBox = ref)} />
+//         {/* <button onClick={() => this.scrollBox.scrollToBottom()}>
+//           맨 밑으로
+//         </button> */}
+//       </div>
+//     );
+//   }
+// }
 // // 함수형 컴포넌트
 // function App() {
 //   const name = 'React';
