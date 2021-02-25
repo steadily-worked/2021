@@ -261,7 +261,7 @@ export default LifeCycleSample;
 
 이 컴포넌트는 각 생명주기 메소드를 실행할 때마다 콘솔 디버거(`debugger`)에 기록하고, 부모 컴포넌트에서 `props`로 색상을 받아 버튼을 누르면 `state.number` 값을 1씩 더한다.
 
-`getDerivedStateProps`는 부모에게서 받은 `color` 값을 `state`에 동기화하고 있다. 그리고 `getSnapshotBeforeUpdate`는 DOM에 변화가 일어나기 직전의 색상 속성을 `snapshot` 값으로 반환하여 이것을 `componentDidUpdate`에서 조회할 수 있게 했다.
+`getDerivedStateFromProps`는 부모에게서 받은 `color` 값을 `state`에 동기화하고 있다. 그리고 `getSnapshotBeforeUpdate`는 DOM에 변화가 일어나기 직전의 색상 속성을 `snapshot` 값으로 반환하여 이것을 `componentDidUpdate`에서 조회할 수 있게 했다.
 
 추가로 `shouldComponentUpdate` 메소드에서 `state.number` 값의 마지막 자리 수가 4이면(예: 4, 14, 24, 34) 리렌더링을 취소하도록 설정했다.
 
