@@ -274,3 +274,13 @@ function reducer(state, action) {
 ```
 
 이후에 다룰 `Redux`에서 사용하는 액션 객체에는 어떤 액션인지 알려 주는 `type` 필드가 꼭 있어야 하지만, `useReducer`에서 사용하는 액션 객체는 반드시 `type`을 지니고 있을 필요가 없다. 심지어 객체가 아니라 문자열이나 숫자여도 상관없다.
+
+### 3-1. 카운터 구현하기
+
+먼저 `useReducer`를 사용하여 기존의 `Counter` 컴포넌트를 다시 구현해 보자.
+
+> Counter.js
+
+```js
+
+```
