@@ -282,5 +282,429 @@ function reducer(state, action) {
 > Counter.js
 
 ```js
+import React, { useReducer } from "react";
 
+function reducer(state, action) {
+  // action.type에 따라 다른 작업 수행
+  switch (action.type) {
+    case "INCREMENT":
+      return { value: state.value + 1 };
+    case "DECREMENT":
+      return { value: state.value - 1 };
+    default:
+      // 아무것도 해당되지 않을 때 기존 상태 반환
+      return state;
+  }
+}
+
+const Counter = () => {
+  // const [value, setValue] = useState(0);
+  const [state, dispatch] = useReducer(reducer, { value: 0 });
+  return (
+    <div>
+      <p>
+        현재 카운터 값은 <b>{state.value}</b>입니다.
+      </p>
+      <button onClick={() => dispatch({ type: "INCREMENT" })}>+1</button>
+      <button onClick={() => dispatch({ type: "DECREMENT" })}>+1</button>
+    </div>
+  );
+};
+
+export default Counter;
 ```
+
+`useReducer`의 첫 번째 파라미터에는 리듀서 함수(`reducer`)를 넣고, 두 번째 파라미터에는 해당 리듀서의 기본값(`value: 0`)을 넣어 준다. 이 Hook을 사용하면 `state` 값과 `dispatch` 함수를 받아 오는데, 여기서 `state`는 현재 가리키고 있는 상태이고 `dispatch`는 액션을 발생시키는 함수이다. `dispatch(action)`과 같은 형태로, 함수 안에 파라미터로 액션 값을 넣어 주면 리듀서 함수가 호출되는 구조이다.
+
+`useReducer`를 사용했을 때의 가장 큰 장점은 컴포넌트 업데이트 로직(switch문에 따라 +1, -1 값 조정)을 컴포넌트 바깥으로 빼낼 수 있다는 것이다.
+
+`App`에서 렌더링해주고 브라우저에서 `+1/-1`을 눌러 보자.
+
+<img width="247" alt="스크린샷 2021-02-28 오후 3 14 31" src="https://user-images.githubusercontent.com/61453718/109409620-ab12d600-79d7-11eb-87b2-65e3a8858e37.png">
+
+잘 구현된 것을 볼 수 있다.
+
+### 3-2. 인풋 상태 관리하기
+
+이번엔 `useReducer`를 사용해서 `Info` 컴포넌트에서 인풋 상태를 관리해 볼 것이다. 기존에는 인풋이 여러 개여서 `useState`를 여러 번 사용했었는데, `useReducer`를 사용하면 기존에 클래스형 컴포넌트에서 `input` 태그에 `name` 값을 할당하고 `e.target.name`을 참조하여 `setState`를 해 준 것과 유사한 방식으로 작업을 처리할 수 있다. 기존에 `useState`와 `useEffect`를 써서 작성했던 컴포넌트를 `useReducer`를 통해 아래와 같이 수정해 보자.
+
+> Info.js
+
+```js
+import React, { useReducer } from "react";
+
+function reducer(state, action) {
+  return {
+    ...state,
+    [action.name]: action.value,
+  };
+}
+
+const Info = () => {
+  const [state, dispatch] = useReducer(reducer, {
+    name: "",
+    nickname: "",
+  });
+  const { name, nickname } = state;
+  const onChange = (e) => {
+    dispatch(e.target);
+  };
+  return (
+    <div>
+      <div>
+        <input name="name" value={name} onChange={onChamge} />
+        <input name="nickname" value={nickname} onChange={onChange} />
+      </div>
+      <div>
+        <div>
+          <b>이름:</b> {name}
+        </div>
+        <div>
+          <b>닉네임:</b> {nickname}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Info;
+```
+
+`useReducer`에서 액션은 그 어떤 값도 사용할 수 있다. 그래서 이번에는 이벤트 객체가 지니고 있는 `e.target` 값 자체를 액션 값으로 사용했다. 이런 식으로 인풋을 관리하면 아무리 인풋의 개수가 많아져도 코드를 짧고 깔끔하게 유지할 수 있다.
+
+<img width="336" alt="스크린샷 2021-02-28 오후 3 24 16" src="https://user-images.githubusercontent.com/61453718/109409807-072a2a00-79d9-11eb-8e2b-65f02a3d6bfb.png">
+
+`App`에서 `Info`를 렌더링한 후 구동 결과 `useReducer`를 활용하여 한층 직관적인 형태로 구현되었다.
+
+## 4. useMemo
+
+`useMemo`를 사용하면 함수형 컴포넌트 내부에서 발생하는 연산을 최적화할 수 있다. 먼저 리스트에 숫자를 추가하면 추가된 숫자들의 평균을 보여 주는 함수형 컴포넌트를 작성해 보자.
+
+> Average.js
+
+```js
+import React, { useState } from "react";
+
+const getAverage = (numbers) => {
+  console.log("평균값 계산 중..");
+  if (numbers.length === 0) return 0;
+  const sum = numbers.reduce((a, b) => a + b);
+  return sum / numbers.length;
+};
+
+const Average = () => {
+  const [list, setList] = useState([]);
+  const [number, setNumber] = useState("");
+
+  const onChange = (e) => {
+    setNumber(e.target.value);
+  };
+  const onInsert = (e) => {
+    const nextList = list.concat(parseInt(number));
+    setList(nextList);
+    setNumber("");
+  };
+  return (
+    <div>
+      <input value={number} onChange={onChange} />
+      <button onClick={onInsert}>등록</button>
+      <ul>
+        {list.map((value, index) => (
+          <li key={index}>{value}</li>
+        ))}
+      </ul>
+      <div>
+        <b>평균값: </b>
+        {getAverage(list)}
+      </div>
+    </div>
+  );
+};
+
+export default Average;
+```
+
+이후 `App`에서 해당 컴포넌트를 렌더링하면
+
+<img width="501" alt="스크린샷 2021-02-28 오후 4 15 13" src="https://user-images.githubusercontent.com/61453718/109410708-24aec200-79e0-11eb-8855-238732e7b490.png">
+
+평균값이 바로바로 잘 출력된다. 그런데, 숫자를 등록할 때뿐만 아니라 인풋 내용이 수정될 때도 우리가 만든 `getAverage` 함수가 호출되는 것을 확인할 수 있다. 인풋 내용이 바뀔 때는 평균값을 다시 계산할 필요가 없는데, 이렇게 렌더링할 때마다 계산하는 것은 낭비이다.
+
+`useMemo` Hook을 이용하면 이러한 작업을 최적화할 수 있다. 렌더링하는 과정에서 특정 값이 바뀌었을 때만 연산을 실행하고, 원하는 값이 바뀌지 않았다면 이전에 연산했던 결과를 다시 사용하는 방식이다.
+
+> Averge.js
+
+```js
+import React, { useState, useMemo } from 'react';
+(...)
+const Average = () => {
+  (...)
+  const avg = useMemo(() => getAverage(list), [list]);
+  return (
+    (...)
+    <div>
+      <b>평균값: </b>{avg}
+    </div>
+    (...)
+  );
+};
+```
+
+<img width="498" alt="스크린샷 2021-02-28 오후 4 20 45" src="https://user-images.githubusercontent.com/61453718/109410799-eb2a8680-79e0-11eb-9910-41b8c8dd5523.png">
+
+이제 `list` 배열의 내용이 아닌 `getAverage` 함수가 호출된다.
+
+## 5. useCallback
+
+`useCallback`은 `useMemo`와 상당히 비슷한 함수이다. 주로 렌더링 성능을 최적화해야 하는 상황에서 사용하는데, 이 Hook을 사용하면 이벤트 핸들러 함수를 필요할 때만 생성할 수 있다.
+
+`Average.js`를 보자. `onChange`와 `onInsert`라는 함수를 선언해 주었는데, 이렇게 선언하면 컴포넌트가 리렌더링될 때마다 이 함수들이 새로 생성된다. 대부분의 경우 이러한 방식은 문제가 없지만, 컴포넌트의 렌더링이 자주 발생하거나 렌더링해야 할 컴포넌트의 개수가 많아지면 이 부분을 최적화해 주는 것이 좋다.
+
+`useCallback`을 사용하여 최적화해 보자.
+
+> Average.js
+
+```js
+import React, { useState, useMemo, useCallback } from 'react';
+
+const getAverge = number => {
+  (...)
+}
+
+const Average = () => {
+  (...)
+  const onChange = useCallback((e) => {
+    setNumber(e.target.value);
+  }, []); // 컴포넌트가 처음 렌더링될 때만 함수 생성
+
+  const onInsert = useCallback(
+    (e) => {
+      const nextList = list.concat(parseInt(number));
+      setList(nextList);
+      setNumber("");
+    },
+    [number, list]
+  ); // number 혹은 list가 바뀌었을 때만 함수 생성
+
+  const avg = useMemo(() => getAverage(list, [list]);
+  return (
+    (...)
+  );
+};
+
+export default Average;
+```
+
+`useCallback`의 첫 번째 파라미터에는 생성하고 싶은 함수를 넣고(`(e) => {}`), 두 번째 파라미터에는 배열을 넣으면 된다(`}, []);`) 이 배열에는 어떤 값이 바뀌었을 때 함수를 새로 생성해야 하는지 명시해야 한다. (`[number, list]`: number 혹은 list가 바뀌었을 떄만 함수 생성)
+
+`onChange`처럼 비어 있는 배열을 넣게 되면 컴포넌트가 렌더링될 때 단 한 번만 함수가 생성되며, `onInsert`처럼 배열 안에 `number`와 `list`를 넣게 되면 인풋 내용이 바뀌거나 새로운 항목이 추가될 때마다 함수가 생성된다.
+
+함수 내부에서 상태 값에 의존해야 할 때는 그 값을 반드시 두 번째 파라미터 안에 포함시켜 줘야 한다. 예를 들어 `onChange`의 경우 기존의 값을 조회하지 않고 바로 설정만 하기 때문에 배열이 비어 있어도 상관없지만, `onInsert`는 기존의 `number`와 `list`를 조회해서 `nextList`를 생성하기 때문에 배열 안에 `number`와 `list`를 꼭 넣어 줘야 한다.
+
+참고로 다음의 두 코드는 완전히 똑같은 코드이다. `useCallback`은 결국 `useMemo`로 함수를 반환하는 상황에서 더 편하게 사용할 수 있는 Hook이다. 숫자, 문자열, 객체처럼 일반 값을 사용하려면 `useMemo`를 사용하고, 함수를 재사용하려면 `useCallback`을 사용하자.
+
+> 예시 코드
+
+```js
+useCallback(() => {
+  console.log('hello world!');
+}. []);
+
+useMemo(() => {
+  const fn = () => {
+    console.log('hello world!');
+  };
+  return fn;
+}. []);
+```
+
+## 6. useRef
+
+`useRef` Hook은 함수형 컴포넌트에서 `ref`를 쉽게 사용할 수 있도록 해 준다. `Average` 컴포넌트에서 <b>등록</b>버튼을 눌렀을 때 포커스가 인풋 쪽으로 넘어가도록 코드를 작성해 볼 것이다.
+
+> Average.js
+
+```js
+import React, { useState, useMemo, useCallback, useRef } from "react";
+
+const getAverage = (numbers) => {
+  console.log("평균값 계산 중..");
+  if (numbers.length === 0) return 0;
+  const sum = numbers.reduce((a, b) => a + b);
+  return sum / numbers.length;
+};
+
+const Average = () => {
+  const [list, setList] = useState([]);
+  const [number, setNumber] = useState("");
+  const inputEl = useRef(null);
+
+  const onChange = useCallback((e) => {
+    setNumber(e.target.value);
+  }, []); // 컴포넌트가 처음 렌더링될 때만 함수 생성
+
+  const onInsert = useCallback(
+    (e) => {
+      const nextList = list.concat(parseInt(number));
+      setList(nextList);
+      setNumber("");
+      inputEl.current.focus();
+    },
+    [number, list]
+  ); // number 혹은 list가 바뀌었을 때만 함수 생성
+
+  const avg = useMemo(() => getAverage(list), [list]);
+
+  return (
+    <div>
+      <input value={number} onChange={onChange} ref={inputEl} />
+      <button onClick={onInsert}>등록</button>
+      <ul>
+        {list.map((value, index) => (
+          <li key={index}>{value}</li>
+        ))}
+      </ul>
+      <div>
+        <b>평균값: </b>
+        {avg}
+      </div>
+    </div>
+  );
+};
+
+export default Average;
+```
+
+`useRef`를 사용하여 `ref`를 설정하면, `useRef`를 통해 만든 객체 안의 `current` 값이 실제 엘리먼트를 가리킨다.
+
+<img width="278" alt="스크린샷 2021-02-28 오후 4 41 46" src="https://user-images.githubusercontent.com/61453718/109411221-da2f4480-79e3-11eb-9b0c-aedf64357b62.png">
+
+결과를 보면, 등록 버튼을 누른 후 커서가 자동으로 인풋 박스 내에 위치하게 된다.
+
+### 6-1. 로컬 변수 사용하기
+
+추가로 컴포넌트 로컬 변수를 사용해야 할 때도 `useRef`를 활용할 수 있다. 여기서 로컬 변수란 렌더링과 상관없이 바뀔 수 있는 값을 의미한다. 클래스 형태로 작성된 컴포넌트의 경우에는 로컬 변수를 사용해야 할 때 다음과 같이 작성할 수 있다.
+
+> 예시 코드
+
+```js
+import React, { Component } from "react";
+
+class MyComponent extends Component {
+  id = 1;
+  setId = (n) => {
+    this.id = n;
+  };
+  printId = () => {
+    console.log(this.id);
+  };
+  render() {
+    return <div>MyComponent</div>;
+  }
+}
+
+export default MyComponent;
+```
+
+이러한 코드를 함수형 컴포넌트로 작성한다면 다음과 같이 할 수 있다.
+
+> 에시 코드
+
+```js
+import React, { useRef } from "react";
+
+const RefSample = () => {
+  const id = useRef(1);
+  const setId = (n) => {
+    id.current = n;
+  };
+  const printId = () => {
+    console.log(id.current);
+  };
+  return <div>refsample</div>;
+};
+
+export default RefSample;
+```
+
+이렇게 `ref` 안의 값이 바뀌어도 컴포넌트가 렌더링되지 않는다는 점에는 주의해야 한다. 렌더링과 관련되지 않은 값을 관리할 때만 이러한 방식으로 코드를 작성하자.
+
+## 7. 커스텀 Hooks 만들기
+
+여러 컴포넌트에서 비슷한 기능을 공유할 경우, 이를 각자만의 Hook으로 작성하여 로직을 재사용할 수 있다.
+
+기존에 `Info` 컴포넌트에서 여러 개의 인풋을 관리하기 위해 `useReducer`로 작성했던 로직을 `useInputs`라는 Hook으로 따로 분리해 보자.
+
+> useInput.js
+
+```js
+import { useReducer } from "react";
+
+function reducer(state, action) {
+  return {
+    ...state,
+    [action.name]: action.value,
+  };
+}
+
+export default function useInputs(initialForm) {
+  const [state, dispatch] = useReducer(reducer, initialForm);
+  const onChange = (e) => {
+    dispatch(e.target);
+  };
+  return [state, onChange];
+}
+```
+
+그리고 이 Hook을 `Info` 컴포넌트에서 사용해 보자.
+
+> Info.js
+
+```js
+import React, { useReducer } from "react";
+import useInputs from "./useInputs";
+
+// function reducer(state, action) {
+//   return {
+//     ...state,
+//     [action.name]: action.value,
+//   };
+// }
+
+const Info = () => {
+  // const [state, dispatch] = useReducer(reducer, {
+  //   name: "",
+  //   nickname: "",
+  // });
+  // const { name, nickname } = state;
+  // const onChange = (e) => {
+  //   dispatch(e.target);
+  // };
+
+  const [state, onChange] = useInputs({
+    name: "",
+    nickname: "",
+  });
+  const { name, nickname } = state;
+  return (
+    (...)
+  );
+};
+```
+
+`reducer` 함수와 `Info` 컴포넌트 내 여러 코드가 사라지고 제일 아래 `useInputs` Hook을 불러온 코드로 변경되었다. 훨씬 깔끔해지지 않았는가?
+
+## 8. 다른 Hooks
+
+이번에 커스텀 Hooks를 만들어서 사용했던 것처럼, 다른 개발자가 만든 Hooks도 라이브러리로 설치하여 사용할 수 있다.
+
+다른 개발자가 만든 다양한 Hooks 리스트는 다음 링크에서 확인할 수 있다:
+
+- https://nikgraf.github.io/react-hooks/
+- https://github.com/rehooks/awesome-react-hooks
+
+## 9. 정리
+
+리액트에서 Hooks 패턴을 사용하면 클래스형 컴포넌트를 작성하지 않고도 대부분의 기능을 구현할 수 있다. 이러한 기능이 리액트에 릴리즈되었다고 해서 기존의 `setState`를 사용하는 방식이 잘못된 것은 아니다. 물론 `useState` 혹은 `useReducer`를 통해 구현할 수 있더라도 말이다.
+
+리액트 매뉴얼에 따르면, 기존의 클래스형 컴포넌트는 앞으로도 계속해서 지원될 예정이다. 그렇기 때문에 만약 유지 보수하고 있는 프로젝트에서 클래스형 컴포넌트를 사용하고 있다면, 이를 굳이 함수형 컴포넌트와 Hooks를 사용하는 형태로 전환할 필요는 없다. 다만, 매뉴얼에서는 새로 작성하는 컴포넌트의 경우 함수형 컴포넌트와 Hooks를 사용할 것을 권장하고 있다. 앞으로 각자 프로젝트를 개발할 때는 함수형 컴포넌트의 사용을 첫 번째 옵션으로 두고, 꼭 필요한 상황에서만 클래스형 컴포넌트를 구현하자.
