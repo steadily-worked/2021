@@ -26,7 +26,6 @@
 
     <!-- swiper JS-->
     <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
     <!-- jQuery -->
     <script
@@ -158,14 +157,14 @@
         </div>
       </div>
     </div>
-    <div id="editor">
+    <!-- <div id="editor">
       <img src="images/유진2.png" />
       <p style="margin-top: 11px; color: #111111">chacha</p>
       <p style="color: #ababab">2010.01.02 * 18:30</p>
       <p style="margin-top: 5px; color: #111111; font-size: 12px">
         된장국 도랏차차
       </p>
-    </div>
+    </div> -->
 
     <!-- Swiper JS -->
 
@@ -185,16 +184,25 @@
       let titlePrice = document.getElementById("price");
       let titleName = document.getElementById("name");
       let titleList = document.getElementById("background");
-      swiper.on("slideChange", function (e) {
-        target = e.target;
-        if (target.className === "swiper-slide") {
-          xmlRequest();
-        }
-      });
+
+      let swipecontainer = document.querySelector(".swiper-container");
+      let pageX = swipecontainer.getBoundingClientRect().x;
+      let pageY = swipecontainer.getBoundingClientRect().y;
+
+      console.log(pageX);
+      console.log(pageY);
+
+      swipecontainer.addEventListener(
+        "mouseover",
+        () => {
+          getTitleSlide();
+        },
+        false
+      );
 
       function xmlRequest() {
         let request = new XMLHttpRequest();
-        request.open("GET", "/menus", true);
+        request.open("GET", "js/title.json", true);
         request.responseType = "json";
         request.send();
         request.onload = function () {
@@ -202,13 +210,14 @@
         };
       }
       function changeTitle(json) {
-        let titles = json["title"];
-        for (let i in titles) {
-          if (titles[i]["name"] === target.dataset.name) {
-            titleNameChange(titles[i]["restaurantName"]);
-            titlePriceChange(titles[i]["price"]);
-          }
-        }
+        getTitleSlide();
+        // let titles = json["title"];
+        // for (let i in titles) {
+        //   if (titles[i]["name"] === target.dataset.name) {
+        //     titleNameChange(titles[i]["restaurantName"]);
+        //     titlePriceChange(titles[i]["price"]);
+        //   }
+        // }
       }
       function titleNameChange(name) {
         titleName.innerText = name;
@@ -216,6 +225,11 @@
       function titlePriceChange(price) {
         titlePrice.innerText = price;
       }
+      function getTitleSlide() {
+        let titleslide = document.elementFromPoint(pageX, pageY);
+        console.log(titleslide.dataset.swiperSlideIndex);
+      }
+      xmlRequest();
     </script>
   </body>
 </html>

@@ -135,5 +135,18 @@
         <p id="comment-description">으아아ㅏ아아아 된장국 도랏차차</p>
       </div>
     </div>
+    <script>
+      const menu = new XMLHttpRequest();
+      menu.open("GET", "/menus", true);
+      menu.responseType = "json";
+      menu.send();
+      menu.onload = function () {
+        menuChange(menu.response);
+      };
+
+      function menuChange(name) {
+        for (let i in)
+      }
+    </script>
   </body>
 </html>
