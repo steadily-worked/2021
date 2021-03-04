@@ -430,3 +430,5 @@ def __str__(self):
 <img width="815" alt="스크린샷 2021-02-12 오후 7 34 09" src="https://user-images.githubusercontent.com/61453718/107757732-487bd200-6d69-11eb-9a77-9af7968784db.png">
 
 이와 같이 `DELETED` 혹은 따로 약속된 표시를 해준다. 원래는 이 인덱스에 데이터가 있었으나 지금은 삭제됐다는 것을 보여주는 것이다. 이렇게 하면 저장되어있는 모든 인덱스를 찾을 수 있다.
+
+출처: [코드잇](https://codeit.kr)
