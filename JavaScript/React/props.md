@@ -100,7 +100,7 @@ export default App;
 
 ```js
 import React from 'react';
-import Component from './MyComponent';
+import MyComponent from './MyComponent';
 
 const App = () => {
   return <MyComponent />;
@@ -127,7 +127,7 @@ props는 properties를 줄인 표현으로, 컴포넌트 속성을 설정할 때
 import React from ‘react‘;
 
 const MyComponent = props => {
-return <div>안녕하세요, 제 이름은 {props.name}입니다.</div>;
+  return <div>안녕하세요, 제 이름은 {props.name}입니다.</div>;
 };
 
 export default MyComponent;
@@ -184,7 +184,7 @@ const App = () => {
 }
 ```
 
-이렇게 컴포넌트 사이의 태그 `RRRRReact`를 넣었다. 이를 보여주고자 한다면 `props.children` 속성을 이용하면 된다.  
+이렇게 컴포넌트 태그 사이에 `RRRRReact`를 넣었다. 이를 보여주고자 한다면 `props.children` 속성을 이용하면 된다.  
 Mycomponent.js에서
 
 ```js
@@ -407,5 +407,4 @@ export default MyComponent;
 
 ### 궁금한 점 🤔
 
-클래스형 컴포넌트에서는 비구조화 할당을 사용하지 않는가? -> 구글링 결과 사용함. 그치만 단지 여기서 알려주지 않은 것일 뿐이라고 생각한다.  
 `defaultProps`와 `propTypes`는 꼭 필요할까? -> 알아본 결과 필수 사항이 아니지만, 협업 시 개발 능률을 높이기 위해서 필요하다.
