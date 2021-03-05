@@ -50,6 +50,8 @@ const EventPractice = () => {
         onKeyPress={onKeyPress}
       />
       <button onClick={onClick}>확인</button>
+      <p>이름: </p> {username} <br />
+      <p>메시지: </p> {message} <br />
     </div>
   );
 };
