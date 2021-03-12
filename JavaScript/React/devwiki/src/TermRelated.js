@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import "./App.css";
 
 const TermRelated = () => {
-  const [relatedTerms, setRelatedTerms] = useState([{ id: "", text: "" }]);
+  const [relatedTerms, setRelatedTerms] = useState([]);
   const [inputTerm, setInputTerm] = useState("");
-  const [nextId, setNextId] = useState("");
+  const [nextId, setNextId] = useState(0);
 
   const onChange = (e) => setInputTerm(e.target.value);
 
   const onClick = () => {
     const newInputTerm = inputTerm.trim().replace(/[^ㄱ-힣a-zA-Z0-9+#]/gi, "");
+    if (!newInputTerm) {
+      return;
+    }
     const nextRelatedTerms = relatedTerms.concat({
       id: nextId,
       text: newInputTerm,
@@ -36,13 +39,11 @@ const TermRelated = () => {
     setRelatedTerms(nextRelatedTerms);
   };
 
-  const relatedTermsList = relatedTerms.map((relatedTerm) => (
-    <>
-      <li key={relatedTerm.id}>
-        {relatedTerm.text}
-        <button onClick={() => onRemove(relatedTerm.id)}>X</button>
-      </li>
-    </>
+  const relatedTermsList = relatedTerms.map((relatedTerms) => (
+    <li key={relatedTerms.id}>
+      {relatedTerms.text}
+      <button onClick={() => onRemove(relatedTerms.id)}>X</button>
+    </li>
   ));
   return (
     <>
