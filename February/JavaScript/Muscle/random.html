@@ -26,6 +26,7 @@
 
     <!-- swiper JS-->
     <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
     <!-- jQuery -->
     <script
@@ -69,7 +70,7 @@
       height: 303.5px;
       width: 303.5px;
       display: block;
-      margin: 0 auto;
+      margin: 22px auto;
       border-radius: 5px;
       border: 1px solid black;
     }
@@ -83,7 +84,6 @@
     .swiper-slide {
       text-align: center;
       font-size: 18px;
-      background: #fff;
 
       /* Center slide text vertically */
       display: -webkit-box;
@@ -101,7 +101,6 @@
     }
     #menu-title {
       margin-top: 50px;
-      margin-bottom: 22px;
       position: relative;
     }
     #menu-title-text {
@@ -109,6 +108,10 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+    }
+    #menu-title-image {
+      width: 100%;
+      height: 70px;
     }
     #editor {
       margin-top: 44px;
@@ -157,14 +160,14 @@
         </div>
       </div>
     </div>
-    <!-- <div id="editor">
+    <div id="editor">
       <img src="images/유진2.png" />
       <p style="margin-top: 11px; color: #111111">chacha</p>
       <p style="color: #ababab">2010.01.02 * 18:30</p>
       <p style="margin-top: 5px; color: #111111; font-size: 12px">
         된장국 도랏차차
       </p>
-    </div> -->
+    </div>
 
     <!-- Swiper JS -->
 
@@ -189,35 +192,30 @@
       let pageX = swipecontainer.getBoundingClientRect().x;
       let pageY = swipecontainer.getBoundingClientRect().y;
 
-      console.log(pageX);
-      console.log(pageY);
+      let currentSlideIndex;
 
-      swipecontainer.addEventListener(
-        "mouseover",
-        () => {
-          getTitleSlide();
-        },
-        false
-      );
+      swiper.on("slideChange", () => {
+        getTitleSlide();
+      });
 
       function xmlRequest() {
         let request = new XMLHttpRequest();
         request.open("GET", "js/title.json", true);
         request.responseType = "json";
         request.send();
-        request.onload = function () {
+        request.onload = () => {
           changeTitle(request.response);
         };
       }
       function changeTitle(json) {
-        getTitleSlide();
-        // let titles = json["title"];
-        // for (let i in titles) {
-        //   if (titles[i]["name"] === target.dataset.name) {
-        //     titleNameChange(titles[i]["restaurantName"]);
-        //     titlePriceChange(titles[i]["price"]);
-        //   }
-        // }
+        console.log("d");
+        let titles = json["title"];
+        for (let i in titles) {
+          if (titles[i]["name"] === target.dataset.name) {
+            titleNameChange(titles[i]["restaurantName"]);
+            titlePriceChange(titles[i]["price"]);
+          }
+        }
       }
       function titleNameChange(name) {
         titleName.innerText = name;
@@ -227,7 +225,10 @@
       }
       function getTitleSlide() {
         let titleslide = document.elementFromPoint(pageX, pageY);
+        currentSlideIndex = titleslide.dataset.swiperSlideIndex;
+
         console.log(titleslide.dataset.swiperSlideIndex);
+        console.log(currentSlideIndex);
       }
       xmlRequest();
     </script>

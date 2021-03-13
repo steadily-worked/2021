@@ -3,6 +3,10 @@
     {
       "restaurantName": "고수찜닭",
       "price": "₩6,000 / 인"
+    },
+    {
+      "restaurnatName": "내찜닭",
+      "price": "₩13,000 / 인"
     }
   ]
 }
