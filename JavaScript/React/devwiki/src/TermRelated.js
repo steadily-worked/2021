@@ -9,13 +9,15 @@ const TermRelated = () => {
   const onChange = (e) => setInputTerm(e.target.value);
 
   const onClick = () => {
-    const newInputTerm = inputTerm.trim().replace(/[^ㄱ-힣a-zA-Z0-9+#]/gi, "");
-    if (!newInputTerm) {
+    const trimmedInputTerm = inputTerm
+      .trim()
+      .replace(/[^ㄱ-힣a-zA-Z0-9+#]/gi, "");
+    if (!trimmedInputTerm) {
       return;
     }
     const nextRelatedTerms = relatedTerms.concat({
       id: nextId,
-      text: newInputTerm,
+      text: trimmedInputTerm,
     });
 
     setNextId(nextId + 1);
