@@ -7,13 +7,13 @@ const EventPractice = () => {
   });
 
   const { username, message } = form;
-  const onChange = (e) => {
-    const nextForm = {
-      ...form,
-      [e.target.name]: e.target.value,
-    };
-    setForm(nextForm);
-  };
+  // const onChange = (e) => {
+  //   const nextForm = {
+  //     ...form,
+  //     [e.target.name]: e.target.value,
+  //   };
+  //   setForm(nextForm);
+  // };
 
   const onClick = () => {
     alert(username + ": " + message);

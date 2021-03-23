@@ -29,30 +29,30 @@ export default App;
 컴포넌트의 선언 방식은 함수형 외에도, 클래스형이 있다.
 
 ```js
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 class App extends Component {
- render() {
-    const name = 'react';
+  render() {
+    const name = "react";
     return <div className="react">{name}</div>;
- }
+  }
 }
 ```
 
 역할은 함수형과 똑같다. 그러나 클래스형 컴포넌트를 통해서만 이후에 state 및 LifeCycle을 사용할 수 있고, 임의 메소드 또한 정의할 수 있기 때문에 알아둬야 한다.
 
 > ES6 클래스
-> 
+>
 > ```js
 > class Dog {
 >   constructor(name) {
 >     this.name = name;
->  }
+>   }
 >   say() {
->     console.log(this.name + ": 멍멍"); 
+>     console.log(this.name + ": 멍멍");
 >   }
 > }
-> 
+>
 > const dog = new Dog("흰둥이");
 > dog.say(); // 흰둥이: 멍멍
 > ```
@@ -76,14 +76,10 @@ Hooks가 도입되면서 리액트 공식 매뉴얼에서 `함수형 컴포넌�
 MyComponent.js를 만들어서 새로운 컴포넌트를 작성해보자.
 
 ```js
-import React from 'react';
+import React from "react";
 
 const MyComponent = () => {
-    return (
-        <div>
-            my new component
-        </div>
-    );
+  return <div>my new component</div>;
 };
 
 export default MyComponent;
@@ -95,16 +91,16 @@ export default MyComponent;
 export default App;
 ```
 
-이 보이는가? 이 코드는, 다른 파일에서 이 파일을 import할 때, 위에서 선언한 MyComponent 클래스를 불러오도록 설정한다.  
+이 보이는가? 이 코드는, 다른 파일에서 이 파일을 import할 때, 위에서 선언한 MyComponent 클래스를 불러오도록 설정한다.
 이 코드가 있는 파일에 대해 다른 컴포넌트에서 불러와서 사용하려면,
 
 ```js
-import React from 'react';
-import MyComponent from './MyComponent';
+import React from "react";
+import MyComponent from "./MyComponent";
 
 const App = () => {
   return <MyComponent />;
-}
+};
 
 export default App;
 ```
@@ -139,14 +135,14 @@ export default MyComponent;
 안녕하세요. 제 이름은 입니다.
 ```
 
-이것이다. 이는 props의 값이 지정되지 않았기 때문이다. 이와같이 props값이 따로 없을 때 보여주는 기본값을 `defaultProps`라고 한다.  
+이것이다. 이는 props의 값이 지정되지 않았기 때문이다. 이와같이 props값이 따로 없을 때 보여주는 기본값을 `defaultProps`라고 한다.
 이 값을 따로 설정해줄 수도 있다.
 
 MyComponent.js에서
 
 ```js
 MyComponent.defaultProps = {
-  name: "공백"
+  name: "공백",
 };
 ```
 
@@ -180,22 +176,22 @@ const App = () => {
 
 ```js
 const App = () => {
-  return <MyComponent>RRRRReact</MyComponent>; 
-}
+  return <MyComponent>RRRRReact</MyComponent>;
+};
 ```
 
-이렇게 컴포넌트 태그 사이에 `RRRRReact`를 넣었다. 이를 보여주고자 한다면 `props.children` 속성을 이용하면 된다.  
+이렇게 컴포넌트 태그 사이에 `RRRRReact`를 넣었다. 이를 보여주고자 한다면 `props.children` 속성을 이용하면 된다.
 Mycomponent.js에서
 
 ```js
-const MyComponent = props => {
- return (
+const MyComponent = (props) => {
+  return (
     <div>
-     안녕하세요. 제 이름은 {props.name}입니다. <br />
-     children 값은 {props.children}입니다.
+      안녕하세요. 제 이름은 {props.name}입니다. <br />
+      children 값은 {props.children}입니다.
     </div>
-  )   
-}
+  );
+};
 ```
 
 이렇게 props.children을 설정해주면
@@ -209,12 +205,12 @@ const MyComponent = props => {
 지금까지 `name`이나 `children` 앞에 `props.` 라는 키워드를 붙였다. 매번 앞에 `props.`을 붙여 주긴 귀찮으므로 미리 설정해줄 수 있다.
 
 ```js
-const MyComponent = props => {
-  const { name, children } = props;  // 이렇게 사용할 속성에 대해 props로 변수 지정을 해주고
+const MyComponent = (props) => {
+  const { name, children } = props; // 이렇게 사용할 속성에 대해 props로 변수 지정을 해주고
   return (
     <div>
-      안녕하세요. 제 이름은 {name} 입니다. <br /> // name과 children에 대해 값을 설정해줄 수 있다.
-      children 값은 {children} 입니다.
+      안녕하세요. 제 이름은 {name} 입니다. <br /> // name과 children에 대해 값을
+      설정해줄 수 있다. children 값은 {children} 입니다.
     </div>
   );
 };
@@ -229,8 +225,8 @@ const MyComponent = ({ name, children }) => {
       안녕하세요, 제 이름은 {name}입니다. <br />
       children 값은 {children}입니다.
     </div>
-  )
-}
+  );
+};
 ```
 
 ### propTypes를 통한 props 검증
@@ -238,7 +234,7 @@ const MyComponent = ({ name, children }) => {
 `propTypes`는, 컴포넌트의 필수 props를 지정하거나 props의 타입을 지정할 때 사용한다. `defaultProps`을 사용했던 것과 비슷하다.
 
 ```js
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 ```
 
 해당 import 구문을 통해 `propTypes`를 불러온 후, MyComponent.js에 다음과 같이 적는다.
@@ -246,7 +242,7 @@ import PropTypes from 'prop-types';
 ```js
 ...
 const MyComponent = ({ name, children }) => {
-  return (...);  
+  return (...);
 }
 MyComponent.propTypes = { // 이 부분 추가
   name: PropTypes.string  // 이 부분 추가
@@ -260,7 +256,7 @@ MyComponent.propTypes = { // 이 부분 추가
 import MyComponent from './MyComponent';
 
 const App() = () => {
-  return <MyComponent name={3}>RRRRReact</MyComponent> 
+  return <MyComponent name={3}>RRRRReact</MyComponent>
 }
 ```
 
@@ -281,8 +277,8 @@ App.js에서 name 값을 문자열이 아닌 숫자로 전달한 후 개발자 �
 > MyComponent.js
 
 ```js
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 const MyComponent = ({ name, favoriteNumber, children }) => {
   return (
@@ -295,13 +291,13 @@ const MyComponent = ({ name, favoriteNumber, children }) => {
 };
 
 MyComponent.defaultProps = {
-  name: "공백"  
-}
+  name: "공백",
+};
 
 MyComponent.propTypes = {
   name: PropTypes.string,
-  favoriteNumber: PropTypes.number.isRequired
-}
+  favoriteNumber: PropTypes.number.isRequired,
+};
 
 export default MyComponent;
 ```
@@ -315,10 +311,14 @@ export default MyComponent;
 > App.js
 
 ```js
-import MyComponent from './MyComponent';
+import MyComponent from "./MyComponent";
 const App = () => {
-  return <MyComponent name={"React"} favoriteNumber={1}>RRRRReact</MyComponent>; 
-}
+  return (
+    <MyComponent name={"React"} favoriteNumber={1}>
+      RRRRReact
+    </MyComponent>
+  );
+};
 ```
 
 ![스크린샷 2021-02-16 오후 3 22 35](https://user-images.githubusercontent.com/61453718/108025975-cd693300-706a-11eb-8119-3bd55086dad6.png)
