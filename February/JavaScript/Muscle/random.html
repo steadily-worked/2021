@@ -194,28 +194,33 @@
 
       let currentSlideIndex;
 
-      swiper.on("slideChange", () => {
-        getTitleSlide();
-      });
+      swipecontainer.addEventListener(
+        "dragover",
+        () => {
+          getTitleSlide();
+        },
+        false
+      );
 
       function xmlRequest() {
         let request = new XMLHttpRequest();
-        request.open("GET", "js/title.json", true);
+        request.open("GET", "title.json", true);
         request.responseType = "json";
         request.send();
-        request.onload = () => {
+        request.onload = function () {
           changeTitle(request.response);
         };
       }
       function changeTitle(json) {
         console.log("d");
-        let titles = json["title"];
-        for (let i in titles) {
-          if (titles[i]["name"] === target.dataset.name) {
-            titleNameChange(titles[i]["restaurantName"]);
-            titlePriceChange(titles[i]["price"]);
-          }
-        }
+        getTitleSlide();
+        // let titles = json["title"];
+        // for (let i in titles) {
+        //   if (titles[i]["name"] === target.dataset.name) {
+        //     titleNameChange(titles[i]["restaurantName"]);
+        //     titlePriceChange(titles[i]["price"]);
+        //   }
+        // }
       }
       function titleNameChange(name) {
         titleName.innerText = name;
