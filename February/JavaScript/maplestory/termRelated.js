@@ -13,7 +13,6 @@ termSubmit.addEventListener(
 );
 
 termBox.addEventListener("keyup", (e) => {
-  const keyCode = e.keyCode;
   if (e.keyCode == 188 || e.keyCode == 32 || e.keyCode == 13) {
     addRelatedTerm(termBox.value);
   }
