@@ -634,4 +634,20 @@ async fucntion findAndSaveUser(Users) {
 }
 ```
 
-놀라울 정도로 코드가 짧아졌다. 함수 선언부를 일반 함수 대신 `async function`으로 교체한 후, 프로미스 앞에 await을 붙였다.
+놀라울 정도로 코드가 짧아졌다. 함수 선언부를 일반 함수 대신 `async function`으로 교체한 후, 프로미스 앞에 await을 붙였다. 이제 함수는 해당 프로미스가 resolve될 때까지 기다린 뒤 다음 로직으로 넘어간다. 예를 들면 `await Users.findOne({})`이 resolve될 때까지 기다린 다음에 user 변수를 초기화하는 것이다.
+
+위 코드는 에러를 처리하는 부분(프로미스가 reject된 경우)이 없으므로 다음과 같은 추가 작업이 필요하다.
+
+```js
+async function findAndSaveUser(Users) {
+  try {
+    let user = await Users.findOne({});
+    user.name = "zero";
+    user = await user.save();
+    user = await Users.findOne({ gender: "m" });
+    // 생략
+  } catch (error) {
+    console.log(error);
+  }
+}
+```

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <!-- HTML5의 dataset 사용 -->
+    <ul>
+      <li data-id="1" data-user-job="programmer">steadily</li>
+      <li data-id="2" data-user-job="designer">steadily2</li>
+      <li data-id="2" data-user-job="programmer">steadily3</li>
+      <li data-id="2" data-user-job="ceo">steadily4</li>
+    </ul>
+  </body>
+  <script>
+    // GET-Promise
+    //    axios
+    //      .get("https://sangminpark.me")
+    //      .then((result) => {
+    //        console.log(result);
+    //        console.log(result.data); // {}
+    //      })
+    //      .catch((error) => {
+    //        console.error(error);
+    //      });
+
+    // GET-async/await
+    //    (async () => {
+    //      try {
+    //        const result = await axios.get("https://sangminpark.me");
+    //        console.log(result);
+    //        console.log(result.data); // {}
+    //      } catch (error) {
+    //        console.error(error);
+    //      }
+    //    })();
+
+    // POST-async/await
+    //    (async () => {
+    //      try {
+    //        const result = await axios.post("https://sangminpark.me", {
+    //          name: "steadily-worked",
+    //          birth: 1996,
+    //        });
+    //        console.log(result);
+    //        console.log(result.data); // {}
+    //      } catch (error) {
+    //        console.error(error);
+    //      }
+    //    })();
+
+    // axios로 폼 데이터 서버에 보내기
+    //    (async () => {
+    //      try {
+    //        const formData = new FormData();
+    //        formData.append("name", "steadily-worked");
+    //        formData.append("birth", 1996);
+    //        const result = await axios.post(
+    //          "https://www.zerocho.com/api/post/formdata",
+    //          formData
+    //        );
+    //        console.log(result);
+    //        console.log(result.data);
+    //      } catch (error) {
+    //        console.error(error);
+    //      }
+    //    })();
+
+    // encodeURIComponent 사용
+    (async () => {
+      try {
+        const result = await axios.get(
+          `https://www.zerocho.com/api/search/${encodeURIComponent("노드")}`
+        );
+        console.log(result);
+        console.log(result.data); // {}
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+    console.log(document.querySelector("li").dataset);
+  </script>
+</html>
