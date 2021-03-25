@@ -431,7 +431,7 @@ $ yarn add open-color include-media
 @import "~open-color/open-color";
 ```
 
-Sass 라이브러리를 불러올 떄는 `node_modules` 내부 라이브러리 경로 안에 들어 있는 scss 파일을 불러와야 한다. 보통 scss 파일 경로가 어디에 위치하고 있는지를 라이브러리의 공식 매뉴얼에서 알려주지 않을 때가 많으니, 직접 경로로 들어가서 확인해보자.
+Sass 라이브러리를 불러올 때는 `node_modules` 내부 라이브러리 경로 안에 들어 있는 scss 파일을 불러와야 한다. 보통 scss 파일 경로가 어디에 위치하고 있는지를 라이브러리의 공식 매뉴얼에서 알려주지 않을 때가 많으니, 직접 경로로 들어가서 확인해보자.
 
 이제 방금 불러온 `include-media`와 `open-color`를 `SassComponent.scss`에서 사용해 볼 것이다.
 
