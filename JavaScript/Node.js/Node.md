@@ -395,6 +395,26 @@ exports.odd = "홀수";
 exports.even = "짝수";
 ```
 
+index.js는 기존과 같다. 편의를 위해 다시 적는다.
+
+> index.js
+
+```js
+const { odd, even } = require("./var");
+const checkNumber = require("./func");
+
+checkStringOddOrEven = (str) => {
+  if (str.length % 2) {
+    // 홀수면
+    return odd;
+  }
+  return even;
+};
+
+console.log(checkNumber(10));
+console.log(checkStringOddOrEven("hello"));
+```
+
 > 콘솔
 
 ```
@@ -410,7 +430,7 @@ $ node index
 > exports 객체를 사용할 때는 `module.exports`와의 참조 관계가 깨지지 않도록 주의해야 한다. `module.exports`에는 어떤 값이든 대입해도 되지만, exports에는 반드시 객체처럼 속성명과 속성값을 대입해야 한다. exports에 다른 값을 대입하면 객체의 참조 관계가 끊겨 더이상 모듈로 기능하지 않는다.
 > exports를 사용할 때는 객체만 사용할 수 있으므로 func.js와 같이 `module.exports`에 함수를 대입한 경우에는 exports로 바꿀 수 없다.
 > exports와 `module.exports`에는 참조 관계가 있으므로 한 모듈에 exports 객체와 `module.exports`를 동시에 사용하지 않는 것이 좋다.
-
+>
 > Note: 노드에서 this는 무엇일까?
 >
 > 노드에서 this를 사용할 때 주의해야 할 점이 있다.
