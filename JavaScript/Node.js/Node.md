@@ -225,7 +225,7 @@ $ node globalB
 
 지금까지 사용했던 console도 노드에서는 window 대신 global 객체 안에 들어 있으며, 브라우저에서의 console과 거의 비슷하다.
 
-console 객체는 보통 디버깅을 위해 사용한다. 개발하면서 변수에 값이 제대로 들어 있는지 확인하기 위해 사용하고, 에러 발생 시 에러 내용을 콘솔에 표사하기 위해 사용하며, 코드 실행 시간을 알아보려고 할 때도 사용한다. 대표적으로 `console.log` 메소드가 있다. `console.log`는 지금껏 계속 사용했으므로 익숙할 것이다. 다른 로깅 함수도 알아보자.
+console 객체는 보통 디버깅을 위해 사용한다. 개발하면서 변수에 값이 제대로 들어 있는지 확인하기 위해 사용하고, 에러 발생 시 에러 내용을 콘솔에 표시하기 위해 사용하며, 코드 실행 시간을 알아보려고 할 때도 사용한다. 대표적으로 `console.log` 메소드가 있다. `console.log`는 지금껏 계속 사용했으므로 익숙할 것이다. 다른 로깅 함수도 알아보자.
 
 > console.js
 
@@ -355,7 +355,7 @@ const immediate2 = setImmediate(() => {
 clearImmediate(immediate2);
 ```
 
-우선, 제일 먼저 실행되는 것은 immediate이다. immediate2는 바로 clearImmediate를 사용해서 취소했으므로 실행되지 않는다. 코드 실행 1초 후에는 interval의 콜백이 실행된다. 코드 실행 1.5초 후에는 timeout의 콜백이 실행될 것이다. iterval의 콜백은 1초마다 실행되므로 코드 실행 후 2초가 지났을 때도 콜백이 실행된다. 2.5초가 지났을 때 clearTimeout과 clearInterval이 각각 timeout2와 interval을 취소한다. 따라서 코드 실행 3초 후에는 로그가 아무것도 남지 않는다.
+우선, 제일 먼저 실행되는 것은 immediate이다. immediate2는 바로 clearImmediate를 사용해서 취소했으므로 실행되지 않는다. 코드 실행 1초 후에는 interval의 콜백이 실행된다. 코드 실행 1.5초 후에는 timeout의 콜백이 실행될 것이다. interval의 콜백은 1초마다 실행되므로 코드 실행 후 2초가 지났을 때도 콜백이 실행된다. 2.5초가 지났을 때 clearTimeout과 clearInterval이 각각 timeout2와 interval을 취소한다. 따라서 코드 실행 3초 후에는 로그가 아무것도 남지 않는다.
 
 > Note: setImmediate(콜백)과 setTimeout(콜백, 0)
 >
@@ -458,3 +458,266 @@ $ node index
 > ```
 >
 > 다른 부분은 브라우저의 자바스크립트와 동일하지만 최상위 스코프에 존재하는 this는 `module.exports`(또는 exports 객체)를 가리킨다. 또한, 함수 선언문 내부의 this는 global 객체를 가리킨다.
+
+이번에는 모듈을 불러오는 `require`에 대해 알아보자. `require`은 함수이고, 함수는 객체이므로 `require`은 객체로서 몇 가지 속성을 갖고 있다. 그중에서 `require.cache`와 `require.main`에 대해 알아보자.
+
+var.js가 있는 곳에 require.js를 만들자.
+
+> require.js
+
+```js
+console.log("require가 가장 위에 오지 않아도 됩니다.");
+
+module.exports = "저를 찾아보세요";
+
+require("./var");
+
+console.log("require.cache입니다.");
+console.log(require.cache);
+console.log("require.main입니다.");
+console.log(require.main === module);
+console.log(require.main.feature);
+```
+
+> 콘솔
+
+```
+sangminpark@Sangminui-MacBookPro-16 Node.js % node require
+require가 가장 위에 오지 않아도 됩니다.
+require.cache입니다.
+[Object: null prototype] {
+'/Users/sangminpark/Desktop/2021/JavaScript/Node.js/require.js': Module {
+id: '.',
+path: '/Users/sangminpark/Desktop/2021/JavaScript/Node.js',
+exports: '저를 찾아보세요',
+parent: null,
+filename: '/Users/sangminpark/Desktop/2021/JavaScript/Node.js/require.js',
+loaded: false,
+children: [ [Module] ],
+paths: [
+'/Users/sangminpark/Desktop/2021/JavaScript/Node.js/node_modules',
+'/Users/sangminpark/Desktop/2021/JavaScript/node_modules',
+'/Users/sangminpark/Desktop/2021/node_modules',
+'/Users/sangminpark/Desktop/node_modules',
+'/Users/sangminpark/node_modules',
+'/Users/node_modules',
+'/node_modules'
+]
+},
+'/Users/sangminpark/Desktop/2021/JavaScript/Node.js/var.js': Module {
+id: '/Users/sangminpark/Desktop/2021/JavaScript/Node.js/var.js',
+path: '/Users/sangminpark/Desktop/2021/JavaScript/Node.js',
+exports: { odd: '홀수', even: '짝수' },
+parent: Module {
+id: '.',
+path: '/Users/sangminpark/Desktop/2021/JavaScript/Node.js',
+exports: '저를 찾아보세요',
+parent: null,
+filename: '/Users/sangminpark/Desktop/2021/JavaScript/Node.js/require.js',
+loaded: false,
+children: [Array],
+paths: [Array]
+},
+filename: '/Users/sangminpark/Desktop/2021/JavaScript/Node.js/var.js',
+loaded: true,
+children: [],
+paths: [
+'/Users/sangminpark/Desktop/2021/JavaScript/Node.js/node_modules',
+'/Users/sangminpark/Desktop/2021/JavaScript/node_modules',
+'/Users/sangminpark/Desktop/2021/node_modules',
+'/Users/sangminpark/Desktop/node_modules',
+'/Users/sangminpark/node_modules',
+'/Users/node_modules',
+'/node_modules'
+]
+}
+}
+require.main입니다.
+true
+undefined
+```
+
+위 예제에서 알아야 할 점은, `require`이 반드시 파일 최상단에 위치할 필요가 없고, `module.exports`도 최하단에 위치할 필요가 없다는 것이다. 아무 곳에서나 사용해도 된다.
+
+`require.cache` 객체에 require.js나 var.js 같은 파일 이름이 속성명으로 들어가 있는 것을 볼 수 있다. 속성값으로는 각 파일의 모듈 객체가 들어 있다. 한번 require한 파일은 require.cache에 저장되므로 다음 번에 require할 때는 새로 불러오지 않고 require.cache에 있는 것이 재사용된다.
+
+만약 새로 require하길 원한다면, require.cache의 속성을 제거하면 된다. 다만, 프로그램의 동작이 꼬일 수 있으므로 권장하지는 않는다. 속성을 자세히 살펴보면 module.exports했던 부분(exports)이나 로딩 여부(loaded), 부모(parent), 자식(children) 모듈 관계를 찾을 수 있다.
+
+require.main은 노드 실행 시 첫 모듈을 가리킨다. 현재 node require로 실행했으므로 require.js가 require.main이 된다. require.main 객체의 모양은 require.cache의 모듈 객체와 같다. 현재 파일이 첫 모듈인지 알아보려면 require.main === module을 해보면 된다. node require로 실행한 경우, var.js에서 require.main === module을 실행하면 false가 반환될 것이다. 첫 모듈의 이름을 알아보려면 require.main.filename으로 확인하면 된다.
+
+모듈을 사용할 때 주의해야 할 점이 있다. 만약 두 모듈 `dep1`과 `dep2`가 있고 이 둘이 서로를 require한다면 어떻게 될까?
+
+> dep1.js
+
+```js
+const dep2 = require("./dep2");
+console.log("require dep2", dep2);
+module.exports = () => {
+  console.log("dep2", dep2);
+};
+```
+
+> dep2.js
+
+```js
+const dep1 = require("./dep1");
+console.log("require dep1", dep1);
+module.exports = () => {
+  console.log("dep1", dep1);
+};
+```
+
+dep-run.js를 만들어서 두 모듈을 실행해보자.
+
+> dep-run.js
+
+```js
+const dep1 = require("./dep1");
+const dep2 = require("./dep2");
+dep1();
+dep2();
+```
+
+코드가 위에서부터 실행되므로 `require('./dep1')`이 먼저 실행된다. dep1.js에서는 제일 먼저 `require('./dep2');`이 실행되는데, 다시 dep2.js에서는 `require('./dep1');`이 실행된다. 이 과정이 계속 반복되므로 어떻게 될지 궁금할 것이다. 실행해 보자.
+
+> 콘솔
+
+```
+$ node dep-run
+require dep1 {}
+require dep2 [Function (anonymous)]
+dep2 [Function (anonymous)]
+dep1 {}
+(node:29044) Warning: Accessing non-existent property 'Symbol(nodejs.util.inspect.custom)' of module exports inside circular dependency (Use `node --trace-warnings ...` to show where the warning was created)
+```
+
+놀랍게도 dep1의 module.exports가 함수가 아니라 빈 객체로 표시된다. 이러한 현상을 순환 참조(circular dependency)라고 부른다. 이렇게 순환 참조가 있을 경우에는 순환 참조되는 대상을 빈 객체로 만든다. 이때 에러가 발생하지 않고 조용히 빈 객체로 변경되므로 예기치 못한 동작이 발생할 수 있다. 따라서 순환 참조가 발생하지 않도록 구조를 잘 잡는 것이 중요하다.
+
+#### 3-4-5. process
+
+`process` 객체는 현재 실행되고 있는 노드 프로세스에 대한 정보를 담고 있다. `process` 객체 안에는 다양한 속성이 있는데, 하나씩 REPL에 따라 입력해보자. 결괏값은 사용자의 컴퓨터마다 차이가 있을 수 있다.
+
+> 콘솔
+
+```
+sangminpark@Sangminui-MacBookPro-16 Node.js % node
+Welcome to Node.js v14.15.5.
+Type ".help" for more information.
+> process.version
+'v14.15.5' // 설치된 노드의 버전이다.
+> process.arch
+'x64' // 프로세서 아키텍처 정보이다. arm, ia32 등의 값일 수도 있다.
+> process.platform
+'darwin' // 운영체제 플랫폼 정보입니다. linux나 win32, freebsd등의 값일 수도 있다.
+> process.pid
+20823 // 현재 프로세스의 아이디이다. 프로세스를 여러 개 가질 때 구분할 수 있다.
+> process.uptime()
+27.46315772 // 프로세스가 시작된 후 흐른 시간이다. 단위는 초이다.
+> process.execPath
+'/Users/sangminpark/.nvm/versions/node/v14.15.5/bin/node' // 노드의 경로이다.
+> process.cwd()
+'/Users/sangminpark/Desktop/2021/JavaScript/Node.js' // 현재 프로세스가 실행되는 위치이다.
+> process.cpuUsage()
+{ user: 323888, system: 122174 } // 현재 CPU 사용량이다.
+```
+
+이 정보들의 사용 빈도는 그리 높지 않지만, 일반적으로 운영체제나 실행 환경별로 다른 동작을 하고 싶을 때 사용한다. `process.env`와 `process.nextTick`, `process.exit()`은 중요하니 따로 설명합니다.
+
+##### 3-4-6-1. process.env
+
+REPL에 process.env를 입력하면 매우 많은 정보가 출력된다. 자세히 보면 이 정보들이 시스템의 환경 변수임을 알 수 있다. 시스템 환경 변수는 노드에 직접 영향을 미치기도 한다. 대표적인 것으로 `UV_THREADPOOL_SIZE`와 `NODE_OPTIONS`가 있다.
+
+```
+NODE_OPTIONS=--max-old-space-size=8192
+UV_THREADPOOL_SIZE=8
+```
+
+왼쪽이 환경 변수의 이름이고 오른쪽이 값이다. `NODE_OPTIONS`는 노드를 실행할 때의 옵션들을 입력받는 환경 변수이다. `--max-old-space-size=8192`는 노드의 메모리를 8GB까지 사용할 수 있게 합니다. 옵션이 다양하게 존재하므로 3.9절에 NODE_OPTIONS에 대한 링크가 있다. `UV_THREADPOOL_SIZE`는 노드에서 기본적으로 사용하는 스레드풀의 스레드 개수를 조절할 수 있게 합니다. 3.6.4절에서 자세히 알아본다.
+
+시스템 환경 변수 외에도 각자가 임의로 환경 변수를 저장할 수 있다. `process.env`는 서비스의 중요한 키를 저장하는 공간으로도 사용된다. 서버나 데이터베이스의 비밀번호와 각종 API 키를 코드에 직접 입력하는 것은 위험하다. 혹여 서비스가 해킹을 당해 코드가 유출되었을 때는 비밀번호가 코드에 남아 있어 추가 피해가 발생할 수 있다.
+
+따라서 중요한 비밀번호는 다음과 같이 process.env의 속성으로 대체한다.
+
+```
+const secretId = process.env.SECRET_ID;
+const secretCode = process.env.SECRET_CODE;
+```
+
+이제 `process.env`에 직접 SECRET_ID와 SECRET_CODE를 넣으면 된다. 넣는 방법은 운영체제마다 차이가 있다. 하지만 한 번에 모든 운영체제에 동일하게 넣을 수 있는 방법이 있다. 6.2절에서 dotenv를 사용할 때 배운다.
+
+##### 3-4-6-2. process.nextTick(콜백)
+
+이벤트 루프가 다른 콜백 함수들보다 nextTick의 콜백 함수를 우선으로 처리하도록 만든다.
+
+> nextTick.js
+
+```js
+setImmediate(() => {
+  console.log("immediate");
+});
+
+process.nextTick(() => {
+  console.log("nextTick");
+});
+
+setTimeout(() => {
+  console.log("timeout");
+}, 0);
+
+Promise.resolve().then(() => console.log("promise"));
+```
+
+process.nextTick은 setImmediate나 setTimeout보다 먼저 실행된다. 코드 맨 밑에 Promise를 넣은 것은 resolve된 Promise도 nextTick처럼 다른 콜백들보다 우선시되기 때문입니다. 그래서 process.nextTick과 Promise를 마이크로태스크(microtask)라고 따로 구분지어 부른다.
+
+> 콘솔
+
+```
+sangminpark@Sangminui-MacBookPro-16 Node.js % node nextTick
+nextTick
+promise
+timeout
+immediate
+```
+
+> **🚫 Warning 마이크로태스크의 재귀 호출**
+>
+> process.nextTick으로 받은 콜백 함수나 resolve된 Promise는 다른 이벤트 루프에서 대기하는 콜백 함수보다도 먼저 실행된다. 그래서 비동기 처리를 할 때 setImmediate보다 process.nextTick을 더 선호하는 개발자도 있다. 하지만 이런 마이크로태스크를 재귀 호출하게 되면 이벤트 루프는 다른 콜백 함수보다 마이크로태스크를 우선하여 처리하므로 콜백 함수들이 실행되지 않을 수도 있다.
+
+#### 3-4-6-3. process.exit(코드)
+
+실행중인 노드 프로세스를 종료한다. 서버 환경에서 이 함수를 사용하면 서버가 멈추므로 특수한 경우를 제외하고는 서버에서 잘 사용하지 않는다. 하지만 서버 외의 독립적인 프로그램에서는 수동으로 노드를 멈추기 위해 사용한다.
+
+setInterval로 반복되고 있는 코드를 process.exit()으로 멈춰 보자.
+
+> exit.js
+
+```js
+let i = 1;
+setInterval(() => {
+  if (i === 5) {
+    console.log("종료");
+    process.exit();
+  }
+  console.log(i);
+  i += 1;
+}, 1000);
+```
+
+1부터 4까지 표시한 뒤, i가 5가 되었을 때 종료하도록 했다.
+
+> 콘솔
+
+```
+$ node exit
+1
+2
+3
+4
+종료
+```
+
+process.exit 메서드는 인수로 코드 번호를 줄 수 있다. 인수를 주지 않거나 0을 주면 정상 종료를 뜻하고, 1을 주면 비정상 종료를 뜻한다. 만약 에러가 발생해서 종료하는 경우에는 1을 넣으면 된다.
+
+지금까지 자주 쓰이는 내장 객체를 알아봤다. 타이머와 콘솔, 프로세스, 모듈은 기본적인 기능이지만 앞으로도 계속 사용된다.
+
+또한, 노드는 여러 가지 강력한 기능을 기본 모듈로 제공합니다. 다음 절에서는 노드가 어떤 기능들을 제공하는지 알아볼 것이다.
