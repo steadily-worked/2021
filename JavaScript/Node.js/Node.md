@@ -388,6 +388,18 @@ $ node filename.js
 
 3.3의 var.js를 다음과 같이 수정해도 index.js에서는 동일하게 불러올 수 있다.
 
+> var.js (수정 전)
+
+```js
+const odd = "홀수";
+const even = "짝수";
+
+module.exports = {
+  odd,
+  even,
+};
+```
+
 > var.js
 
 ```js
