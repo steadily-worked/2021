@@ -1,4 +1,4 @@
-const { odd, even } = require("./var").default;
+const { odd, even } = require("./var");
 const checkNumber = require("./func");
 
 checkStringOddOrEven = (str) => {

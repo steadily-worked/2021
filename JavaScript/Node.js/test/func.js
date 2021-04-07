@@ -1,4 +1,4 @@
-const { odd, even } = require("./var").default;
+const { odd, even } = require("./var");
 
 checkOddOrEven = (num) => {
   if (num % 2) {
