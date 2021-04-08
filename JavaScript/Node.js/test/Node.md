@@ -622,7 +622,7 @@ Type ".help" for more information.
 > process.arch
 'x64' // 프로세서 아키텍처 정보이다. arm, ia32 등의 값일 수도 있다.
 > process.platform
-'darwin' // 운영체제 플랫폼 정보입니다. linux나 win32, freebsd등의 값일 수도 있다.
+'darwin' // 운영체제 플랫폼 정보이다. linux나 win32, freebsd등의 값일 수도 있다.
 > process.pid
 20823 // 현재 프로세스의 아이디이다. 프로세스를 여러 개 가질 때 구분할 수 있다.
 > process.uptime()
@@ -635,7 +635,7 @@ Type ".help" for more information.
 { user: 323888, system: 122174 } // 현재 CPU 사용량이다.
 ```
 
-이 정보들의 사용 빈도는 그리 높지 않지만, 일반적으로 운영체제나 실행 환경별로 다른 동작을 하고 싶을 때 사용한다. `process.env`와 `process.nextTick`, `process.exit()`은 중요하니 따로 설명합니다.
+이 정보들의 사용 빈도는 그리 높지 않지만, 일반적으로 운영체제나 실행 환경별로 다른 동작을 하고 싶을 때 사용한다. `process.env`와 `process.nextTick`, `process.exit()`은 중요하니 따로 설명한다.
 
 ##### 3-4-6-1. process.env
 
@@ -646,7 +646,7 @@ NODE_OPTIONS=--max-old-space-size=8192
 UV_THREADPOOL_SIZE=8
 ```
 
-왼쪽이 환경 변수의 이름이고 오른쪽이 값이다. `NODE_OPTIONS`는 노드를 실행할 때의 옵션들을 입력받는 환경 변수이다. `--max-old-space-size=8192`는 노드의 메모리를 8GB까지 사용할 수 있게 합니다. 옵션이 다양하게 존재하므로 3.9절에 NODE_OPTIONS에 대한 링크가 있다. `UV_THREADPOOL_SIZE`는 노드에서 기본적으로 사용하는 스레드풀의 스레드 개수를 조절할 수 있게 합니다. 3.6.4절에서 자세히 알아본다.
+왼쪽이 환경 변수의 이름이고 오른쪽이 값이다. `NODE_OPTIONS`는 노드를 실행할 때의 옵션들을 입력받는 환경 변수이다. `--max-old-space-size=8192`는 노드의 메모리를 8GB까지 사용할 수 있게 한다. 옵션이 다양하게 존재하므로 3.9절에 NODE_OPTIONS에 대한 링크가 있다. `UV_THREADPOOL_SIZE`는 노드에서 기본적으로 사용하는 스레드풀의 스레드 개수를 조절할 수 있게 한다. 3.6.4절에서 자세히 알아본다.
 
 시스템 환경 변수 외에도 각자가 임의로 환경 변수를 저장할 수 있다. `process.env`는 서비스의 중요한 키를 저장하는 공간으로도 사용된다. 서버나 데이터베이스의 비밀번호와 각종 API 키를 코드에 직접 입력하는 것은 위험하다. 혹여 서비스가 해킹을 당해 코드가 유출되었을 때는 비밀번호가 코드에 남아 있어 추가 피해가 발생할 수 있다.
 
@@ -681,7 +681,7 @@ setTimeout(() => {
 Promise.resolve().then(() => console.log("promise"));
 ```
 
-process.nextTick은 setImmediate나 setTimeout보다 먼저 실행된다. 코드 맨 밑에 Promise를 넣은 것은 resolve된 Promise도 nextTick처럼 다른 콜백들보다 우선시되기 때문입니다. 그래서 process.nextTick과 Promise를 마이크로태스크(microtask)라고 따로 구분지어 부른다.
+process.nextTick은 setImmediate나 setTimeout보다 먼저 실행된다. 코드 맨 밑에 Promise를 넣은 것은 resolve된 Promise도 nextTick처럼 다른 콜백들보다 우선시되기 때문이다. 그래서 process.nextTick과 Promise를 마이크로태스크(microtask)라고 따로 구분지어 부른다.
 
 > 콘솔
 
@@ -734,7 +734,7 @@ process.exit 메서드는 인수로 코드 번호를 줄 수 있다. 인수를 �
 
 지금까지 자주 쓰이는 내장 객체를 알아봤다. 타이머와 콘솔, 프로세스, 모듈은 기본적인 기능이지만 앞으로도 계속 사용된다.
 
-또한, 노드는 여러 가지 강력한 기능을 기본 모듈로 제공합니다. 다음 절에서는 노드가 어떤 기능들을 제공하는지 알아볼 것이다.
+또한, 노드는 여러 가지 강력한 기능을 기본 모듈로 제공한다. 다음 절에서는 노드가 어떤 기능들을 제공하는지 알아볼 것이다.
 
 ### 3-5. 노드 내장 모듈 사용하기
 
@@ -938,49 +938,655 @@ path 모듈 이전까지는 중요한 API만 추렸으나, path 모듈은 속성
 const url = require("url");
 
 const { URL } = url;
-const myURL = new URL("https://sangminpark.me");
+const myURL = new URL(
+  "http://www.gilbut.co.kr/book/bookList.aspx?sercate1=001001000#anchor"
+);
 console.log("new URL():", myURL);
 console.log("url.format():", url.format(myURL));
-console.log("--------------------");
-const parsedUrl = url.parse("https://sangminpark.me");
+console.log("------------------------------");
+const parsedUrl = url.parse(
+  "http://www.gilbut.co.kr/book/bookList.aspx?sercate1=001001000#anchor"
+);
 console.log("url.parse():", parsedUrl);
 console.log("url.format():", url.format(parsedUrl));
+```
+
+- url 모듈 안에 URL 생성자가 있다. 이 생성자에 주소를 넣어 객체로 만들면 주소가 부분별로 정리된다. 이 방식이 WHATWG의 url이다. WHATWG에만 있는 `username`,`password`, `origin`, `searchParams` 속성이 존재한다.
+
+> 콘솔
+
+```
+$ node url
+new URL(): URL {
+  href: 'http://www.gilbut.co.kr/book/bookList.aspx?sercate1=001001000#anchor',
+  origin: 'http://www.gilbut.co.kr',
+  protocol: 'http:',
+  username: '',
+  password: '',
+  host: 'www.gilbut.co.kr',
+  hostname: 'www.gilbut.co.kr',
+  port: '',
+  pathname: '/book/bookList.aspx',
+  search: '?sercate1=001001000',
+  searchParams: URLSearchParams { 'sercate1' => '001001000' },
+  hash: '#anchor'
+}
+url.format(): http://www.gilbut.co.kr/book/bookList.aspx?sercate1=001001000#anchor
+------------------------------
+url.parse(): Url {
+  protocol: 'http:',
+  slashes: true,
+  auth: null,
+  host: 'www.gilbut.co.kr',
+  port: null,
+  hostname: 'www.gilbut.co.kr',
+  hash: '#anchor',
+  search: '?sercate1=001001000',
+  query: 'sercate1=001001000',
+  pathname: '/book/bookList.aspx',
+  path: '/book/bookList.aspx?sercate1=001001000',
+  href: 'http://www.gilbut.co.kr/book/bookList.aspx?sercate1=001001000#anchor'
+}
+url.format(): http://www.gilbut.co.kr/book/bookList.aspx?sercate1=001001000#anchor
+```
+
+기존 노드 방식에서는 두 메서드를 주로 사용한다.
+
+- **url.parse(주소)**: 주소를 분해한다. WHATWG 방식과 비교하면 username과 password 대신 auth 속성이 있고, searchParams 대신 query가 있다.
+
+- **url.format(객체)**: WHATWG 방식 url과 기존 노드의 url을 모두 사용할 수 있다. 분해되었던 url 객체를 다시 원래 상태로 조립한다.
+
+WHATWG와 노드의 url은 취향에 따라 사용하면 되지만, 노드의 url 형식을 꼭 사용해야 하는 경우가 있다. host 부분 없이 pathname 부분만 오는 주소인 경우(예시: `/book/bookList.apsx`)에는 WHATWG 방식이 처리할 수 없다. 4장에서 서버를 만들 때는 host 부분 없이 pathname만 오는 주소를 보게 될 것이다.
+
+WHATWG 방식은 search 부분을 searchParams라는 특수한 객체로 반환하므로 유용하다. search 부분은 보통 주소를 통해 데이터를 전달할 때 사용된다. search는 물음표(?)로 시작하고, 그 뒤에 **키=값** 형식으로 데이터를 전달한다. 여러 키가 있을 경우에는 `&`로 구분한다.
+
+`http://www.gilbut.co.kr/?page=3&limit=10&category=nodejs&category=javascript`와 같은 주소에서는 `?page=3&limit=10&category=nodejs&category=javascript` 부분이 search이다.
+
+다음으로 `searchParams` 객체를 알아보자.
+
+> searchParams.js
+
+```js
+const { URL } = require("url");
+
+const myURL = new URL(
+  "http://www.gilbut.co.kr/?page=3&limit=10&category=nodejs&category=javascript"
+);
+console.log("searchParams:", myURL.searchParams);
+console.log("searchParams.getAll():", myURL.searchParams.getAll("category"));
+console.log("searchParams.get():", myURL.searchParams.get("limit"));
+console.log("searchParams.has():", myURL.searchParams.has("page"));
+
+console.log("searchParams.keys():", myURL.searchParams.keys());
+console.log("searchParams.values():", myURL.searchParams.values());
+
+myURL.searchParams.append("filter", "es3");
+myURL.searchParams.append("filter", "es5");
+console.log(myURL.searchParams.getAll("filter"));
+
+myURL.searchParams.set("filter", "es6");
+console.log(myURL.searchParams.getAll("filter"));
+
+myURL.searchParams.delete("filter");
+console.log(myURL.searchParams.getAll("filter"));
+
+console.log("searchParams.toString():", myURL.searchParams.toString());
+myURL.search = myURL.searchParams.toString();
 ```
 
 > 콘솔
 
 ```
-new URL(): URL {
-  href: 'https://sangminpark.me/',
-  origin: 'https://sangminpark.me',
-  protocol: 'https:',
-  username: '',
-  password: '',
-  host: 'sangminpark.me',
-  hostname: 'sangminpark.me',
-  port: '',
-  pathname: '/',
-  search: '',
-  searchParams: URLSearchParams {},
-  hash: ''
-}
-url.format(): https://sangminpark.me/
---------------------
-url.parse(): Url {
-  protocol: 'https:',
-  slashes: true,
-  auth: null,
-  host: 'sangminpark.me',
-  port: null,
-  hostname: 'sangminpark.me',
-  hash: null,
-  search: null,
-  query: null,
-  pathname: '/',
-  path: '/',
-  href: 'https://sangminpark.me/'
-}
-url.format(): https://sangminpark.me/
+searchParams: URLSearchParams {
+  'page' => '3',
+  'limit' => '10',
+  'category' => 'nodejs',
+  'category' => 'javascript' }
+searchParams.getAll(): [ 'nodejs', 'javascript' ]
+searchParams.get(): 10
+searchParams.has(): true
+searchParams.keys(): URLSearchParams Iterator { 'page', 'limit', 'category', 'category' }
+searchParams.values(): URLSearchParams Iterator { '3', '10', 'nodejs', 'javascript' }
+[ 'es3', 'es5' ]
+[ 'es6' ]
+[]
+searchParams.toString(): page=3&limit=10&category=nodejs&category=javascript
 ```
 
-- url 모듈 안에 URL 생성자가 있다. 이 생성자에 주소를 넣어 객체로 만들면 주소가 부분별로 정리된다. 이 방식이 WHATWG의 url이다. WHATWG에만 있는 `username`,`password`, `origin`, `searchParams` 속성이 존재한다.
+URL 생성자를 통해 `myURL`이라는 주소 객체를 만들었다. myURL 안에는 `searchParams` 객체가 있다. 이 객체는 search 부분을 조작하는 다양한 메소드를 지원한다. 2.2.2의 formData 객체 메소드와 비슷하다.
+
+- getAll(키): 키에 해당하는 모든 값들을 가져온다. category 안에는 nodejs와 javascript라는 두 가지 값이 들어 있다.
+- get(키): 키에 해당하는 첫 번째 값만 가져온다.
+- has(키): 해당 키가 있는지 없는지를 검사한다.
+- keys(): searchParams의 모든 **키**를 반복기(iterator)(ES6문법) 객체로 가져온다.
+- values(): searchParams의 모든 **값**을 반복기 객체로 가져온다.
+- append(키, 값): 해당 키를 추가한다. 같은 키의 값이 있다면 유지하고 하나 더 추가한다.
+- set(키, 값): append와 비슷하지만, 같은 키의 값들을 모두 지우고 새로 추가한다.
+- delete(키): 해당 키를 제거한다.
+- toString(): 조작한 searchParams 객체를 다시 문자열로 만든다. 이 문자열을 search에 대입하면 주소 객체에 반영된다.
+
+query같은 문자열보다 searchParams가 유용한 이유는 query의 경우 다음에 배우는 querystring 모듈을 한 번 더 사용해야 하기 때문이다.
+
+#### 3-5-4. querystring
+
+WHATWG 방식의 url 대신 기존 노드의 url을 사용할 때, search 부분을 사용하기 쉽게 객체로 만드는 모듈이다.
+
+> querystring.js
+
+```js
+const url = require("url");
+const querystring = require("querystring");
+
+const parsedUrl = url.parse(
+  "http://www.gilbut.co.kr/?page=3&limit=10&category=nodejs&category=javascript"
+);
+const query = querystring.parse(parsedUrl.query);
+console.log("querystring.parse():", query);
+console.log("querystring.stringify():", querystring.stringify(query));
+```
+
+> 콘솔
+
+```
+sangminpark@Sangminui-MacBookPro-16 test % node querystring.js
+querystring.parse(): [Object: null prototype] {
+  page: '3',
+  limit: '10',
+  category: [ 'nodejs', 'javascript' ]
+}
+querystring.stringify(): page=3&limit=10&category=nodejs&category=javascript
+```
+
+처음으로 모듈 두 개를 함께 사용했다. 실제 프로젝트에서도 이렇게 모듈 여러 개를 파일 하나에 불러올 수 있다.
+
+- **querystring.parse(쿼리)**: url의 query 부분을 자바스크립트 객체로 분해한다.
+- **querystring.stringify(객체)**: 분해된 query 객체를 문자열로 다시 조립한다.
+
+간단하게 객체로 분해되고 문자열로 조립되므로 편리하다.
+
+#### 3-5-5. crypto
+
+다양한 방식의 암호화를 도와주는 모듈이다. 몇 가지 메소드는 익혀두면 실제 서비스에도 적용할 수 있어서 정말 유용하다.
+
+고객의 비밀번호는 반드시 암호화해야 한다. 비밀번호를 암호화하지 않으면 비밀번호를 저장해둔 데이터베이스가 해킹당하는 순간, 고객들의 비밀번호도 고스란히 해커 손에 넘어가고 만다. 물론 데이터베이스가 해킹당하지 않도록 노력해야겠지만, 안전 장치를 이중으로 만들어놓는 것이 좋다.
+
+##### 3-5-5-1. 단방향 암호화
+
+비밀번호는 보통 단방향 암호화 알고리즘을 사용해서 암호화한다. 단방향 암호화란 복호화할 수 없는 암호화 방식을 뜻한다. 복호화는 암호화된 문자열을 원래 문자열로 되돌려놓는 것을 의미한다. 즉, 단방향 암호화는 한 번 암호화하면 원래 문자열을 찾을 수 없다. 복호화할 수 없으므로 암호화라고 표현하는 대신 해시 함수라고 부르기도 한다.
+
+복호화할 수 없는 암호화가 왜 필요한지 의문이 들 수도 있다. 하지만 생각해보면 고객의 비밀번호는 복호화할 필요가 없다. 먼저 고객의 비밀번호를 암호화해서 데이터베이스에 저장한다. 그리고 로그인할 때마다 입력받은 비밀번호를 같은 암호화 알고리즘으로 암호화한 후, 데이터베이스의 비밀번호와 비교하면 된다. 원래 비밀번호는 어디에도 저장되지 않고 암호화된 문자열로만 비교하는 것이다.
+
+단방향 암호화 알고리즘은 주로 해시 기법을 사용한다. 해시 기법이란 어떠한 문자열을 고정된 길이의 다른 문자열로 바꿔버리는 방식이다. 예를 들면 `abcdefgh`라는 문자열을 `qvew`로 바꿔버리고, `ijklm`이라는 문자열을 `zvsf`로 바꿔버리는 것이다. 입력 문자열의 길이는 다르지만, 출력 문자열의 길이는 네 자리로 고정되어 있다.
+
+노드에서 해시 함수는 다음과 같이 사용한다.
+
+> hash.js
+
+```js
+const crypto = require("crypto");
+
+console.log(
+  "base64:",
+  crypto.createHash("sha512").update("비밀번호").digest("base64")
+);
+console.log(
+  "hex:",
+  crypto.createHash("sha512").update("비밀번호").digest("hex")
+);
+console.log(
+  "base64:",
+  crypto.createHash("sha512").update("다른 비밀번호").digest("base64")
+);
+```
+
+> 콘솔
+
+```
+sangminpark@Sangminui-MacBookPro-16 test % node hash.js
+base64: dvfV6nyLRRt3NxKSlTHOkkEGgqW2HRtfu19Ou/psUXvwlebbXCboxIPmDYOFRIpqav2eUTBFuHaZri5x+usy1g==
+hex: 76f7d5ea7c8b451b773712929531ce92410682a5b61d1b5fbb5f4ebbfa6c517bf095e6db5c26e8c483e60d8385448a6a6afd9e513045b87699ae2e71faeb32d6
+base64: cx49cjC8ctKtMzwJGBY853itZeb6qxzXGvuUJkbWTGn5VXAFbAwXGEOxU2Qksoj+aM2GWPhc1O7mmkyohXMsQw==
+```
+
+비밀번호라는 문자열을 해시를 사용해 바꿔봤다.
+
+- **createHash(알고리즘)**: 사용할 해시 알고리즘을 넣는다. `md5`, `sha1`, `sha256`, `sha512` 등이 가능하지만, `md5`와 `sha1`은 이미 취약점이 발견되었다. 현재는 `sha512` 정도로 충분하지만, 나중에 `sha512` 마저도 취약해지면 더 강화된 알고리즘으로 바꿔야 한다.
+- **update(문자열)**: 변환할 문자열을 넣는다.
+- **digest(인코딩)**: 인코딩할 알고리즘을 넣는다. `base64`,`hex`, `latin1`이 주로 사용되는데, 그중 `base64`가 결과 문자열이 가장 짧아 애용된다. 결과물로 변환된 문자열을 반환한다.
+
+가끔 `nopqrst`라는 문자열이 `qvew`로 변환되어 `abcdefgh`를 넣었을 때와 똑같은 출력 문자열로 바뀔 때도 있다. 이런 상황을 충돌이 발생했다고 표현한다. 해킹용 컴퓨터의 역할은 어떠한 문자열이 같은 출력 문자열을 반환하는지 찾아내는 것이다. 여러 입력 문자열이 같은 출력 문자열로 변환될 수 있으므로 비밀번호를 abcdefgh로 설정했어도 nopqrst로 뚫리는 사태가 발생하게 된다.
+
+해킹용 컴퓨터의 성능이 발달함에 따라 기존 해시 알고리즘들이 위협받고 있지만, 이와 동시에 해시 알고리즘도 더 강력하게 진화하고 있다. 언젠가는 `sha512의` 취약점도 발견될 것이다. 그렇게 된다면 더 강력한 알고리즘인 `sha3`으로 이전하면 된다.
+
+현재는 주로 `pbkdf2`나 `bcrypt`, `scrypt`라는 알고리즘으로 비밀번호를 암호화하고 있다. 그중 노드에서 지원하는 `pbkdf2`에 대해 알아보자. `pbkdf2`는 간단히 말하면 기존 문자열에 `salt`라고 불리는 문자열을 붙인 후 해시 알고리즘을 반복해서 적용하는 것이다.
+
+> pbkdf2.js
+
+```js
+const crypto = require("crypto");
+
+crypto.randomBytes(64, (err, buf) => {
+  const salt = buf.toString("base64");
+  console.log("salt:", salt);
+  crypto.pbkdf2("비밀번호", salt, 100000, 64, "sha512", (err, key) => {
+    console.log("password:", key.toString("base64"));
+  });
+});
+```
+
+먼저 `randomBytes()` 메서드로 64바이트 길이의 문자열을 만든다. 이것이 salt가 된다. `pbkdf2()` 메서드에는 순서대로 비밀번호, salt, 반복 횟수, 출력 바이트, 해시 알고리즘을 인수로 넣는다. 예시에서는 10만 번 반복해서 적용한다고 했다. 즉, `sha512`로 변환된 결과값을 다시 `sha512`로 변환하는 과정을 10만 번 반복하는 것이다.
+
+너무 많이 반복하는 것은 아닌지 걱정될 수도 있지만, 1초 정도밖에 걸리지 않는다. 이는 컴퓨터의 성능에 좌우되므로 조금 느리다 싶으면 반복 횟수를 낮추고, 너무 빠르다 싶으면 1초 정도가 될 때까지 반복 횟수를 늘린다.
+
+싱글 스레드 프로그래밍을 할 때 1초 동안 블로킹이 되는 것은 아닌지 걱정할 수도 있다. 다행히 `crypto.randomBytes`와 `crypto.pbkdf2` 메서드는 내부적으로 스레드풀을 사용해 멀티 스레딩으로 동작한다. 이러한 메서드들이 몇 개 있는데 3.6.4에서 알아볼 것이다.
+
+> 콘솔
+
+```
+sangminpark@Sangminui-MacBookPro-16 test % node pbkdf2.js
+salt: 8qIuZKpVeA2uh2gMTzbhQD+/fluJ+2TzposYPqO7tuWT88feU3lYbZoIx3olbfBHjsVy30v6fw0p7v1GnthjNA==
+password: nqvJKiE9soL8+omzjvKQjgPFyOIs3NA9ybkk8zhWqaR9u+xOugoa9IVQ2saDY/C0oQeU49ADaUlIeh2PlZVvMQ==
+```
+
+randomBytes이므로 매번 실행할 때마다 결과가 달라진다. 따라서 salt를 잘 보관하고 있어야 비밀번호도 찾을 수 있다.
+
+`pbkdf2`는 간단하지만 `bcrypt`나 `scrypt`보다 취약하므로 나중에 더 나은 보안이 필요하면 `bcrypt`나 `scrypt` 방식을 사용하면 된다. 여기선 추후에 회원의 비밀번호를 암호화할 때 `bcrypt` 방식을 사용한다.
+
+##### 3-5-5-2. 양방향 암호화
+
+이번에는 양방향 대칭형 암호화를 알아보자. 암호화된 문자열을 복호화할 수 있으며, 키(열쇠)라는 것이 사용된다. 대칭형 암호화에서 암호를 복호화하려면 암호화할 때 사용한 키와 같은 키를 사용해야 한다.
+
+다음은 노드로 양방향 암호화하는 방법이다. 하지만 다음 코드를 완벽하게 이해하려면 암호학을 추가로 공부해야 한다.
+
+> cipher.js
+
+```js
+const crypto = require("crypto");
+
+const algorithm = "aes-256-cbc";
+const key = "abcdefghijklmnopqrstuvwxyz123456";
+const iv = "1234567890123456";
+const cipher = crypto.createCipheriv(algorithm, key, iv);
+let result = cipher.update("암호화할 문장", "utf8", "base64");
+result += cipher.final("base64");
+console.log("암호화:", result);
+
+const decipher = crypto.createDecipheriv(algorithm, key, iv);
+let result2 = decipher.update(result, "base64", "utf8");
+result2 += decipher.final("utf8");
+console.log("복호화:", result2);
+```
+
+- **crypto.createCipheriv(알고리즘, 키, iv)**: 암호화 알고리즘과 키, iv를 넣는다. 암호화 알고리즘은 aes-256-cbc를 사용했으며, 다른 알고리즘을 사용해도 된다. aes-256-cbc 알고리즘의 경우 키는 32바이트여야 하고, iv는 16바이트여야 한다. iv는 암호화할 때 사용하는 초기화 벡터를 의미하지만, 여기서 설명하기에는 내용이 많으므로 AES 암호화에 대해 따로 공부하는 것이 좋다. 사용 가능한 알고리즘 목록은 `crypto.getCiphers()`를 호출하면 볼 수 있다.
+
+- **cipher.update(문자열, 인코딩, 출력 인코딩)**: 암호화할 대상과 대상의 인코딩, 출력 결과물의 인코딩을 넣는다. 보통 문자열은 `utf8` 인코딩을, 암호는 `base64`를 많이 사용한다.
+
+- **cipher.final(출력 인코딩)**: 출력 결과물의 인코딩을 넣으면 암호화가 완료된다.
+
+- **crypto.createDecipheriv(알고리즘, 키, iv)**: 복호화할 때 사용한다. 암호화할 때 사용했던 알고리즘과 키, iv를 그대로 넣어야 한다.
+
+- **decipher.update(문자열, 인코딩, 출력 인코딩)**: 암호화된 문장, 그 문장의 인코딩, 복호화할 인코딩을 넣는다. `createCipheriv`의 `update()`에서 utf8, base64순으로 넣었다면 `createDecipheriv`의 `update()`에서는 base64, utf8순으로 넣으면 된다.
+
+- **decipher.final(출력 인코딩)**: 복호화 결과물의 인코딩을 넣는다.
+
+> 콘솔
+
+```
+$ node cipher
+암호화: iiopeG2GsYlk6ccoBoFvEH2EBDMWv1kK9bNuDjYxiN0=
+복호화: 암호화할 문장
+```
+
+원래 문장으로 제대로 복호화되었다.
+
+지금까지 배운 메서드 이외에도 crypto 모듈은 양방향 비대칭형 암호화, HMAC 등과 같은 다양한 암호화를 제공하고 있으니 암호화가 필요하면 모듈이 어떤 메서드들을 지원하는지 확인해보면 좋다. [노드 공식 문서](https://nodejs.org/api/crypto.html)에서 확인할 수 있다. 좀 더 간단하게 암호화를 하고 싶다면 npm 패키지인 [crypto-js](https://www.npmjs.com/package/crypto-js)를 추천한다.
+
+#### 3-5-6. util
+
+util이라는 이름처럼 각종 편의 기능을 모아둔 모듈이다. 계속해서 API가 추가되고 있으며, 가끔 deprecated되어 사라지는 경우도 있다.
+
+> Note: deprecated란?
+>
+> deprecated는 프로그래밍 용어로, ‘중요도가 떨어져 더 이상 사용되지 않고 앞으로는 사라지게 될’ 것이라는 뜻이다. 새로운 기능이 나와서 기존 기능보다 더 좋을 때, 기존 기능을 deprecated 처리하곤 한다. 이전 사용자를 위해 기능을 제거하지는 않지만 곧 없앨 예정이므로 더 이상 사용하지 말라는 의미이다.
+
+> utl.js
+
+```js
+const util = require("util");
+const crypto = require("crypto");
+
+const dontUseMe = util.deprecate((x, y) => {
+  console.log(x + y);
+}, "dontUseMe 함수는 deprecated되었으니 더 이상 사용하지 마세요!");
+dontUseMe(1, 2);
+
+const randomBytesPromise = util.promisify(crypto.randomBytes);
+randomBytesPromise(64)
+  .then((buf) => {
+    console.log(buf.toString("base64"));
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+```
+
+- **util.deprecate**: 함수가 deprecated 처리 되었음을 알린다. 첫 번째 인수로 넣은 함수를 사용했을 때 경고 메시지가 출력된다. 두 번째 인수로 경고 메시지 내용을 넣으면 된다. 함수가 조만간 사라지거나 변경될 때 알려줄 수 있어 유용하다.
+
+- **util.promisify**: 콜백 패턴을 프로미스 패턴으로 바꾼다. 바꿀 함수를 인수로 제공하면 된다. 이렇게 바꿔두면 async/await 패턴까지 사용할 수 있어 좋다. 3.5.5.1의 randomBytes와 비교해보자. 프로미스를 콜백으로 바꾸는 `util.callbackify`도 있지만 자주 사용되지는 않는다.
+
+> 콘솔
+
+```
+sangminpark@Sangminui-MacBookPro-16 test % node util
+3
+(node:39217) DeprecationWarning: dontUseMe 함수는 deprecated되었으니 더 이상 사용하지 마세요!
+(Use `node --trace-deprecation ...` to show where the warning was created)
+RaLqtSBpx4v18cu6VkRvAG0pvv+exu49apx5aObHN6efHkvtRZ7fQVnqyCLzYoDhPWq9JeNcr8ZFAcqNrOqdyg==
+```
+
+#### 3-5-7. worker_threads
+
+노드에서 멀티 스레드 방식으로 작업하는 방법을 소개한다. `worker_threads` 모듈로 가능하다.
+
+> worker_thread.js
+
+```js
+const { Worker, isMainThread, parentPort } = require("worker_threads");
+
+if (isMainThread) {
+  // 부모일 때
+  const worker = new Worker(__filename);
+  worker.on("message", (message) => console.log("from worker", message));
+  worker.on("exit", () => console.log("worker exit"));
+  worker.postMessage("ping");
+} else {
+  // 워커일 때
+  parentPort.on("message", (value) => {
+    console.log("from parent", value);
+    parentPort.postMessage("pong");
+    parentPort.close();
+  });
+}
+```
+
+`isMainThread`를 통해 현재 코드가 메인 스레드(기존에 동작하던 싱글 스레드를 메인 스레드 또는 부모 스레드라고 부른다)에서 실행되는지, 아니면 우리가 생성한 워커 스레드에서 실행되는지 구분된다. 메인 스레드에서는 new Worker를 통해 현재 파일(`\_\_filename`)을 워커 스레드에서 실행시키고 있다. 물론 현재 파일의 else 부분만 워커 스레드에서 실행된다.
+
+부모에서는 워커 생성 후 `worker.postMessage`로 워커에 데이터를 보낼 수 있다. 워커는 `parentPort.on('message')` 이벤트 리스너로 부모로부터 메시지를 받고, `parentPort.postMessage`로 부모에게 메시지를 보낸다. 부모는 `worker.on('message')`로 메시지를 받는다. 참고로 메시지를 한 번만 받고 싶다면 `once('message')`를 사용하면 된다.
+
+워커에서 on 메서드를 사용할 때는 직접 워커를 종료해야 한다는 점에 주의하자. `parentPort.close()`를 하면 부모와의 연결이 종료된다. 종료될 때는 `worker.on('exit')`이 실행된다.
+
+실제로 실행해보면 다음과 같다.
+
+> 콘솔
+
+```
+$ node worker_threads
+from parent ping
+from worker pong
+worker exit
+```
+
+아직까지는 워커 스레드를 사용해 복잡한 작업은 하지 않았다. 이번에는 여러 개의 워커 스레드에 데이터를 넘겨보자다. postMessage로 데이터를 보내는 방법과는 다른 방법이다.
+
+> worker_data.js
+
+```js
+const {
+  Worker,
+  isMainThread,
+  parentPort,
+  workerData,
+} = require("worker_threads");
+
+if (isMainThread) {
+  // 부모일 때
+  const threads = new Set();
+  threads.add(
+    new Worker(__filename, {
+      workerData: { start: 1 },
+    })
+  );
+  threads.add(
+    new Worker(__filename, {
+      workerData: { start: 2 },
+    })
+  );
+  for (let worker of threads) {
+    worker.on("message", (message) => console.log("from worker", message));
+    worker.on("exit", () => {
+      threads.delete(worker);
+      if (threads.size === 0) {
+        console.log("job done");
+      }
+    });
+  }
+} else {
+  // 워커일 때
+  const data = workerData;
+  parentPort.postMessage(data.start + 100);
+}
+```
+
+new Worker를 호출할 때 두 번째 인수의 workerData 속성으로 원하는 데이터를 보낼 수 있다. 워커에서는 workerData로 부모로부터 데이터를 받는다. 현재 두 개의 워커가 돌아가고 있으며, 각각 부모로부터 숫자를 받아서 100을 더해 돌려준다. 돌려주는 순간 워커가 종료되어 `worker.on('exit')`이 실행된다. 워커 두 개가 모두 종료되면 job done이 로깅된다.
+
+> 콘솔
+
+```
+from worker 101
+from worker 102
+job done
+```
+
+이번에는 좀 더 실전적인 예제로 소수의 개수를 구하는 작업을 워커 스레드를 통해 해보자. 소수를 찾는 작업은 연산이 많이 들어가는 대표적인 작업이다.
+
+먼저 워커 스레드를 사용하지 않는 예제이다.
+
+> prime.js
+
+```js
+const min = 2;
+const max = 10000000;
+const primes = [];
+
+function generatePrimes(start, range) {
+  let isPrime = true;
+  const end = start + range;
+  for (let i = start; i < end; i++) {
+    for (let j = min; j < Math.sqrt(end); j++) {
+      if (i !== j && i % j === 0) {
+        isPrime = false;
+        break;
+      }
+    }
+    if (isPrime) {
+      primes.push(i);
+    }
+    isPrime = true;
+  }
+}
+
+console.time("prime");
+generatePrimes(min, max);
+console.timeEnd("prime");
+console.log(primes.length);
+```
+
+2부터 1,000만까지의 숫자 중에 소수가 모두 몇 개 있는지를 알아내는 코드이다. 코드를 실행해보자.
+
+> 콘솔
+
+```
+sangminpark@Sangminui-MacBookPro-16 test % node prime.js
+prime: 10.507s
+664579
+```
+
+사용자의 컴퓨터 성능에 따라 다르지만 상당한 시간이 소요된다. 이번에는 워커 스레드를 사용하여 여러 개의 스레드들이 문제를 나눠서 풀도록 해 보자. 미리 말하지만 멀티 스레딩은 상당히 어렵다. 코드양도 많아진다.
+
+> prime-worker.js
+
+```js
+const {
+  Worker,
+  isMainThread,
+  parentPort,
+  workerData,
+} = require("worker_threads");
+
+const min = 2;
+let primes = [];
+
+function findPrimes(start, range) {
+  let isPrime = true;
+  let end = start + range;
+  for (let i = start; i < end; i++) {
+    for (let j = min; j < Math.sqrt(end); j++) {
+      if (i !== j && i % j === 0) {
+        isPrime = false;
+        break;
+      }
+    }
+    if (isPrime) {
+      primes.push(i);
+    }
+    isPrime = true;
+  }
+}
+
+if (isMainThread) {
+  const max = 10000000;
+  const threadCount = 8;
+  const threads = new Set();
+  const range = Math.ceil((max - min) / threadCount);
+  let start = min;
+  console.time("prime");
+  for (let i = 0; i < threadCount - 1; i++) {
+    const wStart = start;
+    threads.add(
+      new Worker(__filename, { workerData: { start: wStart, range } })
+    );
+    start += range;
+  }
+  threads.add(
+    new Worker(__filename, {
+      workerData: { start, range: range + ((max - min + 1) % threadCount) },
+    })
+  );
+  for (let worker of threads) {
+    worker.on("error", (err) => {
+      throw err;
+    });
+    worker.on("exit", () => {
+      threads.delete(worker);
+      if (threads.size === 0) {
+        console.timeEnd("prime");
+        console.log(primes.length);
+      }
+    });
+    worker.on("message", (msg) => {
+      primes = primes.concat(msg);
+    });
+  }
+} else {
+  findPrimes(workerData.start, workerData.range);
+  parentPort.postMessage(primes);
+}
+```
+
+여덟 개의 스레드가 일을 나눠서 처리하게 했다. 멀티 스레딩을 할 때는 일을 나눠서 처리하도록 하는 게 제일 어렵다. 어떠한 일은 공유하고 있는 데이터가 많아 일을 나누기가 어렵다. 다행히 소수의 개수를 구하는 작업은 정해진 범위(2부터 1,000만)를 스레드들이 일정하게 나눠서 수행할 수 있다.
+
+> 콘솔
+
+```
+sangminpark@Sangminui-MacBookPro-16 test % node prime-worker.js
+prime: 1.640s
+664579
+```
+
+속도가 6배 정도 빨라졌다. 워커 스레드를 여덟 개 사용했다고 해서 여덟 배 빨라지는 것은 아니다. 스레드를 생성하고 스레드 사이에서 통신하는 데 상당한 비용이 발생하므로, 이 점을 고려해서 멀티 스레딩을 해야 한다. 잘못하면 멀티 스레딩을 할 때 싱글 스레딩보다 더 느려지는 현상도 발생할 수 있다.
+
+다음 절에서는 다른 프로세스를 만들어 작업하는 방법을 알아볼 것이다.
+
+#### 3-5-8. child_process
+
+노드에서 다른 프로그램을 실행하고 싶거나 명령어를 수행하고 싶을 때 사용하는 모듈이다. 이 모듈을 통해 다른 언어의 코드(예를 들면, 파이썬)를 실행하고 결괏값을 받을 수 있다. 이름이 `child_process`(자식 프로세스)인 이유는 현재 노드 프로세스 외에 새로운 프로세스를 띄워서 명령을 수행하고, 노드 프로세스에 결과를 알려주기 때문이다.
+
+먼저 명령 프롬프트의 명령어인 dir을 노드를 통해 실행해보자.
+
+> exec.js
+
+```js
+const exec = require("child_process").exec;
+
+var process = exec("ls");
+
+process.stdout.on("data", function (data) {
+  console.log(data.toString());
+}); // 실행 결과
+
+process.stderr.on("data", function (data) {
+  console.error(data.toString());
+}); // 실행 에러
+```
+
+exec의 첫 번째 인수로 명령어를 넣는다. 실행하면 현재 폴더의 파일 목록들이 표시될 것이다.
+
+결과는 stdout(표준출력)과 stderr(표준에러)에 붙여둔 data 이벤트 리스너에 버퍼 형태로 전달된다. 성공적인 결과는 표준출력에서, 실패한 결과는 표준에러에서 표시된다. 버퍼는 3.6.2절에서 자세히 알아본다.
+
+> 콘솔
+
+```
+$ node exec
+(현재 폴더의 파일 목록 표시)
+```
+
+이번에는 파이썬 프로그램을 실행해보자. 실습하려면 파이썬 3가 설치되어 있어야 한다.
+
+> test.py
+
+```py
+print('hello python')
+```
+
+> spawn.js
+
+```js
+const spawn = require("child_process").spawn;
+
+var process = spawn("python", ["test.py"]);
+
+process.stdout.on("data", function (data) {
+  console.log(data.toString());
+}); // 실행 결과
+
+process.stderr.on("data", function (data) {
+  console.error(data.toString());
+}); // 실행 에러
+```
+
+파이썬 코드를 실행하는 명령어인 `python test.py`를 노드의 spawn을 통해 실행한다. spawn의 첫 번째 인수로 명령어를, 두 번째 인수로 옵션 배열을 넣으면 된다. 결과는 exec과 마찬가지로 stdout, stderr의 데이터로 나온다.
+
+> 콘솔
+
+```
+sangminpark@Sangminui-MacBookPro-16 test % node spawn.js
+hello python
+```
+
+exec과 spawn의 차이가 궁금할 것이다. exec은 셸을 실행해서 명령어를 수행하고, spawn은 새로운 프로세스를 띄우면서 명령어를 실행한다. spawn에서도 세 번째 인수로 `{ shell: true }`를 제공하면 exec처럼 셸을 실행해서 명령어를 수행한다. 셸을 실행하는지 마는지에 따라 수행할 수 있는 명령어에 차이가 있다.
+
+#### 3-5-9. 기타 모듈들
+
+이 책에서 언급하지 않은 모듈들이 많다. 여기서는 각 모듈의 이름과 용도만 간단히 소개하고 넘어간다. 자세한 사항을 알고 싶다면 공식 문서를 참조하면 된다. 실험적인 모듈들은 제외했고, 여기에 언급되지 않은 모듈들은 추후에 나온다.
+
+- **assert**: 값을 비교하여 프로그램이 제대로 동작하는지 테스트하는데 사용한다.
+- **dns**: 도메인 이름에 대한 IP 주소를 얻어내는 데 사용한다.
+- **net**: HTTP보다 로우 레벨인 TCP나 IPC 통신을 할 때 사용한다.
+- **string_decoder**: 버퍼 데이터를 문자열로 바꾸는 데 사용한다.
+- **tls**: TLS와 SSL에 관련된 작업을 할 때 사용한다.
+- **tty**: 터미널과 관련된 작업을 할 때 사용한다.
+- **dgram**: UDP와 관련된 작업을 할 때 사용한다.
+- **v8**: V8 엔진에 직접 접근할 때 사용한다.
+- **vm**: 가상 머진에 직접 접근할 때 사용한다.
+
+지금까지 기본적인 모듈들을 알아봤다. 다음 절에서는 fs 모듈과 함께 동기 메서드와 비동기 메서드를 알아보고 버퍼와 스트림을 배워볼 것이다.
