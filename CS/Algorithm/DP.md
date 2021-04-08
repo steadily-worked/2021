@@ -1,6 +1,6 @@
 # Algorithm - DP(Dynamic Programming)
 
-동적 계획법 Dynamic Programming의 조건은 두 가지가 있다.이는 바로 **최적 부분 구조(Optimal Substructure), 중복되는 부분 문제(Overlapping Subproblems)**이다.
+동적 계획법 Dynamic Programming의 조건은 두 가지가 있다.이는 바로 **최적 부분 구조(Optimal Substructure), 중복되는 부분 문제(Overlapping Subproblems)** 이다.
 
 ## 최적 부분 구조
 
