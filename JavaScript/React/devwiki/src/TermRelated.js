@@ -4,43 +4,48 @@ import "./App.css";
 const TermRelated = () => {
   const [relatedTerms, setRelatedTerms] = useState([]);
   const [inputTerm, setInputTerm] = useState("");
-  const [nextId, setNextId] = useState(0);
+  const [id, setId] = useState(1);
 
   const onChange = (e) => setInputTerm(e.target.value);
-
   const onClick = () => {
-    const trimmedInputTerm = inputTerm
-      .trim()
-      .replace(/[^ㄱ-힣a-zA-Z0-9+#]/gi, "");
-    if (!trimmedInputTerm) {
-      return;
+    for (let i = 0; i < relatedTerms.length; i++) {
+      if (relatedTerms[i].text === trimmedInputTerm) {
+        setInputTerm("");
+        alert("중복");
+        return;
+      }
     }
-    const nextRelatedTerms = relatedTerms.concat({
-      id: nextId,
-      text: trimmedInputTerm,
+    const termsArray = relatedTerms.concat({
+      id: id,
+      text: inputTerm.trim().replace(/[^ㄱ-힣a-zA-Z0-9+#]/gi, ""),
     });
-
-    setNextId(nextId + 1);
-    setRelatedTerms(nextRelatedTerms);
+    console.log(termsArray);
+    setRelatedTerms(termsArray);
+    console.log(relatedTerms);
+    setId(id + 1);
     setInputTerm("");
   };
 
+  const trimmedInputTerm = inputTerm
+    .trim()
+    .replace(/[^ㄱ-힣a-zA-Z0-9+#]/gi, "");
+
   const onKeyPress = (e) => {
+    console.log(e.isComposing);
     if (
-      (e.charCode === 188 || e.charCode === 13 || e.charCode === 32) &&
-      e.target.value
+      (e.charCode === 44 || e.charCode === 13 || e.charCode === 32) &&
+      trimmedInputTerm
     ) {
       onClick();
     }
   };
 
   const onRemove = (id) => {
-    const nextRelatedTerms = relatedTerms.filter(
+    const termsArray = relatedTerms.filter(
       (relatedTerms) => relatedTerms.id !== id
     );
-    setRelatedTerms(nextRelatedTerms);
+    setRelatedTerms(termsArray);
   };
-
   const relatedTermsList = relatedTerms.map((relatedTerms) => (
     <li key={relatedTerms.id}>
       {relatedTerms.text}
