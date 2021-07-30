@@ -6,7 +6,11 @@ const TermRelated = () => {
   const [inputTerm, setInputTerm] = useState("");
   const [id, setId] = useState(1);
 
-  const onChange = (e) => setInputTerm(e.target.value);
+  const onChange = (e) => {
+    const lastIdx = e.target.value.length - 1;
+    if (e.target.value[lastIdx] === ",") return;
+    setInputTerm(e.target.value);
+  };
   const onClick = () => {
     for (let i = 0; i < relatedTerms.length; i++) {
       if (relatedTerms[i].text === trimmedInputTerm) {
@@ -19,9 +23,7 @@ const TermRelated = () => {
       id: id,
       text: inputTerm.trim().replace(/[^ㄱ-힣a-zA-Z0-9+#]/gi, ""),
     });
-    console.log(termsArray);
     setRelatedTerms(termsArray);
-    console.log(relatedTerms);
     setId(id + 1);
     setInputTerm("");
   };
@@ -30,10 +32,10 @@ const TermRelated = () => {
     .trim()
     .replace(/[^ㄱ-힣a-zA-Z0-9+#]/gi, "");
 
-  const onKeyPress = (e) => {
-    console.log(e.isComposing);
+  const onKeyUp = (e) => {
+    // console.log({ trimmedInputTerm, keyCode: e.keyCode });
     if (
-      (e.charCode === 44 || e.charCode === 13 || e.charCode === 32) &&
+      (e.keyCode === 188 || e.keyCode === 13 || e.keyCode === 32) &&
       trimmedInputTerm
     ) {
       onClick();
@@ -52,12 +54,13 @@ const TermRelated = () => {
       <button onClick={() => onRemove(relatedTerms.id)}>X</button>
     </li>
   ));
+
   return (
     <>
       <input
         value={inputTerm}
         onChange={onChange}
-        onKeyPress={onKeyPress}
+        onKeyUp={onKeyUp}
         maxLength="15"
       />
       <button onClick={onClick}>추가</button>
