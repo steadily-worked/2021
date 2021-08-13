@@ -1,0 +1,30 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "content": "HTML",
+      "completed": false
+    },
+    {
+      "id": 2,
+      "content": "CSS",
+      "completed": true
+    },
+    {
+      "id": 3,
+      "content": "JavaScript",
+      "completed": false
+    },
+    {
+      "id": "4",
+      "content": "Python",
+      "completed": true
+    },
+    {
+      "name": "steadily-worked",
+      "email": "iamsangminpark@gmail.com",
+      "password": "1234567",
+      "id": "CQRrrL0"
+    }
+  ]
+}

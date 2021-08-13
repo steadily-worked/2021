@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JSON</title>
+  </head>
+  <body>
+    <h2>JSON를 JS코드로 바꾸기</h2>
+    <script>
+      const json = {
+        name: "Sangmin Park",
+        age: 26,
+        friends: { "#": 2, classmate: "Yang", neighborhood: "Lee" },
+        residence: "seoul",
+        hobby: ["Playing Piano", "Playing Kartrider"],
+      };
+
+      const obj = JSON.parse(json);
+
+      document.write(obj.name);
+    </script>
+  </body>
+</html>
